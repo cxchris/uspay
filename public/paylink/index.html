@@ -1,0 +1,23 @@
+<html>
+   <meta name="viewport" content="width=device-width,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+   <head>
+      <title>Show Payment Page</title>
+   </head>
+   <body>
+      <center>
+         <h1>Please do not refresh this page...</h1>
+      </center>
+      <form method="post" action="<?php echo $actionurl; ?>" name="paytm">
+         <table border="1">
+            <tbody>
+               <input type="hidden" name="mid" value="<?php echo $response['mid']; ?>">
+               <input type="hidden" name="orderId" value="<?php echo $response['orderId']; ?>">
+               <input type="hidden" name="txnToken" value="<?php echo $response['txnToken']; ?>">
+            </tbody>
+         </table>
+         <script type="text/javascript"> 
+            document.paytm.submit(); 
+         </script>
+      </form>
+   </body>
+</html>

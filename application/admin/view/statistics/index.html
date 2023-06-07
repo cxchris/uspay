@@ -1,0 +1,172 @@
+<link href="__CDN__/assets/layui/css/layui.css?v={$Think.config.site.version}" rel="stylesheet">
+<style type="text/css">
+    .layuiadmin-badge, .layuiadmin-btn-group, .layuiadmin-span-color {
+        position: absolute;
+        right: 15px;
+    }
+    .panel-body{
+        background-color: #f2f2f2;
+    }
+
+    .layui-carousel-ind {
+        position: relative;
+        /*top: -41px;*/
+        /*text-align: right;*/
+    }
+    .layui-col-sm12{
+        background: #fff;
+    }
+
+    .layuiadmin-big-font {
+        font-size: 31px !important;
+        color: #666;
+    }
+</style>
+
+<div class="panel panel-default panel-intro">
+    <div class="panel-heading">
+        <ul class="nav nav-tabs">
+            <li class="active"><a href="#one" data-toggle="tab">首页</a></li>
+        </ul>
+    </div>
+    <div class="panel-body">
+        <div class="layui-row layui-col-space15" id="one">
+
+            <div class="layui-col-sm6">
+                <div class="layui-card">
+                    <div class="layui-card-header">
+                        今日代收统计(今日成功的含历史订单)
+                    </div>
+                    <div class="layui-card-body" style="background: #efefef;padding: 0">
+                        <div class="layui-row layui-col-space15">
+                            <div class="layui-col-md7">
+                                <div class="layui-card">
+                                    <div class="layui-card-header">成功订单金额</div>
+                                    <div class="layui-card-body layuiadmin-card-list">
+                                        <p class="layuiadmin-big-font">{$today_success_money}({$today_money_rate})</p>
+                                        <p>总订单金额<span class="layuiadmin-span-color">{$today_total_money} <i class="layui-inline layui-icon layui-icon-flag"></i></span></p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="layui-col-md5">
+                                <div class="layui-card">
+                                    <div class="layui-card-header">成功订单数</div>
+                                    <div class="layui-card-body layuiadmin-card-list">
+                                        <p class="layuiadmin-big-font" style="font-size: 22px;">{$today_success_total}({$today_total_rate})</p>
+                                        <p>总订单数<span class="layuiadmin-span-color">{$today_total_total} <i class="layui-inline layui-icon layui-icon-flag"></i></span></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="layui-col-sm6">
+                <div class="layui-card">
+                    <div class="layui-card-header">
+                        今日代付统计(今日成功的含历史订单)
+                    </div>
+                    <div class="layui-card-body" style="background: #efefef;padding: 0">
+                        <div class="layui-row layui-col-space15">
+                            <div class="layui-col-md7">
+                                <div class="layui-card">
+                                    <div class="layui-card-header">成功订单金额</div>
+                                    <div class="layui-card-body layuiadmin-card-list">
+                                        <p class="layuiadmin-big-font">0(0%)</p>
+                                        <p>总订单金额<span class="layuiadmin-span-color">0 <i class="layui-inline layui-icon layui-icon-flag"></i></span></p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="layui-col-md5">
+                                <div class="layui-card">
+                                    <div class="layui-card-header">成功订单数</div>
+                                    <div class="layui-card-body layuiadmin-card-list">
+                                        <p class="layuiadmin-big-font" style="font-size: 22px;">0(0%)</p>
+                                        <p>总订单数<span class="layuiadmin-span-color">0 <i class="layui-inline layui-icon layui-icon-flag"></i></span></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="layui-col-sm6">
+                <div class="layui-card">
+                    <div class="layui-card-header">
+                        代收总统计
+                    </div>
+                    <div class="layui-card-body" style="background: #efefef;padding: 0">
+                        <div class="layui-row layui-col-space15">
+                            <div class="layui-col-md7">
+                                <div class="layui-card">
+                                    <div class="layui-card-header">成功订单金额</div>
+                                    <div class="layui-card-body layuiadmin-card-list">
+                                        <p class="layuiadmin-big-font">{$success_money}({$money_rate})</p>
+                                        <p>总订单金额<span class="layuiadmin-span-color">{$total_money} <i class="layui-inline layui-icon layui-icon-flag"></i></span></p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="layui-col-md5">
+                                <div class="layui-card">
+                                    <div class="layui-card-header">成功订单数</div>
+                                    <div class="layui-card-body layuiadmin-card-list">
+                                        <p class="layuiadmin-big-font" style="font-size: 22px;">{$success_total}({$total_rate})</p>
+                                        <p>总订单数<span class="layuiadmin-span-color">{$total_total} <i class="layui-inline layui-icon layui-icon-flag"></i></span></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="layui-col-sm6">
+                <div class="layui-card">
+                    <div class="layui-card-header">
+                        代付总统计
+                    </div>
+                    <div class="layui-card-body" style="background: #efefef;padding: 0">
+                        <div class="layui-row layui-col-space15">
+                            <div class="layui-col-md7">
+                                <div class="layui-card">
+                                    <div class="layui-card-header">成功订单金额</div>
+                                    <div class="layui-card-body layuiadmin-card-list">
+                                        <p class="layuiadmin-big-font">0(0%)</p>
+                                        <p>总订单金额<span class="layuiadmin-span-color">0 <i class="layui-inline layui-icon layui-icon-flag"></i></span></p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="layui-col-md5">
+                                <div class="layui-card">
+                                    <div class="layui-card-header">成功订单数</div>
+                                    <div class="layui-card-body layuiadmin-card-list">
+                                        <p class="layuiadmin-big-font" style="font-size: 22px;">0(0%)</p>
+                                        <p>总订单数<span class="layuiadmin-span-color">0 <i class="layui-inline layui-icon layui-icon-flag"></i></span></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="layui-col-sm12">
+                            <div class="layui-card-header">代收代付统计</div>
+                <div class="layui-carousel" id="test1" lay-filter="test1">
+                    
+                    <div carousel-item>
+                        <div>
+                            <div id="money" class="btn-refresh" style="height:300px;width:100%;"></div>
+                        </div>
+                        <div>
+                            <div id="total" class="btn-refresh" style="height:300px;width:100%;"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>

@@ -1,0 +1,598 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, maximum-scale=1, initial-scale=1, user-scalable=yes">
+    <link href="__CDN__/public/assets/img/dute_favicon_32x32.ico" rel="shortcut icon" />
+    <title>OnePay Payment Gateway - One Pay</title>
+    <link rel="stylesheet" href="__CDN__/public/assets/static/index/css/qietu.css">
+    <link rel="stylesheet" href="__CDN__/public/assets/static/index/css/iconfont.css">
+    <link rel="stylesheet" href="__CDN__/public/assets/static/index/css/animate.min.css">
+    <link rel="stylesheet" href="__CDN__/public/assets/static/index/css/style.css">
+    <link rel="stylesheet" href="__CDN__/public/assets/static/index/css/responsive.css">
+    <link rel="stylesheet" href="__CDN__/public/assets/static/index/css/bootstrap.min.css">
+    <link rel="stylesheet" href="__CDN__/public/assets/static/index/css/magnific-popup.min.css">
+    <link rel="stylesheet" href="__CDN__/public/assets/static/index/css/cashier-style.css">
+    <link rel="stylesheet" href="__CDN__/public/assets/static/index/css/cashier-responsive.css">
+    <link rel="stylesheet" href="__CDN__/public/assets/static/index/css/onepay.css">
+    <script type="text/javascript" src="__CDN__/public/assets/layui/layer.mobile-v2.0/layer_mobile/layer.js"></script>
+    <style>
+        .copyright {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+
+        .layui-btn {
+            display: inline-block;
+            height: 42px;
+            line-height: 42px;
+            padding: 0 18px;
+            background-color: #2f4471;
+            color: #fff;
+            white-space: nowrap;
+            text-align: center;
+            font-size: 18px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            width: 100%;
+        }
+        .btn-div{
+            width: 80%;
+            padding-top: 20px;
+        }
+        .contains-div{
+            width: 80%;
+            border-top: 1px solid #d4d4d4;
+            border-bottom: 1px solid #d4d4d4;
+        }
+        .contains-div p{
+            color: #d4d4d4;
+            height: 80px;
+            line-height: 80px;
+            float: left;
+        }
+        .logo-select{
+            /*border-bottom: #1da1f2 1px solid;*/
+            /*border-radius: 50%;*/
+            color: #1da1f2 !important;
+            font-weight: bold;
+        }
+
+        .popuo-open .layui-m-layercont{
+            padding: 0;
+        }
+        
+        .complete-t{
+            text-align: left;
+            width: 100%;
+            font-size: 18px;
+            color: #063970;
+            font-weight: bold;
+        }
+        .complete-e{
+            font-size: 14px;
+            color: #1c100b;
+        }
+        .complete-c{
+            font-size: 18px;
+            color: #44bcd8;
+            margin: auto;
+            font-weight: bold;
+        }
+        .complete-c span{
+            color: #44bcd8;
+
+        }
+        .complete-content{
+            font-size: 16px;
+            color: #e07b39;
+            background: #f7dea8;
+        }
+        .content-divs{
+            padding: 30px 30px;
+        }
+        .complete-content-text{
+
+            padding: 30px 60px;
+        }
+        .logo-a{
+            border-width: 0px;
+            position: absolute;
+            left: 8px;
+            top: 0px;
+            /*width: 102px;*/
+            height: 68px;
+        }
+
+        .pay-logo-container {
+            /*display: flex;
+            justify-content: center;
+            align-items: center;
+            border: #1da1f2 1px solid;
+            border-radius: 50%;
+            margin: 5px;
+            max-width: 20%;*/
+        }
+        .pay-logo-text{
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+        }
+        .pay-logo-text span{
+            font-size: 14px;
+            color: #666666;
+            position: relative;
+            top: -29px;
+        }
+
+        @media(max-width:600px) {
+            /*.pay-logo-phone{
+                left: -7px;
+            }*/
+            .pay-logo-gpay{
+                left: -4px;
+            }
+            .pay-logo-other{
+                left: 3px;
+            }
+        }
+    </style>
+</head>
+<body>
+<script src="__CDN__/public/assets/static/index/js/easy.qrcode.min.js" type="text/javascript" charset="utf-8"></script>
+
+<div class="demo">
+   <section class="features" id="features">
+   <div>
+      <div class="main_features p-top-100">
+         <div class="gray-box">
+            <div class="title">
+               <h2 style="margin: 0;"><img class="logo-a" src="__CDN__/public/assets/static/index/picture/pay_logo/primary-logo.webp"> </h2>
+            <!-- <div>
+               <img id="sandwatch" style="height: 20px" src="__CDN__/public/assets/static/index/picture/sandwatch.png" alt="whatsapp" />
+               <span id="time-box" style='color: #d44d44; margin-top: 20px'></span>
+            </div> -->
+         </div>
+      <div>
+      <div class="box-inner order-info">
+         <p class="payment-detail">Order No. <b id="payId" class="payNum" style="color: #d44d44;">{$order.out_trade_no}</b><br></p>
+         <p id="money1">
+            <span class="payment-money">₹{$order.money}</span> 
+            <!-- <button class="btn btn-sm copy-btn" id="copyBtn" onclick="clickCopyBtn({$order.money})">Copy</button> -->
+         </p>
+         
+         <div class="download-box">
+
+
+            <div class="support-app">
+                <div class="pay-logo">
+                    <div class="pay-logo-container">
+                        <img class="logo-img" channel="Paytm"  src="__CDN__/public/assets/static/index/picture/pay_logo/3.png" alt="paytm pay" />
+                    </div>
+                    <div class="pay-logo-container">
+                        <img class="logo-img" channel="Phonepe"  src="__CDN__/public/assets/static/index/picture/pay_logo/4.png" alt="phonepe pay" />
+                    </div>
+                    <div class="pay-logo-container">
+                        <img class="logo-img" channel="Gpay"  src="__CDN__/public/assets/static/index/picture/pay_logo/1.png" alt="google pay" />
+                    </div>
+                    <div class="pay-logo-container">
+                        <img class="logo-img" channel="Bhim"  src="__CDN__/public/assets/static/index/picture/pay_logo/2.png" alt="bhim" />
+                    </div>
+                </div>
+
+                <div class="pay-logo-text">
+                    <div class="pay-logo-text-container select-Paytm">
+                        <span class="logo-select">Paytm</span>
+                    </div>
+                    <div class="pay-logo-text-container select-Phonepe">
+                        <span class="pay-logo-phone" >Phonepe</span>
+                    </div>
+                    <div class="pay-logo-text-container select-Gpay">
+                        <span class="pay-logo-gpay" >Gpay</span>
+                    </div>
+                    <div class="pay-logo-text-container select-Bhim">
+                        <span class="pay-logo-other" >Others</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="btn-div">
+               <button type="button" class="layui-btn order-submit">pay ₹{$order.money}</button>
+            </div>
+            <!-- <a class="main-btn" id="startAppFromWechat" onclick="showTip()" style="width: 205px;display: none;margin-top: 20px;">Open App to Pay</a> -->
+         </div>
+      </div>
+   </div>
+</div>
+</div>
+</div>
+</section>
+<script type="text/javascript" src="__CDN__/public/assets/static/index/js/jquery.min.js"></script>
+<script type="text/javascript" src="__CDN__/public/assets/static/index/js/jquery.cookie.js"></script>
+<script type="text/javascript" src="__CDN__/public/assets/static/index/js/jquery.magnific-popup.min.js"></script>
+<script type="text/javascript" src="__CDN__/public/assets/static/index/js/bootstrap.min.js"></script>
+
+<script>
+var index = function(){
+    this.url = "{:url('Cashfree/apply')}";
+    this.orderinfoUrl = "{:url('Cashfree/orderinfo')}";
+    this.channel = 'Paytm';
+    this.osType = ''; // 1-ios，2-安卓
+    this.loading;
+    this.is_click = 0
+    this.InfoId;
+    this.n = 0;
+    this.init();
+}
+
+index.prototype = {
+    init: function() {
+        var _this = this;
+        //切换
+        _this.navSwitch();
+        //提交
+        _this._submit();
+        //判断如果是正在处理的订单，就显示倒计时
+        _this.orderCheck();
+
+    },
+
+    //提交
+    _submit: function(){
+        var _this = this;
+        $('.order-submit').click(function(){
+            console.log(_this.is_click)
+            if(_this.is_click == 0){
+                var data = {
+                    params: _this.getUrlParam('params'),
+                    channel: _this.channel, //获取选择的支付渠道
+                    osType: _this.judgeClient(), //获取系统IOS还是安卓
+                    isAjax:1
+                };
+                if(data.osType != 'PC'){
+                    var url = '';
+                    if(_this.channel == 'Paytm'){
+                        url = "{$payload.paytm}";
+                    }else if(_this.channel == 'Gpay'){
+                        url = "{$payload.gpay}";
+                    }else if(_this.channel == 'Phonepe'){
+                        url = "{$payload.phonepe}";
+                    }else if(_this.channel == 'Bhim'){
+                        url = "{$payload.default}";
+                    }
+
+                    if(data.osType == 'Android'){
+                        if(_this.channel == 'Paytm'){
+                            url = url.replace("paytm://upi/","paytmmp://");
+                        }else if(_this.channel == 'Gpay'){
+                            url = url.replace("tez://","gpay://");
+                        }else if(_this.channel == 'Phonepe'){
+                            url = url.replace("phonepe://","Phonepe://");
+                        }else if(_this.channel == 'Bhim'){
+                        }
+                    }
+
+                    // console.log(url)
+
+                    // _this.lasttime();
+                    // _this.setIntervalByInfo();
+                    _this.min = "{$expire_time}";
+                    
+
+                    $.ajax({
+                        url: _this.url,
+                        type: 'POST',
+                        data: data,
+                        beforeSend: function(){
+                            // _this.loading = layui.use('layer',function(){
+                            //     layer.load('loading...', {
+                            //         shade: [0.3,'#fff'] //0.1透明度的白色背景
+                            //     });
+                            // })
+
+                            _this.is_click = 1;
+                            _this.loading = jia.open({type: 2,shade: 'background-color: rgba(0,0,0,.4)',});
+
+
+                        },
+                        success: function (data) {
+                            console.log(data);
+                            jia.close(_this.loading);
+                            if(data.code == 1){
+                                // jia.msg(data.msg)
+                                _this.lasttime();
+                                _this.setIntervalByInfo();
+                                window.location.href = url;
+                            }else{
+                                // jia.alert(data.msg, {icon: 5,title:'',anim:2, btn: ["Cancel"],closeBtn: 0})
+                                //自定义标题风格
+                                jia.open({
+                                    title: [
+                                        'error',
+                                        'background-color: #FF4351; color:#fff;'
+                                    ],
+                                    content: data.msg
+                                });
+                            }
+                            _this.is_click = 0;
+                        }
+                    });
+                }else{
+                    jia.open({
+                        title: [
+                            'error',
+                            'background-color: #FF4351; color:#fff;'
+                        ],
+                        content: 'Please use mobile terminal to pay'
+                    });
+                    // jia.alert('Please use mobile terminal to pay', {icon: 5,title:'',anim:2, btn: ["Cancel"],closeBtn: 0})
+                }
+            }else{
+                jia.open({
+                    title: [
+                        'error',
+                        'background-color: #FF4351; color:#fff;'
+                    ],
+                    content: 'You clicked too fast, please try again later.'
+                });
+            }
+        })
+    },
+
+    //判断如果是正在处理的订单，就显示倒计时
+    orderCheck: function(){
+        var _this = this;
+        var status = "{$order.status}";
+        var calc = "{$calc}";
+        if(status == 3){
+            _this.min = calc;
+            _this.lasttime();
+            _this.setIntervalByInfo();
+        }
+    },
+
+    //每隔2秒请求一次
+    setIntervalByInfo: function(){
+        var _this = this;
+        _this.InfoId = setInterval(function(){
+            _this.getorderinfo();
+            _this.n++;
+        },2000);
+
+        
+    },
+
+    //下单成功且跳转后，间隔5秒一次请求获取订单状态是否成功
+    getorderinfo: function(){
+        var _this = this;
+        var data = {
+            params: _this.getUrlParam('params'),
+            isGetInfo:1,
+            isAjax:1
+        };
+
+        $.ajax({
+            url: _this.orderinfoUrl,
+            type: 'POST',
+            data: data,
+            beforeSend: function(){
+            },
+            success: function (data) {
+                // console.log(data);
+                if(data.code == 1){
+                    //根据状态给出弹窗
+                    if(data.data.status == 1){
+                        _this.layerOpen('success','Order payment successful!');
+                        clearInterval(_this.InfoId);
+                    }else if(data.data.status == 2){
+                        _this.layerOpen('error','Order payment failed, please return to the app and try again.');
+                        clearInterval(_this.InfoId);
+                    }else if(data.data.status == 3){
+                        // _this.layerOpen('error','The order has timed out, please return to the app to place a new order.');
+                    }else{
+
+                    }
+                }else{
+                    _this.layerOpen('error',data.msg);
+                    clearInterval(_this.InfoId);
+                }
+                // console.log(_this.n)
+                if(_this.n > 60*60*2){
+                    clearInterval(_this.InfoId);
+                }
+            }
+        });
+    },
+
+    layerOpen: function($isSuccess = 'error',$msg = ''){
+        if($isSuccess == 'error'){
+            $title = 'error';
+            $bgColor = '#FF4351';
+        }else{
+            $title = 'success';
+            $bgColor = '#07c160';
+        }
+        jia.open({
+            title: [
+                $title,
+                'background-color: '+$bgColor+'; color:#fff;'
+            ],
+            content:$msg,
+        });
+    },
+
+    //倒计时
+    lasttime: function(){
+        var _this = this;
+        var _minutes = Math.floor(_this.min/60); //怎么说呢  假如(60*10-1)s 正常应该就是的 9.983333  取整就是 9  
+        var _seconds = _this.min % 60;   //余数指定是个整数
+        _minutes = _this.valid_time(_minutes);
+        _seconds = _this.valid_time(_seconds);
+
+        var content = '<div class="content-divs">\
+        <p class="complete-t">Complete your Payment</p>\
+        <p class="complete-e">Your Request Expires in...</p>\
+        <p class="complete-c"><span class="min">'+_minutes+'</span> : <span class="second">'+_seconds+'</span></p>\
+        <p class="complete-c-s">Min &nbsp;&nbsp; Sec</p>\
+        </div>\
+        <div class="complete-content"><p class="complete-content-text">Waiting for the payment complection.If you have already paid,please close the page and return to the app.</p></div>\
+        ';
+
+        var pageii = jia.open({
+            className: 'popuo-open',
+            type: 3,
+            content: content,
+            anim: 'up',
+            shade: 'background-color: rgba(0,0,0,.3)',
+            style: 'position:fixed; left:0; bottom:0; width:100%;  border: none; -webkit-animation-duration: .5s; animation-duration: .5s;',
+            shadeClose:false,
+            success: function (layero, index) {
+                var maxTime = _this.min;
+                var last = function(){
+                    var minutes = Math.floor(maxTime/60); //怎么说呢  假如(60*10-1)s 正常应该就是的 9.983333  取整就是 9  
+                    var seconds = maxTime % 60;   //余数指定是个整数
+                    seconds = _this.valid_time(seconds);
+                    minutes = _this.valid_time(minutes);
+
+                    $('.min').html(minutes);
+                    $('.second').html(seconds);
+                    // var mes = "还剩下"+ minutes +"分"+ seconds +"秒";
+                    // console.log(mes)
+                    
+                    maxTime--;
+                    if(maxTime < 0){
+                        clearInterval(_this.timeId);
+                    }
+                }
+
+                _this.timeId = setInterval(function(){
+                    last();
+                },1000);
+            },
+            end: function(){
+                clearInterval(_this.timeId);
+                console.log('close')
+            }
+
+        });
+    },
+
+    valid_time: function(a){
+        if(a < 10)
+            return "0"+a;
+        else
+            return a;
+    },
+
+    //切换
+    navSwitch: function(){
+        var _this = this;
+        $('.pay-logo-container').click(function(){
+            // if (!_this.isMobile()) return;
+            _this.channel = $(this).find('img').attr('channel');
+            $('.pay-logo-text-container').find('span').removeClass('logo-select');
+            $('.select-'+_this.channel).find('span').addClass('logo-select');
+        })
+    },
+
+    getUrlParam: function(name) {
+        var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)"); // 构造一个含有目标参数的正则表达式对象
+        var r = window.location.search.substr(1).match(reg); // 匹配目标参数
+        if (r != null) return unescape(r[2]);
+        return null; // 返回参数值
+    },
+
+    judgeClient() {
+        let u = navigator.userAgent;
+        let isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1;   //判断是否是 android终端
+        let isIOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/);     //判断是否是 iOS终端
+
+        if(isAndroid){
+            return 'Android';
+        }else if(isIOS){
+            return 'IOS';
+        }else{
+            return 'PC';
+        }
+    },
+
+    // 判断移动设备
+    isMobile: function() {
+        if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+            return 1;
+        }
+        return 0;
+    },
+
+    // 判断是否微信浏览器
+    isWeixin: function() {
+        var ua = window.navigator.userAgent.toLowerCase();
+        if (ua.match(/MicroMessenger/i) == 'micromessenger') {
+            return 1;
+        }
+        return 0;
+    },
+
+    // 判断是否安卓QQ浏览器
+    isQQAndroid: function() {
+        var ua = window.navigator.userAgent.toLowerCase();
+        if (ua.match(/QQ/i) == 'qq' && ua.match(/Android/i) == 'android') {
+            return 1;
+        }
+        return 0;
+    },
+
+    clickCopyBtn: function(pay_amount) {
+        this.copyToClipboard(pay_amount)
+    },
+
+    copyToClipboard: function(text) {
+        var $temp = $("<input>");
+        $("body").append($temp);
+        $temp.val(text).select();
+        document.execCommand("copy");
+        $temp.remove();
+        // $("#notificationModal").modal('show');
+        // $("#notificationText").text("Copy Success")
+        setTimeout(() => {
+        // $("#notificationModal").modal('hide');
+        }, 2000);
+    }
+}
+new index();
+</script>
+<style>
+   .test {
+     color: 'green';
+   }
+</style>
+
+<div class="copyright">
+   <div class="wrapper">
+   © 2020 OnePay Inc. <a href="#" style="color: #fff;" target="_blank">One Pay</a>
+   </div>
+</div>
+<!-- <div class="sidebar">
+   <ul>
+      <li class="sidebar-scroll">
+         <a href="#"><i class="iconfont icon-shang"></i></a>
+      </li>
+   </ul>
+</div> -->
+
+
+<script type="text/javascript" src="__CDN__/public/assets/static/index/js/jquery.min.js"></script>
+<script type="text/javascript" src="__CDN__/public/assets/static/index/js/jquery.glide.js"></script>
+<script type="text/javascript" src="__CDN__/public/assets/static/index/js/wow.min.js"></script>
+<script type="text/javascript" src="__CDN__/public/assets/static/index/js/script.js"></script>
+
+<script type="text/javascript" src="__CDN__/public/assets/static/index/js/jquery.cookie.js"></script>
+<script type="text/javascript" src="__CDN__/public/assets/static/index/js/jquery.magnific-popup.min.js"></script>
+<script type="text/javascript" src="__CDN__/public/assets/static/index/js/bootstrap.min.js"></script>
+
+<script src="__CDN__/public/assets/static/common/js/copyright.js"></script>
+</body>
+</html>

@@ -1,0 +1,129 @@
+
+<form id="add-form" class="form-horizontal form-ajax" role="form" data-toggle="validator" method="POST" action="">
+    {:token()}
+    <div class="form-group">
+        <label for="merchant_name" class="control-label col-xs-12 col-sm-2">商户名称:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input type="text" class="form-control" id="merchant_name" name="row[merchant_name]" placeholder="请输入" value="" data-rule="required" />
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="merchant_billing_around" class="control-label col-xs-12 col-sm-2">结算周期:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input type="text" class="form-control" id="merchant_billing_around" name="row[merchant_billing_around]" placeholder="D+几" value="d+1" data-rule="required" />
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="merchant_note" class="control-label col-xs-12 col-sm-2">备注:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input type="text" class="form-control" id="merchant_note" name="row[merchant_note]" placeholder="备注" value="" data-rule="required" />
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="status" class="control-label col-xs-12 col-sm-2">状态:</label>
+        <div class="col-xs-12 col-sm-8">
+            {:build_radios('row[status]', ['1'=>__('Normal'), '0'=>'禁用'])}
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="collection_fee_rate" class="control-label col-xs-12 col-sm-2">代收手续费:</label>
+        <div class="col-xs-12 col-sm-3">
+            <input type="number" class="form-control" id="collection_fee_rate_per" name="row[collection_fee_rate_per]" placeholder="百分之几"  value="" data-rule="required;range(0~100)" />
+            <div class="col-xs-12 col-sm-3">+</div>
+            <input type="number" class="form-control" id="collection_fee_rate_sigle" name="row[collection_fee_rate_sigle]" placeholder="每笔" value="0" data-rule="required" />
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="collection_limit" class="control-label col-xs-12 col-sm-2">每日代收限额:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input type="number" class="form-control" id="collection_limit" name="row[collection_limit]" placeholder="请输入" value="500000" data-rule="required" />
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="collection_low_money" class="control-label col-xs-12 col-sm-2">代收最低金额:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input type="number" class="form-control" id="collection_low_money" name="row[collection_low_money]" placeholder="请输入" value="100" data-rule="required" />
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="collection_high_money" class="control-label col-xs-12 col-sm-2">代收最高金额:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input type="number" class="form-control" id="collection_high_money" name="row[collection_high_money]" placeholder="请输入" value="20000" data-rule="required" />
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="collection_status" class="control-label col-xs-12 col-sm-2">代收状态:</label>
+        <div class="col-xs-12 col-sm-8">
+            {:build_radios('row[collection_status]', ['1'=>__('Normal'), '0'=>'禁用'])}
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="collection_channel_id" class="control-label col-xs-12 col-sm-2">代收卡池:</label>
+        <div class="col-xs-12 col-sm-8">
+            {:build_checkboxs('row[collection_channel_id][]', $collectionName, null)}
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="payment_fee_rate" class="control-label col-xs-12 col-sm-2">代付手续费:</label>
+        <div class="col-xs-12 col-sm-3">
+            <input type="number" class="form-control" id="payment_fee_rate_per" name="row[payment_fee_rate_per]" placeholder="百分之几" max="100" value="" data-rule="required;range(0~100)" />
+            <div class="col-xs-12 col-sm-3">+</div>
+            <input type="number" class="form-control" id="payment_fee_rate_sigle" name="row[payment_fee_rate_sigle]" placeholder="每笔" value="0" data-rule="required" />
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="payment_limit" class="control-label col-xs-12 col-sm-2">每日代付限额:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input type="number" class="form-control" id="payment_limit" name="row[payment_limit]" placeholder="请输入" value="500000" data-rule="required" />
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="payment_low_money" class="control-label col-xs-12 col-sm-2">代付最低金额:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input type="number" class="form-control" id="payment_low_money" name="row[payment_low_money]" placeholder="请输入" value="100" data-rule="required" />
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="payment_high_money" class="control-label col-xs-12 col-sm-2">代付最高金额:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input type="number" class="form-control" id="payment_high_money" name="row[payment_high_money]" placeholder="请输入" value="20000" data-rule="required" />
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="payment_status" class="control-label col-xs-12 col-sm-2">代付状态:</label>
+        <div class="col-xs-12 col-sm-8">
+            {:build_radios('row[payment_status]', ['1'=>__('Normal'), '0'=>'禁用'])}
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="payment_channel_id" class="control-label col-xs-12 col-sm-2">代付通道:</label>
+        <div class="col-xs-12 col-sm-8">
+            {:build_select('row[payment_channel_id]', $paymentListName, null, ['class'=>'form-control selectpicker', 'data-rule'=>'required'])}
+        </div>
+    </div>
+
+
+    <div class="form-group">
+        <label for="use_ip" class="control-label col-xs-12 col-sm-2">报备IP:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input type="text" class="form-control" id="use_ip" name="row[use_ip]" placeholder="多个设置，用|隔开" value=""  />
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="checksum" class="control-label col-xs-12 col-sm-2">谷歌验证码:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input type="text" class="form-control" id="checksum" name="row[checksum]" laceholder="请输入" autocomplete="off" value="" data-rule="required" />
+        </div>
+    </div>
+    
+    <div class="form-group hidden layer-footer">
+        <label class="control-label col-xs-12 col-sm-2"></label>
+        <div class="col-xs-12 col-sm-8">
+            <button type="submit" class="btn btn-primary btn-embossed disabled">{:__('OK')}</button>
+            <button type="reset" class="btn btn-default btn-embossed">{:__('Reset')}</button>
+        </div>
+    </div>
+</form>

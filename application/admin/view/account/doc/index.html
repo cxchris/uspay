@@ -1,0 +1,67 @@
+<link href="__CDN__/assets/layui/css/layui.css?v={$Think.config.site.version}" rel="stylesheet">
+<style>
+    .table-adminlog tr td {
+        word-break: break-all;
+    }
+    
+    .layui-form[wid100] .layui-form-label {
+        width: 130px;
+    }
+
+    .layui-form[wid100] .layui-input-block {
+        margin-left: 160px;
+    }
+
+    .layui-card-body {
+        position: relative;
+        padding: 10px 15px;
+        line-height: 38px;
+    }
+
+    .link {
+        text-decoration: underline;
+        color: #00f;
+        margin: 20px;
+        height: 36px;
+        line-height: 36px;
+    }
+</style>
+<div class="panel-heading">
+   <!--  <div class="panel-lead">
+        账户信息
+    </div> -->
+</div>
+<div class="layui-col-md12">
+    <div class="layui-card">
+        <div class="layui-card-header">API开发信息</div>
+        <div class="layui-card-body" pad15="">
+            <div class="layui-form" wid100="">
+                <div class="layui-form-item">
+                    <label class="layui-form-label">商户号</label>
+                    <div class="layui-input-block">
+                        <input type="text" class="layui-input" readonly="" value="{$row.merchant_number}">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">秘钥</label>
+                    <div class="layui-input-block">
+                        <input type="text" class="layui-input" readonly="" value="{$row.merchant_key}">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">网关地址</label>
+                    <div class="layui-input-block">
+                        <input type="text" class="layui-input" readonly="" value="{$row.url}">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">API文档</label>
+                    <div class="layui-input-block">
+                        <a href="{$row.ds_url}" target="_blank" class="link">支付API接口文档</a> <!-- &nbsp;&nbsp;&nbsp;密码:123123123 -->
+                        <a href="{$row.df_url}" target="_blank" class="link">代付API接口文档</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

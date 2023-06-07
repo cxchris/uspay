@@ -1,0 +1,601 @@
+<!DOCTYPE html><html>
+<head>
+<meta charset="utf-8">
+<title>## 代付接口文档</title>
+
+<script type="text/javascript" src="../js/light.js"></script>
+</script><script>hljs.initHighlightingOnLoad();</script>
+<link rel="stylesheet" type="text/css" href="../css/style.css">
+
+<style> @media print{ .hljs{overflow: visible; word-wrap: break-word !important;} }</style>
+
+</head>
+
+
+<body><div class="markdown-body">
+<h2 id="toc_0">代付接口文档</h2>
+
+<h2 id="toc_1">1. 协议规则</h2>
+
+<p>传输方式：采用HTTP传输(生产环境建议HTTPS)<br/>
+提交方式：采用POST/GET方式提交<br/>
+字符编码：UTF-8<br/>
+签名算法：MD5</p>
+
+<h4 id="toc_2">1.1 参数规范</h4>
+
+<p>交易金额：默认为港币（HKD）交易，参数值不能带小数。</p>
+
+<h4 id="toc_3">1.2 安全规范</h4>
+
+<p>签名算法</p>
+
+<blockquote>
+<p>签名生成的通用步骤如下</p>
+</blockquote>
+
+<p><strong>第一步：</strong>设所有发送或者接收到的数据为集合M，将集合M内非空参数值的参数按照参数名ASCII码从小到大排序（字典序），使用URL键值对的格式（即key1=value1&amp;key2=value2…）拼接成字符串stringA。<br/><br/>
+特别注意以下重要规则：<br/><br/>
+◆ 参数名ASCII码从小到大排序（字典序）；<br/><br/>
+◆ 如果参数的值为空不参与签名；<br/><br/>
+◆ 参数名区分大小写；<br/><br/>
+◆ 验证调用返回或支付中心主动通知签名时，传送的sign参数不参与签名，将生成的签名与该sign值作校验。<br/><br/>
+◆ 支付中心接口可能增加字段，验证签名时必须支持增加的扩展字段  </p>
+
+<p><strong>第二步：</strong>在stringA最后拼接上key得到stringSignTemp字符串，并对stringSignTemp进行MD5运算，再将得到的字符串所有字符转换为大写，得到sign值signValue。  </p>
+
+<p>如请求支付系统参数如下：</p>
+
+<pre><code>    Map signMap = new HashMap&lt;&gt;();
+    signMap.put(&quot;userId&quot;, &quot;test01&quot;);
+    signMap.put(&quot;type&quot;, &quot;wechat&quot;);
+    signMap.put(&quot;money&quot;, Double.valueOf(2));
+    signMap.put(&quot;remark&quot;, &quot;&quot;);
+    signMap.put(&quot;outTradeNo&quot;, &quot;P12312321123&quot;);
+</code></pre>
+
+<p><code>待签名值</code>：money=2.0&amp;outTradeNo=P12312321123&amp;type=wechat&amp;userId=test01&amp;key=EWEFD123RGSRETYDFNGFGFGSHDFGH<br/>
+<code>签名结果</code>：5E0AA05DD4BB4FE5AB65608123EBA591<br/>
+<code>最终请求支付系统参数</code>：money=2.0&amp;outTradeNo=P12312321123&amp;type=wechat&amp;userId=test01&amp;sign=5E0AA05DD4BB4FE5AB65608123EBA591</p>
+
+<blockquote>
+<p>商户登录商户系统后，通过安全中心查看或修改私钥key。</p>
+</blockquote>
+
+<h2 id="toc_4">2. 申请代付</h2>
+
+<blockquote>
+<p>接口描述</p>
+</blockquote>
+
+<p>商户通过代付接口发起代付申请，支付系统收到请求后同步返回申请结果，申请成功并不代表代付成功。<br/>
+商户有两种方式确定代付结果：<br/>
+1）发起代付时传递代付结果回调地址，支付系统处理代付确定结果后会向改地址发起通知请求。<br/>
+2）商户系统客户主动发起代付查询，以查询到的最终结果确定代付是否成功。<br/>
+注意：商户访问该接口需要申请IP白名单。</p>
+
+<blockquote>
+<p>接口链接</p>
+</blockquote>
+
+<p>URL地址：https://onepayhk.com/api/apply/order</a></p>
+
+<blockquote>
+<p>请求参数</p>
+</blockquote>
+
+<table>
+<thead>
+<tr>
+<th>字段名</th>
+<th>变量名</th>
+<th>必填</th>
+<th>类型</th>
+<th>示例值</th>
+<th>描述</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+    <td>商户号</td>
+    <td>merchantNo</td>
+    <td>是</td>
+    <td>String</td>
+    <td>Z16479536031659</td>
+    <td>分配的商户号</td>
+</tr>
+<tr>
+    <td>商户代付单号</td>
+    <td>merchantSn</td>
+    <td>是</td>
+    <td>String</td>
+    <td>56544ssfdec11149918831190d1b1</td>
+    <td>商户代付订单号</td>
+</tr>
+<tr>
+    <td>交易类型</td>
+    <td>pay_type</td>
+    <td>否</td>
+    <td>String</td>
+    <td>bank</td>
+    <td>交易类型(只允许传bank或者upi)</td>
+</tr>
+<tr>
+    <td>代付金额</td>
+    <td>amount</td>
+    <td>是</td>
+    <td>int</td>
+    <td>100</td>
+    <td>代付金额</td>
+</tr>
+<tr>
+    <td>收款人账户名</td>
+    <td>accountName</td>
+    <td>是</td>
+    <td>String(64)</td>
+    <td>manager</td>
+    <td>收款人账户名</td>
+</tr>
+<tr>
+    <td>收款人账户号</td>
+    <td>accountNo</td>
+    <td>是</td>
+    <td>Number</td>
+    <td>6222020200098541458</td>
+    <td>交易類型為bank時，此项内容为受益人帳戶號碼，交易類型為UPI時，此项内容为VPA/UPI ID</td>
+</tr>
+<tr>
+    <td>开户行名称</td>
+    <td>bankName</td>
+    <td>是</td>
+    <td>String</td>
+    <td>北京上地支行</td>
+    <td>开户行名称</td>
+</tr>
+<tr>
+    <td>银行编号</td>
+    <td>bankCode</td>
+    <td>是</td>
+    <td>String</td>
+    <td>HDFC0001898</td>
+    <td>银行在金融系统编码（ifscCode）,当交易類型为bank时为必传项</td>
+</tr>
+<tr>
+    <td>银行分店</td>
+    <td>branchName</td>
+    <td>是</td>
+    <td>String</td>
+    <td>KOCHI，KERALA</td>
+    <td>银行分店名称</td>
+</tr>
+<tr>
+    <td>代付结果回调URL</td>
+    <td>notifyUrl</td>
+    <td>是</td>
+    <td>String</td>
+    <td>http://www.baidu.com</a></td>
+    <td>代付结果回调URL</td>
+</tr>
+<tr>
+    <td>支付通道</td>
+    <td>channel</td>
+    <td>是</td>
+    <td>int</td>
+    <td>22</td>
+    <td>用户选择的支付通道id</td>
+</tr>
+<tr>
+    <td>备注</td>
+    <td>remark</td>
+    <td>是</td>
+    <td>String</td>
+    <td>代付1000卢比</td>
+    <td>备注</td>
+</tr>
+<tr>
+    <td>扩展域</td>
+    <td>extra</td>
+    <td>否</td>
+    <td>String</td>
+    <td></td>
+    <td>扩展域</td>
+</tr>
+<tr>
+    <td>时间戳</td>
+    <td>time</td>
+    <td>是</td>
+    <td>int</td>
+    <td>1647601575</td>
+    <td>时间戳，精确到秒</td>
+</tr>
+<tr>
+    <td>签名</td>
+    <td>sign</td>
+    <td>是</td>
+    <td>String(32)</td>
+    <td>947F6EEF5682A413DBB26A391010542F</td>
+    <td>签名值，详见签名算法</td>
+</tr>
+</tbody>
+</table>
+
+<blockquote>
+<p>返回结果</p>
+</blockquote>
+
+<table>
+<thead>
+<tr>
+<th>字段名</th>
+<th>变量名</th>
+<th>必填</th>
+<th>类型</th>
+<th>示例值</th>
+<th>描述</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+    <td>返回状态码</td>
+    <td>code</td>
+    <td>是</td>
+    <td>Int</td>
+    <td>200</td>
+    <td>返回200表示成功</td>
+</tr>
+<tr>
+    <td>返回信息</td>
+    <td>msg</td>
+    <td>是</td>
+    <td>String</td>
+    <td>签名失败</td>
+    <td>返回信息，如非空，为错误原因 签名失败 参数格式 校验错误</td>
+</tr>
+ <tr>
+    <td>data</td>
+    <td>data</td>
+    <td>是</td>
+    <td>Object</td>
+    <td></td>
+    <td>返回对象</td>
+</tr>
+<tr>
+    <td>商户号</td>
+    <td>merchantNo</td>
+    <td>是</td>
+    <td>String</td>
+    <td>Z16479536031659</td>
+    <td>成功时返回，商户号</td>
+</tr>
+<tr>
+    <td>商户订单号</td>
+    <td>merchantSn</td>
+    <td>是</td>
+    <td>String</td>
+    <td>c5e580a45a5b4ac9bf7b9830b5c0175d</td>
+    <td>成功时返回，商户订单号</td>
+</tr>
+<tr>
+    <td>平台订单号</td>
+    <td>sn</td>
+    <td>是</td>
+    <td>String</td>
+    <td>3f97588739884fe78c8bb285f25b3cba</td>
+    <td>成功时返回，平台订单号</td>
+</tr>
+<tr>
+    <td>手续费</td>
+    <td>fee</td>
+    <td>是</td>
+    <td>double</td>
+    <td>100</td>
+    <td>手续费</td>
+</tr>
+<tr>
+    <td>扩展域</td>
+    <td>extra</td>
+    <td>否</td>
+    <td>String</td>
+    <td></td>
+    <td>扩展域</td>
+</tr>
+<tr>
+    <td>状态</td>
+    <td>status</td>
+    <td>是</td>
+    <td>int</td>
+    <td>1</td>
+    <td>状态:-1-系统错误,0-待处理,1-处理中,2-成功,3-失败</td>
+</tr>
+</tbody>
+</table>
+
+<h2 id="toc_5">3. 查询代付订单</h2>
+
+<blockquote>
+<p>接口描述</p>
+</blockquote>
+
+<p>商户通过该接口查询代付订单结果，并根据状态结果进一步处理业务逻辑。</p>
+
+<blockquote>
+<p>接口链接</p>
+</blockquote>
+
+<p>URL地址：https://onepayhk.com/api/apply/orderInfo</a></p>
+
+<blockquote>
+<p>请求参数</p>
+</blockquote>
+
+<table>
+<thead>
+<tr>
+<th>字段名</th>
+<th>变量名</th>
+<th>必填</th>
+<th>类型</th>
+<th>示例值</th>
+<th>描述</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+    <td>商户号</td>
+    <td>merchantNo</td>
+    <td>是</td>
+    <td>String</td>
+    <td>Z16479536031659</td>
+    <td>分配的商户号</td>
+</tr>
+<tr>
+    <td>商户订单号</td>
+    <td>merchantSn</td>
+    <td>是</td>
+    <td>String</td>
+    <td>6121dd11fdec11149918831190d1b1</td>
+    <td>商户生成的订单号</td>
+</tr>
+<tr>
+    <td>时间戳</td>
+    <td>time</td>
+    <td>是</td>
+    <td>int</td>
+    <td>1647601575</td>
+    <td>时间戳，精确到秒</td>
+</tr>
+<tr>
+    <td>签名</td>
+    <td>sign</td>
+    <td>是</td>
+    <td>String(32)</td>
+    <td>C380BEC2BFD727A4B6845133519F3AD6</td>
+    <td>签名值，详见签名算法</td>
+</tr>
+</tbody>
+</table>
+
+<h4 id="toc_6">返回结果</h4>
+
+<table>
+<thead>
+    <tr>
+        <th>字段名</th>
+        <th>变量名</th>
+        <th>必填</th>
+        <th>类型</th>
+        <th>示例值</th>
+        <th>描述</th>
+    </tr>
+</thead>
+
+<tbody>
+    <tr>
+        <td>商户号</td>
+        <td>merchantNo</td>
+        <td>是</td>
+        <td>String</td>
+        <td>Z16479536031659</td>
+        <td>支付中心分配的商户号</td>
+    </tr>
+    <tr>
+        <td>平台订单号</td>
+        <td>sn</td>
+        <td>是</td>
+        <td>String</td>
+        <td>2f03f72197594b4cbf1d96e065857cc5</td>
+        <td>平台订单号</td>
+    </tr>
+    <tr>
+        <td>商户订单号</td>
+        <td>merchantSn</td>
+        <td>是</td>
+        <td>String</td>
+        <td>18b4f7f0977a493293cd54d998ad957f</td>
+        <td>商户订单号</td>
+    </tr>
+    
+    <tr>
+        <td>代付金额</td>
+        <td>money</td>
+        <td>是</td>
+        <td>double</td>
+        <td>100.00</td>
+        <td>支付金额</td>
+    </tr>
+
+    <tr>
+        <td>三方手续费</td>
+        <td>tax</td>
+        <td>是</td>
+        <td>double</td>
+        <td>3.00</td>
+        <td>平台方收取代付手续费</td>
+    </tr>
+    <tr>
+        <td>状态</td>
+        <td>status</td>
+        <td>是</td>
+        <td>int</td>
+        <td>1</td>
+        <td>支付状态,-1-支付系统内部失败-,0-待处理,1-处理中,2-成功,3-支付失败</td>
+    </tr>
+    <tr>
+        <td>订单生成时间</td>
+        <td>createTime</td>
+        <td>是</td>
+        <td>int</td>
+        <td>1650630283</td>
+        <td>精确到秒</td>
+    </tr>
+    <tr>
+        <td>支付成功时间</td>
+        <td>payTime</td>
+        <td>是</td>
+        <td>int</td>
+        <td>1650630283</td>
+        <td>精确到秒</td>
+    </tr>
+    <tr>
+        <td>备注</td>
+        <td>remark</td>
+        <td>是</td>
+        <td>String</td>
+        <td></td>
+        <td>备注</td>
+    </tr>
+    <tr>
+        <td>签名</td>
+        <td>sign</td>
+        <td>是</td>
+        <td>String</td>
+        <td>49892860C80C4470CFC3E0A58B3F23B4</td>
+        <td>签名值，详见签名算法</td>
+    </tr>
+</tbody>
+</table>
+
+<h2 id="toc_7">4. 支付结果通知</h2>
+
+<blockquote>
+<p>接口描述</p>
+</blockquote>
+
+<p>当代付处理完成后，支付系统会通过该接口向商户发起通知。</p>
+
+<h4 id="toc_8">接口链接</h4>
+
+<p>该链接是通过代付申请接口提交的参数notifyUrl设置，如果无法访问链接，业务系统将无法接收到支付中心的通知。</p>
+
+<h4 id="toc_9">通知参数</h4>
+
+<table>
+<thead>
+<tr>
+    <th>字段名</th>
+    <th>变量名</th>
+    <th>必填</th>
+    <th>类型</th>
+    <th>示例值</th>
+    <th>描述</th>
+</tr>
+</thead>
+
+<tbody>
+    <tr>
+        <td>商户号</td>
+        <td>merchantNo</td>
+        <td>是</td>
+        <td>String</td>
+        <td>Z16479536031659</td>
+        <td>支付中心分配的商户号</td>
+    </tr>
+    <tr>
+        <td>平台订单号</td>
+        <td>sn</td>
+        <td>是</td>
+        <td>String</td>
+        <td>2f03f72197594b4cbf1d96e065857cc5</td>
+        <td>平台订单号</td>
+    </tr>
+    <tr>
+        <td>商户订单号</td>
+        <td>merchantSn</td>
+        <td>是</td>
+        <td>String</td>
+        <td>18b4f7f0977a493293cd54d998ad957f</td>
+        <td>商户订单号</td>
+    </tr>
+    
+    <tr>
+        <td>代付金额</td>
+        <td>money</td>
+        <td>是</td>
+        <td>double</td>
+        <td>100.00</td>
+        <td>支付金额</td>
+    </tr>
+
+    <tr>
+        <td>三方手续费</td>
+        <td>tax</td>
+        <td>是</td>
+        <td>double</td>
+        <td>3.00</td>
+        <td>平台方收取代付手续费</td>
+    </tr>
+    <tr>
+        <td>状态</td>
+        <td>orderStatus</td>
+        <td>是</td>
+        <td>int</td>
+        <td>1</td>
+        <td>支付状态,-1-支付系统内部失败-,0-待处理,1-处理中,2-成功,3-支付失败</td>
+    </tr>
+    <tr>
+        <td>订单生成时间</td>
+        <td>createTime</td>
+        <td>是</td>
+        <td>int</td>
+        <td>1650630283</td>
+        <td>精确到秒</td>
+    </tr>
+    <tr>
+        <td>支付成功时间</td>
+        <td>payTime</td>
+        <td>是</td>
+        <td>int</td>
+        <td>1650630283</td>
+        <td>精确到秒</td>
+    </tr>
+    <tr>
+        <td>备注</td>
+        <td>remark</td>
+        <td>是</td>
+        <td>String</td>
+        <td></td>
+        <td>备注</td>
+    </tr>
+    <tr>
+        <td>签名</td>
+        <td>sign</td>
+        <td>是</td>
+        <td>String</td>
+        <td>49892860C80C4470CFC3E0A58B3F23B4</td>
+        <td>签名值，详见签名算法</td>
+    </tr>
+</tbody>
+</table>
+
+<h4 id="toc_10">返回结果</h4>
+
+<p>业务系统处理后同步返回给支付中心，返回字符串 success 则表示成功，返回非success则表示处理失败，支付中心会再次通知业务系统。（通知频率为60/120/180/240/300,单位：秒）</p>
+
+
+
+</div></body>
+
+</html>

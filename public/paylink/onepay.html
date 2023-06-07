@@ -1,0 +1,946 @@
+<!DOCTYPE html>
+<html>
+<head>
+   <meta charset="utf-8">
+   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+   <meta name="viewport" content="width=device-width, maximum-scale=1, initial-scale=1, user-scalable=yes">
+   <link href="img/dute_favicon_32x32.ico" rel="shortcut icon" />
+   <title>OnePay Payment Gateway - One Pay</title>
+   <link rel="stylesheet" href="static/index/css/qietu.css">
+   <link rel="stylesheet" href="static/index/css/iconfont.css">
+   <link rel="stylesheet" href="static/index/css/animate.min.css">
+   <link rel="stylesheet" href="static/index/css/style.css">
+   <link rel="stylesheet" href="static/index/css/responsive.css">
+   <link rel="stylesheet" href="static/index/css/bootstrap.min.css">
+   <link rel="stylesheet" href="static/index/css/magnific-popup.min.css">
+   <link rel="stylesheet" href="static/index/css/cashier-style.css">
+   <link rel="stylesheet" href="static/index/css/cashier-responsive.css">
+   <link rel="stylesheet" href="static/index/css/onepay.css">
+   <style>
+      .copyright {
+         position: fixed;
+         bottom: 0;
+         width: 100%;
+      }
+   </style>
+</head>
+<body>
+
+
+
+<div class="demo">
+
+<section class="features" id="features">
+<div>
+<div class="main_features p-top-100">
+   <div class="gray-box">
+      <div class="title">
+         <h2 style="margin: 0;">Cashier </h2>
+      <!-- <div>
+         <img id="sandwatch" style="height: 20px" src="static/index/picture/sandwatch.png" alt="whatsapp" />
+         <span id="time-box" style='color: #d44d44; margin-top: 20px'></span>
+      </div> -->
+   </div>
+<div>
+<div class="box-inner order-info">
+   <p class="payment-detail">Order No. <b id="payId" class="payNum" style="color: #d44d44;">1003896568329314304</b><br></p>
+   <p id="money1">
+      <span class="payment-money">₹199.92</span> 
+      <button class="btn btn-sm copy-btn" id="copyBtn" onclick="clickCopyBtn(199.92)">Copy</button>
+   </p>
+   <p style="text-align: center;">
+      <span class="order-money">₹200.00</span>
+      <span class="save-money">Save₹0.08</span> 
+   </p>
+<div class="container" style="justify-content: center;">
+<div id="payinfo" class="tab-wrap" style="display: none;">
+<input type="radio" id="tab1" name="tabGroup2" class="tab" checked>
+<label id="tab11" for="tab1" style="color:#3395FF">QR UPI</label>
+<input type="radio" id="tab2" name="tabGroup2" class="tab">
+<label id="tab22" for="tab2" style="color:#3395FF">Bank UPI</label>
+<div class="tab__content">
+<div class="qr-area">
+<div id="qr-position" style="position: relative;">
+<div id="disposable-tip" style="margin: auto; width: 195px; display: flex; justify-content: center; background-color: #0284c7; margin-bottom: 5px;">
+<h2 style="font-size: 16px; color: white; margin: 0;">One Time Use Only</h2>
+</div>
+<div id="qrcode" style="margin: auto; height: 195px; width: 195px; text-align: center;"></div>
+<script src="static/index/js/easy.qrcode.min.js" type="text/javascript" charset="utf-8"></script>
+<script>
+
+   var options = {
+      text: "upi://pay?pa=Q888349352@ybl&pn=PhonePeMerchant&tr=f6179b7329570bbb3ef75af56dfbe7e6&tn=1003896568329314304&am=199.92&cu=INR&mc=0000",
+      width: 185,
+      height: 185,
+      colorDark: "#000000",
+      colorLight: "#ffffff",
+      correctLevel: QRCode.CorrectLevel.H,
+
+      dotScale: 1, // For body block, must be greater than 0, less than or equal to 1. default is 1
+
+      dotScaleTiming: 1, // Dafault for timing block , must be greater than 0, less than or equal to 1. default is 1
+      dotScaleTiming_H: undefined, // For horizontal timing block, must be greater than 0, less than or equal to 1. default is 1
+      dotScaleTiming_V: undefined, // For vertical timing block, must be greater than 0, less than or equal to 1. default is 1
+
+      dotScaleA: 1, // Dafault for alignment block, must be greater than 0, less than or equal to 1. default is 1
+      dotScaleAO: undefined, // For alignment outer block, must be greater than 0, less than or equal to 1. default is 1
+      dotScaleAI: undefined, // For alignment inne
+      logo: "https://gopay88.io/favicon-gopay.ico",
+      logoWidth: 30, // fixed logo width. default is `width/3.5`
+      logoHeight: 30, // fixed logo height. default is `heigth/3.5`
+      logoMaxWidth: undefined, // Maximum logo width. if set will ignore `logoWidth` value
+      logoMaxHeight: undefined, // Maximum logo height. if set will ignore `logoHeight` value
+      logoBackgroundColor: '#fff', // Logo backgroud color, Invalid when `logBgTransparent` is true; default is '#ffffff'
+      logoBackgroundTransparent: false, // Whethe
+      PO: '#e1622f', // Global Posotion Outer color. if not set, the defaut is `colorDark`
+      PI: '#aa5b71', // Global Posotion Inner color. if not set, the defaut is `colorDark`
+      PO_TL: '', // Posotion Outer color - Top Left 
+      PI_TL: '', // Posotion Inner color - Top Left 
+      PO_TR: '', // Posotion Outer color - Top Right 
+      PI_TR: '', // Posotion Inner color - Top Right 
+      PO_BL: '', // Posotion Outer color - Bottom Left 
+      PI_BL: '', // Posotion Inner color - Bottom Leftkk
+      crossOrigin: "Anonymous",
+      // drawer: 'svg',
+   };
+   new QRCode(document.getElementById("qrcode"), options);
+</script>
+<div id="qrcode_download" style="display: none;"></div>
+
+<script src="static/index/js/easy.qrcode.dev.js" type="text/javascript" charset="utf-8"></script>
+<script>
+    let d = new Date(new Date().setMinutes(new Date().getMinutes() + 15));
+    var expiredTime = d.getFullYear() + "-" + (d.getMonth()+1) + "-" + d.getDate() +  " " + d.getHours() + ":" + d.getMinutes();
+
+    var options = {
+        text: "upi://pay?pa=Q888349352@ybl&pn=PhonePeMerchant&tr=f6179b7329570bbb3ef75af56dfbe7e6&tn=1003896568329314304&am=199.92&cu=INR&mc=0000",
+        width: 256,
+        height: 256,
+        quietZone: 60,
+        colorDark: "#000000",
+        colorLight: "#ffffff",
+        correctLevel: QRCode.CorrectLevel.H,
+
+        dotScale: 1, // For body block, must be greater than 0, less than or equal to 1. default is 1
+
+        dotScaleTiming: 1, // Dafault for timing block , must be greater than 0, less than or equal to 1. default is 1
+        dotScaleTiming_H: undefined, // For horizontal timing block, must be greater than 0, less than or equal to 1. default is 1
+        dotScaleTiming_V: undefined, // For vertical timing block, must be greater than 0, less than or equal to 1. default is 1
+
+        dotScaleA: 1, // Dafault for alignment block, must be greater than 0, less than or equal to 1. default is 1
+        dotScaleAO: undefined, // For alignment outer block, must be greater than 0, less than or equal to 1. default is 1
+        dotScaleAI: undefined, // For alignment inne
+        logo: "https://gopay88.io/favicon-gopay.ico",
+        logoWidth: 30, // fixed logo width. default is `width/3.5`
+        logoHeight: 30, // fixed logo height. default is `heigth/3.5`
+        logoMaxWidth: undefined, // Maximum logo width. if set will ignore `logoWidth` value
+        logoMaxHeight: undefined, // Maximum logo height. if set will ignore `logoHeight` value
+        logoBackgroundColor: '#fff', // Logo backgroud color, Invalid when `logBgTransparent` is true; default is '#ffffff'
+        logoBackgroundTransparent: false, // Whethe
+        PO: '#e1622f', // Global Posotion Outer color. if not set, the defaut is `colorDark`
+        PI: '#aa5b71', // Global Posotion Inner color. if not set, the defaut is `colorDark`
+        PO_TL: '', // Posotion Outer color - Top Left 
+        PI_TL: '', // Posotion Inner color - Top Left 
+        PO_TR: '', // Posotion Outer color - Top Right 
+        PI_TR: '', // Posotion Inner color - Top Right 
+        PO_BL: '', // Posotion Outer color - Bottom Left 
+        PI_BL: '', // Posotion Inner color - Bottom Leftkk
+        title: '₹199.92', // content 
+        titleFont: "normal normal bold 30px Arial", //font. default is "bold 16px Arial"
+        titleColor: "#d44d44", // color. default is "#000"
+        titleBackgroundColor: "#fff", // background color. default is "#fff"
+        titleHeight: 70, // height, including subTitle. default is 0
+        titleTop: 25, // draws y coordinates. default is 30
+        subTitle: '1003896568329314304', // content
+        subTitleFont: "normal normal normal 14px Arial", // font. default is "14px Arial"
+        subTitleColor: "#004284", // color. default is "4F4F4F"
+        subTitleTop: 50, // draws y coordinates. default is 0
+        footer: 'One Time Use Before ' + expiredTime,
+        footerFont: "normal normal normal 16px Arial", // font. default is "14px Arial"
+        crossOrigin: "Anonymous",
+    };
+
+    new QRCode(document.getElementById("qrcode_download"), options);
+</script>
+<div class="explain" style="margin: auto; width: 195px;padding-top:5px">
+<div class="explain-inner" style="width: 100%;">
+<img alt="Scan" class="fn-left" src="static/index/images/T1bdtfXfdiXXXXXXXX.png" />
+<div class="fn-right">Open UPI Wallet<br />Scan to Pay</div>
+</div>
+</div>
+
+<div style="display: flex; justify-content: center">
+<button class="download_qr" id="download_qr" style="margin: 20px;">Download QR
+Code</button>
+</div>
+<p class="download-note">Note: You can capture screenshot or long press QR to save</p>
+
+</div>
+</div>
+</div>
+<div class="tab__content">
+<div class="list-container">
+<p class="list-label">UPI Account</p>
+<p class="list-value"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="bfee8787878c8b868c8a8dffc6ddd3">[email&#160;protected]</a></p>
+<button class="btn btn-sm copy-btn" onclick="clickCopyBtn('Q888349352@ybl')">Copy</button>
+</div>
+</div>
+</div>
+</div>
+<!-- <div style="display: flex; justify-content: center">
+   <button class="upload_receipt" style="margin: 20px;" onclick="uploadScreenshot()">Check Order Status</button>
+</div> -->
+<div class="download-box">
+   <p id="qrmobile" style="display: none;margin: 10px 10px -10px 10px;text-align: center;">
+      <span>Long press QRcode image to save in the phone, and import the QRcode from the UPI Wallet app scan feature </span>
+   </p>
+
+   <div class="support-app">
+      <div class="pay-logo">
+         <div class="pay-logo-container">
+            <img class="logo-img" name="amazon_pay" onclick="clickPayment(event)" src="static/index/picture/pay_logo/amazon_pay.png" alt="amazon pay" />
+         </div>
+         <div class="pay-logo-container">
+            <img class="logo-img" name="bhim_pay" onclick="clickPayment(event)" src="static/index/picture/pay_logo/bhim_pay.png" alt="bhim" />
+         </div>
+         <div class="pay-logo-container">
+            <img class="logo-img" name="freecharge_pay" onclick="clickPayment(event)" src="static/index/picture/pay_logo/freecharge_pay.png" alt="charge" />
+         </div>
+         <div class="pay-logo-container">
+            <img class="logo-img" name="google_pay" onclick="clickPayment(event)" src="static/index/picture/pay_logo/google_pay.png" alt="google pay" />
+         </div>
+         <div class="pay-logo-container">
+            <img class="logo-img" name="mobikwik_pay" onclick="clickPayment(event)" src="static/index/picture/pay_logo/mobikwik_pay.png" alt="mobikiwik" />
+         </div>
+         <div class="pay-logo-container">
+            <img class="logo-img" name="paytm_pay" onclick="clickPayment(event)" src="static/index/picture/pay_logo/paytm_pay.png" alt="paytm pay" />
+         </div>
+         <div class="pay-logo-container">
+            <img class="logo-img" name="phonepe_pay" onclick="clickPayment(event)" src="static/index/picture/pay_logo/phonepe_pay.png" alt="phonepe pay" />
+         </div>
+         <div class="pay-logo-container">
+            <img class="logo-img" name="whatsapp_pay" onclick="clickPayment(event)" src="static/index/picture/pay_logo/whatsapp_pay.png" alt="whatsapp pay" />
+         </div>
+      </div>
+   </div>
+   <a class="main-btn" id="startAppFromWechat" onclick="showTip()" style="width: 205px;display: none;margin-top: 20px;">Open App to Pay</a>
+</div>
+</div>
+</div>
+
+<div>
+<!-- <div class="box-inner">
+   <div>
+      <em>₹<em id="money2">199.92</em></em>
+      <input class="disabled-btn" id="confirm" onclick="confirm()" readonly="" type="text" value="Paying..." style="border: none; background: none; color: black;" />
+   </div>
+</div> -->
+</div>
+</div>
+</div>
+</div>
+</section>
+
+<!-- <div class="scrollup">
+   <a href="#"><i class="fa fa-chevron-up"></i></a>
+</div> -->
+
+<div aria-hidden="false" aria-labelledby="tipsLabel" class="modal fade" id="tips" role="dialog" tabindex="-1" data-backdrop="static" data-keyboard="false">
+   <div class="modal-dialog">
+      <div class="modal-content">
+         <div class="modal-header">
+            <h4 class="modal-title">Tips</h4>
+         </div>
+         <div class="modal-body" style="text-align: left;;">
+            <p id="disposable-tip-date" style="color: #ea580c; text-decoration: underline;
+                text-decoration-color:#facc15; text-decoration-thickness: 30%;"></p>
+            <p>2. Download QRCode on your cellphone.</p>
+            <p>3. Open the UPI wallet (Phonepe/GooglePay...).</p>
+            <p>4. Scan the QRCode to make the exact payment.</p>
+            <p>5. Waiting for payment confirmation.</p>
+            <p>6. Check order status if not successfull payment.</p>
+         </div>
+         <div class="modal-footer">
+            <button id="confirm_read" class="btn btn-warning" onclick="hideTips()" type="button" disabled>Noted</button>
+         </div>
+      </div>
+   </div>
+</div>
+
+<div aria-hidden="false" aria-labelledby="uploadScreenshot" class="modal fade" id="uploadScreenshot" role="dialog" tabindex="-1" data-backdrop="static" data-keyboard="false">
+<div class="modal-dialog">
+<div class="modal-content">
+<div class="modal-header">
+<h4 class="modal-title">Receipt Submit</h4>
+</div>
+<form id="updateForm">
+<div class="modal-body" style="text-align: left;">
+<div class="spinner" style="position: absolute; width: 100%; text-align: center; "></div>
+<p>1. Take Deposit Screenshot</p>
+<p>2. Select Screenshot Image</p>
+<p>3. Click Submit Button</p>
+<div style="text-align: center;">
+<div style="display: flex; justify-content: space-between;">
+<input type="file" id="fileToUpload" name="image[]" accept="image/*" multiple>
+</div>
+<div style="display: flex; justify-content: center; align-items: center; margin-top: 10px;" id="imgs-upload">
+</div>
+<p id="uploadDescription" class="img-upload-status" style="width: 100%; font-size: 10px; margin-top: 4px; padding: 2px 4px;"></p>
+</div>
+</div>
+<div class="modal-footer">
+<div style="text-align: left;">
+UTR: <input type="text" name="keyword" id="keyword" placeholder="12 digits" autocomplete="off" class="layui-input" value="">
+</div>
+</div>
+<div class="modal-footer">
+<button id="submitBtn" class="btn btn-success">Submit</button>
+<button class="btn btn-warning" onclick="hideUploadScreenshotModal()" type="button">Close</button>
+</div>
+</form>
+</div>
+</div>
+</div>
+<div aria-hidden="true" aria-labelledby="myModalLabel" class="modal fade" id="msgModal" role="dialog" tabindex="-1">
+<div class="modal-dialog">
+<div class="modal-content">
+<div class="modal-header">
+<h4 class="modal-title">Congratulations!</h4>
+</div>
+<div class="modal-body" id="msgBody">
+</div>
+<div class="modal-footer" style="text-align: center;">
+<button class="btn btn-warning" onclick="confirm()" type="button">Confirm</button>
+</div>
+</div>
+</div>
+</div>
+<div aria-hidden="false" aria-labelledby="tipsLabel" class="modal fade" id="notificationModal" role="dialog" tabindex="-1">
+<div class="modal-dialog" style="margin-top: 10px;">
+<div class="modal-content">
+<div class="modal-header" style="display: flex; align-items:center">
+<svg id="error-svg" style="display: none;" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="red" class="bi bi-x-circle" viewBox="0 0 16 16">
+<path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
+<path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z" />
+</svg>
+<svg id="success-svg" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="green" class="bi bi-check-circle" viewBox="0 0 16 16">
+<path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
+<path d="M10.97 4.97a.235.235 0 0 0-.02.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-1.071-1.05z" />
+</svg>
+<h4 class="modal-title" style="margin-left: 10px;">Notification</h4>
+</div>
+<div class="modal-body" style="display: flex; justify-content: space-between;">
+<p style="font-size: 18px;" id="notificationText">Copy Success</p>
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="gray" class="bi bi-x" viewBox="0 0 16 16">
+<path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z" />
+</svg>
+</div>
+</div>
+</div>
+</div>
+<div aria-hidden="false" aria-labelledby="confirmLabel" class="modal" id="confirmModal" role="dialog" tabindex="-1" data-backdrop="static" data-keyboard="false">
+<div class="modal-dialog">
+<div class="modal-content">
+<div class="modal-header">
+<h4 class="modal-title">Comfirm</h4>
+</div>
+<div class="modal-body" style="text-align: left;;">
+<p>Have you paid it successfully?</p>
+</div>
+<div class="modal-footer">
+<button class="btn btn-success" onclick="userPayConfirm(21)" type="button">Yes</button>
+<button class="btn btn-info" onclick="userPayConfirm(31)" type="button">Got Issue</button>
+</div>
+</div>
+</div>
+</div>
+<div aria-hidden="false" aria-labelledby="preview-image" class="modal preview-image" role="dialog" tabindex="-1" data-backdrop="static" data-keyboard="false" style="z-index: 9999;">
+<div style="height: 100%; width: 100%; display: flex; justify-content: center; align-items: center; background-color: black;">
+<img id="biggerImage" src="" onclick="closeImage()" />
+</div>
+</div>
+</div>
+<!-- <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script> -->
+<script type="text/javascript" src="static/index/js/jquery.min.js"></script>
+<script type="text/javascript" src="static/index/js/jquery.cookie.js"></script>
+<script type="text/javascript" src="static/index/js/jquery.magnific-popup.min.js"></script>
+<script type="text/javascript" src="static/index/js/bootstrap.min.js"></script>
+
+<script>
+
+   // 确认支付倒计时
+   var flag = true;
+   var count = 300, money, payId;
+
+   function hideTips() {
+      $("#tips").hide();
+      $(".modal-backdrop").remove();
+   }
+
+   function deleteImage(id, elementName, elementSize) {
+      const file_list = $('input[type=file]').get(0).files;
+      const new_file_list = [...file_list].filter(item => {
+         return (item.name != elementName && item.size != elementSize)
+      })
+      const dt = new DataTransfer()
+      for (let i = 0; i < new_file_list.length; i++) {
+         dt.items.add(new_file_list[i])
+      }
+      $('input[type=file]').get(0).files = dt.files 
+      $(id).remove();
+
+      if(new_file_list.length == 0) {
+         $('.img-upload-status').hide()
+         $('#uploadDescription').css('display', 'none')
+      } else {
+         $('.img-upload-status').show()
+         $('#uploadDescription').css('display', 'inline')
+      }
+   }
+
+   function uploadScreenshot() {
+      $('#uploadDescription').css('display', 'none')
+      $(".spinner").html('');
+      $("#submitBtn").removeAttr('disabled')
+      checkImage()
+      $("#uploadScreenshot").modal('show');
+   }
+
+   function checkImage() {
+      $.ajax({
+         url: "/index/cashier/checkImage",
+         type: 'POST',
+         data: {
+            mchid: '100004',
+            out_trade_no: '1003896568329314304',
+            channel: 'gopay_bankupi',
+            query_signature: 'a10a4574f24b6fefae6da02c534a6781ddf7d8f64bf22516440e61241a9ca1ee'
+         },
+         success: function (jsondata) {
+            $('.img-upload').remove();
+            var data = JSON.parse(jsondata);
+            if (data.code == 200 && data.status == 1) {
+               // show image
+               displayServerMultipleImage(JSON.parse(data.path_list))
+            } else {
+               const dt = new DataTransfer()
+               dt.items = []
+               $('input[type=file]').get(0).files = dt.files 
+            }
+         }
+      });
+   }
+
+   function hideUploadScreenshotModal() {
+      $("#uploadScreenshot").modal('hide')
+   }
+
+   function previewImage(src) {
+      $('#biggerImage').attr("src", src)
+      $('.preview-image').modal('show')
+   }
+
+   function closeImage() {
+      $('.preview-image').modal('hide')
+   }
+
+   function displayMultipleImage(files) {
+      $('#uploadDescription').css('display', 'inline')
+      if(files.length == 0) { 
+         $('#uploadDescription').css('display', 'none')
+         return;
+      }
+      for (let index = 0; index < files.length; index++) {
+         const element = files[index];
+         const src = URL.createObjectURL(element);
+         let preview = `<div class="img-upload img-upload-${index}" style="position: relative">
+           <button type="button" onclick="deleteImage('.img-upload-${index}', '${element.name}', '${element.size}')" class='btn btn-danger' style="position: absolute; right: 0; padding: 2px; border-radius: 0">x</button>
+           <img onclick='previewImage("${src}")' style='max-height: 150px' id="blah_${index}" src="${src}" alt="photo" />
+         </div>`
+         $("#imgs-upload").append(preview);
+      }
+      $('.img-upload-status').removeClass("img-upload-success");
+      $("#uploadDescription").text('upload waiting');
+   }
+
+   function displayServerMultipleImage(files) {
+      $('#uploadDescription').css('display', 'inline')
+      if(!files || files.length == 0) { 
+         $('#uploadDescription').css('display', 'none')
+         return;
+      }
+      for (let index = 0; index < files.length; index++) {
+         const src = files[index];
+         const format_src = src.replace(/\\/g, "/");
+         let preview = `<div class="img-upload img-upload-${index}" style="position: relative">
+           <button type="button" onclick="deleteImage('.img-upload-${index}', '${index}')" class='btn btn-danger' style="position: absolute; right: 0; padding: 2px; border-radius: 0">x</button>
+           <img onclick="previewImage('${format_src}')" style='max-height: 150px' id="blah_${index}" src="${format_src}" alt="photo" />
+         </div>`
+         $("#imgs-upload").append(preview);
+      }
+      $("#uploadDescription").text("upload success");
+      $('.img-upload-status').addClass("img-upload-success");
+   }
+
+   fileToUpload.onchange = evt => {
+      $('.img-upload').remove();
+      const files = fileToUpload.files
+      if(files.length > 5) { 
+         alert('You can only upload a maximum of 5 images');
+         return;
+      }
+      const bigFile = Object.values(files).some(f => {
+         const size = f.size / 1024 / 1024;
+         if(size > 10) {
+             alert('image too big')
+             return true
+         }
+         return false;
+      })
+      displayMultipleImage(files);
+   }
+
+   $("#updateForm").submit(function (evt) {
+      evt.preventDefault();
+      $('.tw-warning').css('display', 'flex')
+      $('.tw-warning-text').text('uploading...')
+      var formData = new FormData($(this)[0]);
+      formData.append('mchid', '100004')
+      formData.append('out_trade_no', '1003896568329314304')
+      formData.append('channel', 'gopay_bankupi')
+      formData.append('query_signature', 'a10a4574f24b6fefae6da02c534a6781ddf7d8f64bf22516440e61241a9ca1ee')
+      let imgVal = $('#fileToUpload').val()
+      if(!imgVal) {
+         alert('Please Select Image')
+         return;
+      }
+      console.log(formData);
+      $(".spinner").html('<img src="static/cloudui/vendors/lightgallery/img/loading.gif" alt="Wait" />');
+      $("#submitBtn").prop('disabled', true)
+      $.ajax({
+         url: '/index/cashier/uploadImage',
+         type: 'POST',
+         async: false,
+         cache: false,
+         contentType: false,
+         enctype: 'multipart/form-data',
+         processData: false,
+         data: formData,
+         success: function (res) {
+            const result = JSON.parse(res)
+            if(result.code == 200 && result.status == 1) {
+               pathList = result.path_list;
+               $('.img-upload-status').text("upload success");
+               $('.img-upload-status').addClass("img-upload-success");
+               $('.tw-warning').css('display', 'none')
+               $('.tw-success').css('display', 'flex');
+               $('.tw-success-text').text('upload success');
+               $("#notificationModal").modal('show');
+               $("#notificationText").text("Upload Success!")
+               $(".spinner").html('');
+               $("#submitBtn").removeAttr('disabled')
+               setTimeout(function () {
+                  $('.tw-success').css('display', 'none');
+                  $("#notificationModal").modal('hide');
+                  $("#uploadScreenshot").modal('hide');
+                  console.log('timeout')
+               }, 3000);
+            } else {
+               $('.img-upload-status').text('Upload Failed');
+               $(".spinner").html('');
+               $("#notificationModal").modal('show');
+               $("#error-svg").css('display', 'block');
+               $("#success-svg").css('display', 'none');
+               $("#notificationText").text(result.note)
+               setTimeout(() => {
+                  $("#notificationModal").modal('hide');
+                  $("#submitBtn").removeAttr('disabled')
+                  $("#error-svg").css('display', 'none');
+                  $("#success-svg").css('display', 'block');
+               }, 3000);
+            }
+         },
+         fail: () => {
+            $(".spinner").html('');
+            $("#notificationModal").modal('hide');
+            $("#submitBtn").removeAttr('disabled')
+         }
+      });
+   })
+
+   function userPayConfirm(status) {
+      $("#confirmModal").hide();
+      $(".modal-backdrop").remove();
+      $.ajax({
+            url: "/cashier/user_notify_pay_status",
+            type: 'POST',
+            data: {
+            out_trade_no: '1003896568329314304',
+            status,
+         },
+         success: function (jsondata) {
+            var data = JSON.parse(jsondata);
+            if (data.code == 200) {
+               console.log('success', jsondata)
+            }
+         }
+      });
+   }
+
+   jQuery(document).ready(function ($) {
+      $($("canvas")[1]).css('display', 'none');
+      let d = new Date(new Date().setMinutes(new Date().getMinutes() + 15));
+      var expiredTime = d.getFullYear() + "-" + (d.getMonth()+1) + "-" + d.getDate() +  " " + d.getHours() + ":" + d.getMinutes();
+      $('#disposable-tip-date').text('1. QRCode One Time Use Before ' + expiredTime)
+
+      var confirm_read_timer = 5;
+      const payAmount = parseFloat('199.92')
+      const orderAmount =  parseFloat('200.00');
+      const notedText = orderAmount > payAmount ? 'Claim Bonus' : 'Noted';
+      $('#confirm_read').text(notedText);
+      let confirmInterval = setInterval(() => {
+         confirm_read_timer--
+         if(confirm_read_timer < 0) {
+            clearInterval(confirmInterval);
+            $("#confirm_read").removeAttr("disabled");
+            $("#confirm_read").addClass("high-light-tip");
+            $('#confirm_read').text(notedText);
+         } else {
+            $('#confirm_read').text(notedText + ' ' + confirm_read_timer + 's')
+         }
+      }, 1000);
+
+      // money = $.cookie('amount');
+      // payId = $.cookie('out_trade_no');
+      // if (money == "" || money == null) {
+      //     window.location.href = "/";
+      // }
+      // $("#money1").html(Number(money).toFixed(2));
+      // $("#money2").html(Number(money).toFixed(2));
+      $("#payId").html(payId);
+
+      $('#download_qr').on('touchstart click', function (e) {
+         e.preventDefault();
+         clickCopyBtn('199.92');
+
+         src = $("canvas")[1].toDataURL();
+         src.replace(/^data:image\/[^;]+/, 'data:application/octet-stream');
+         var link = document.createElement('a');
+         link.href = src;
+         link.download = '199.92.png';
+         document.body.appendChild(link);
+         link.click();
+         setTimeout(() => {
+            $("#confirmModal").modal('show');
+         }, 3000);
+      });
+
+      // 判断移动设备
+      if (isMobile()) {
+         // $("#tips").modal('show');
+         // $("#redmobile").css('display', 'block');
+         // $("#qrmobile").css('display', 'block');
+         // $("#other-way").css('display', 'none');
+      }
+
+      // $.cookie('scanned', "0");
+
+      // var url = $.cookie("qrcode");
+      // 手机端且不是微信浏览器且不是安卓QQ时支持一键打开支付宝
+      if (isMobile() && !isWeixin() && !isQQAndroid()) {
+         $("#qrmobile").css("display", "none");
+         $("#startApp").css("display", "block");
+         $("#download_qr").css("display", "block");
+         // if($.cookie('channel') == 'ma_ali_h5' || $.cookie('channel') == 'ma_ali_h5_card'){
+         //     url = "alipays://platformapi/startapp?saId=10000007&qrcode="+encodeURIComponent(url);
+         // }
+         // $("#startApp").attr("href", url);
+      }
+
+      countDown();
+      countTime('1653915138' - Math.floor(Date.now() / 1000));
+      judgeState();
+
+      $("#confirm").attr("disabled", "disabled");
+   });
+
+   // Initialize the agent at application startup.
+   //const fpPromise = import('static/index/js/finger.js')
+     //.then(FingerprintJS => FingerprintJS.load())
+
+   /*function connect_info(deviceId) {
+      console.log('con aja', deviceId)
+      $.ajax({
+         url: "/cashier/connect_info",
+         type: 'POST',
+         data: {
+            out_trade_no: '1003896568329314304',
+            device_id: deviceId
+         },
+         success: function (jsondata) {
+            var data = JSON.parse(jsondata);
+            if (data.code == 200) {
+               //
+            }
+         }
+      });
+   }*/
+
+   // try {
+   //    fpPromise
+   //    .then(fp => fp.get())
+   //    .then(result => {
+   //       const visitorId = result.visitorId
+   //       connect_info(visitorId)
+   //    })
+   // } catch (error) {
+   //    console.log('error to connect') 
+   // }
+
+   // 判断移动设备
+   function isMobile() {
+      if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+         return 1;
+      }
+      return 0;
+   }
+
+   // 判断是否微信浏览器
+   function isWeixin() {
+      var ua = window.navigator.userAgent.toLowerCase();
+      if (ua.match(/MicroMessenger/i) == 'micromessenger') {
+         return 1;
+      }
+      return 0;
+   }
+
+   // 判断是否安卓QQ浏览器
+   function isQQAndroid() {
+      var ua = window.navigator.userAgent.toLowerCase();
+      if (ua.match(/QQ/i) == 'qq' && ua.match(/Android/i) == 'android') {
+         return 1;
+      }
+      return 0;
+   }
+
+   function change() {
+      if (flag) {
+         $("#img1").removeAttr("class");
+         $("#img1").attr("class", "hide");
+         $("#img2").removeAttr("class");
+         $("#img2").attr("class", "show");
+         flag = !flag;
+      } else {
+         $("#img1").removeAttr("class");
+         $("#img1").attr("class", "show");
+         $("#img2").removeAttr("class");
+         $("#img2").attr("class", "hide");
+         flag = !flag;
+      }
+   }
+
+   function countDown() {
+      if (count == 0) {
+         $("#confirm").removeAttr("class");
+         $("#confirm").removeAttr("disabled");
+         $("#confirm").attr("class", "main-btn");
+         $("#confirm").val("Back Home");
+         return;
+      } else {
+         count--;
+      }
+      setTimeout(function () {
+         countDown();
+      }, 1000);
+   }
+
+   function countTime(time) {
+      // var time = $.cookie('time');
+      // var time = '1653915138';
+      if (time <= 0) {
+         $(".timeout")[0] ? $(".timeout")[0].style.display = "block" : null;
+         $("#time-box").css("display", "none");
+         $("#sandwatch").css("display", "none");
+         $("#confirm").attr("disabled", "disabled");
+         $("#confirm").removeAttr("class");
+         $("#confirm").attr("class", "disabled-btn");
+         $("#confirm").val("Pay Expired");
+         $("#startApp").css("display", "none");
+         $("#download_qr").css("display", "none");
+         $("#payinfo").css("display", "none");
+         $("#qr-position").hide();
+         $(".download-note").hide();
+         count = 5;
+         return;
+      } else {
+         $("#payinfo").css("display", "flex");
+         time--;
+         showTime(time);
+         // $.cookie('time', time, { path: '/cashier' });
+      }
+      setTimeout(function () {
+         countTime(time);
+      }, 1000)
+   }
+
+   function showTime(v) {
+      if (v == null || v == "") {
+         return "";
+      }
+      var m = 0, s = 0;
+      if (v >= 60) {
+         m = Math.floor(v / 60);
+         s = v % 60;
+      } else {
+         s = v;
+      }
+
+      if (m >= 0 && m <= 9) {
+         m = "0" + m;
+      }
+      if (s >= 0 && s <= 9) {
+         s = "0" + s;
+      }
+      $("#time-box").html(`${m}:${s}`);
+   }
+
+   function judgeState() {
+      $.ajax({
+         url: "/cashier/orderquery",
+         type: 'POST',
+         data: {
+            mchid: '100004',
+            out_trade_no: '1003896568329314304',
+            channel: 'gopay_bankupi',
+            query_signature: 'a10a4574f24b6fefae6da02c534a6781ddf7d8f64bf22516440e61241a9ca1ee'
+         },
+         success: function (jsondata) {
+            var data = JSON.parse(jsondata);
+            if (data.code == 200) {
+               if (data.status == 2) {
+                  showMsg("You've paid ₹" + '199.92');
+               } else {
+                  setTimeout(function () {
+                     judgeState();
+                  }, 15000)
+               }
+            }
+         }
+      });
+   }
+
+   function showMsg(m) {
+      $("#msgModal").modal('show');
+      $("#msgBody").html(m);
+   }
+
+   function confirm() {
+      // window.location.href = 'https://www.fun88.com';
+      $("#msgModal").modal('hide');
+   }
+
+   function clickPayment(event) {
+      if (!isMobile()) return;
+      var payMethod = event.target.name;
+      switch (payMethod) {
+         case "amazon_pay":
+            window.location.href = "com.amazon.mobile.shopping://";
+            break;
+         case "bhim_pay":
+            window.location.href = "intent://bhimupi.org.in/#Intent;scheme=https;package=in.org.npci.upiapp;end";
+            break;
+         case "freecharge_pay":
+            window.location.href = "freecharge://pay";
+            break;
+         case "google_pay":
+            window.location.href = "gpay://upi/pay?pa=paytm-70685431@paytm&pn=CORPCOMPENDIUM&mc=5499&tid=PYTM20220601328729101714&tr=20220601328729101714&am=666&cu=INR";
+            break;
+         case "mobikwik_pay":
+            window.location.href = "mobikwik://upi";
+            break;
+         case "paytm_pay":
+            window.location.href = "paytmmp://pay?pa=paytm-71000057@paytm&pn=RASSAL%20KEEPARAKUDIYIL%20SALIM&mc=5251&tid=PYTM20220617403661304953&tr=20220617403661304953&am=3&cu=INR";
+            break;
+         case "phonepe_pay":
+            window.location.href = "phonepe://details?id=com.phonepe.app";
+            break;
+         case "whatsapp_pay":
+            window.location.href = "whatsapp://pay/";
+            break;
+         default:
+            break;
+      }
+   }
+
+   function clickCopyBtn(pay_amount) {
+      copyToClipboard(pay_amount)
+   }
+
+   function copyToClipboard(text) {
+      var $temp = $("<input>");
+      $("body").append($temp);
+      $temp.val(text).select();
+      document.execCommand("copy");
+      $temp.remove();
+      $("#notificationModal").modal('show');
+      $("#notificationText").text("Copy Success")
+      setTimeout(() => {
+         $("#notificationModal").modal('hide');
+      }, 2000);
+   }
+
+</script>
+<style>
+   .test {
+     color: 'green';
+   }
+</style>
+
+<div class="copyright">
+   <div class="wrapper">
+   © 2020 OnePay Inc. <a href="#" style="color: #fff;" target="_blank">One Pay</a>
+   </div>
+</div>
+<!-- <div class="sidebar">
+   <ul>
+      <li class="sidebar-scroll">
+         <a href="#"><i class="iconfont icon-shang"></i></a>
+      </li>
+   </ul>
+</div> -->
+
+
+<script type="text/javascript" src="static/index/js/jquery.min.js"></script>
+<script type="text/javascript" src="static/index/js/jquery.glide.js"></script>
+<script type="text/javascript" src="static/index/js/wow.min.js"></script>
+<script type="text/javascript" src="static/index/js/script.js"></script>
+
+<script type="text/javascript" src="static/index/js/jquery.cookie.js"></script>
+<script type="text/javascript" src="static/index/js/jquery.magnific-popup.min.js"></script>
+<script type="text/javascript" src="static/index/js/bootstrap.min.js"></script>
+
+<script src="static/common/js/copyright.js"></script>
+<script type="text/javascript" src="static/layui/layui.js"></script>
+
+<script type="text/javascript">
+   $(function() {
+      //$(".home_index").addClass("on");
+      $('.sidebar-scroll').click(function() {
+         $('html ,body').animate({
+             scrollTop: 0
+         }, 1000);
+         return false
+      });
+      var glide = $('.list-wrper').glide({
+         arrows: false
+      }).data('api_glide');
+      $(".hpart-prev").click(function() {
+         glide.prev()
+      });
+      $(".hpart-next").click(function() {
+         glide.next()
+      })
+   })
+</script>
+</body>
+</html>

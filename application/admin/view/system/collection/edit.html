@@ -1,0 +1,132 @@
+<form id="edit-form" class="form-horizontal form-ajax" role="form" data-toggle="validator" method="POST" action="">
+    {:token()}
+    <div class="form-group">
+        <label for="channel_name" class="control-label col-xs-12 col-sm-2">通道名称:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input type="text" class="form-control" id="channel_name" name="row[channel_name]" value="{$row.channel_name|htmlentities}" data-rule="required" />
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="channel_en_name" class="control-label col-xs-12 col-sm-2">英文名称:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input type="text" class="form-control" id="channel_en_name" name="row[channel_en_name]" value="{$row.channel_en_name|htmlentities}" data-rule="required" />
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="billing_around" class="control-label col-xs-12 col-sm-2">结算周期:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input type="text" class="form-control" id="billing_around" name="row[billing_around]" placeholder="D+几" value="{$row.billing_around|htmlentities}" data-rule="required" />
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="order_id" class="control-label col-xs-12 col-sm-2">排序ID(倒序):</label>
+        <div class="col-xs-12 col-sm-8">
+            <input type="text" class="form-control" id="order_id" name="row[order_id]"  value="{$row.order_id|htmlentities}" data-rule="required" />
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="channel_sign" class="control-label col-xs-12 col-sm-2">通道商户号:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input type="text" class="form-control" id="channel_sign" name="row[channel_sign]"  value="{$row.channel_sign|htmlentities}" data-rule="required" />
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="channel_type" class="control-label col-xs-12 col-sm-2">支付渠道:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input type="text" class="form-control" id="channel_type" name="row[channel_type]"  value="{$row.channel_type|htmlentities}" data-rule="required" />
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="channel_pay_type" class="control-label col-xs-12 col-sm-2">支付方式:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input type="text" class="form-control" id="channel_pay_type" name="row[channel_pay_type]"  value="{$row.channel_pay_type|htmlentities}" data-rule="required" />
+        </div>
+    </div>
+    <!-- <div class="form-group">
+        <label for="nickname" class="control-label col-xs-12 col-sm-2">公司名称:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input type="text" class="form-control" id="nickname" name="row[nickname]" value="" data-rule="required" />
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="nickname" class="control-label col-xs-12 col-sm-2">公司地址:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input type="text" class="form-control" id="nickname" name="row[nickname]" value="" data-rule="required" />
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="nickname" class="control-label col-xs-12 col-sm-2">公司电话:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input type="text" class="form-control" id="nickname" name="row[nickname]" value="" data-rule="required" />
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="nickname" class="control-label col-xs-12 col-sm-2">公司邮箱:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input type="text" class="form-control" id="nickname" name="row[nickname]" value="" data-rule="required" />
+        </div>
+    </div> -->
+    <div class="form-group">
+        <label for="channel_key" class="control-label col-xs-12 col-sm-2">key:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input type="text" class="form-control" id="channel_key" name="row[channel_key]" value="{$row.channel_key}" data-rule="required" />
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="channel_safe_url" class="control-label col-xs-12 col-sm-2">安全域名:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input type="text" class="form-control" id="channel_safe_url" name="row[channel_safe_url]" value="{$row.channel_safe_url}" data-rule="required" />
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="link" class="control-label col-xs-12 col-sm-2">平台跳转链接:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input type="text" class="form-control" id="link" name="row[link]" value="{$row.link}" data-rule="required" />
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="low_money" class="control-label col-xs-12 col-sm-2">最低金额:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input type="number" class="form-control" id="low_money" name="row[low_money]" value="{$row.low_money}" data-rule="required" />
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="high_money" class="control-label col-xs-12 col-sm-2">最高金额:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input type="number" class="form-control" id="high_money" name="row[high_money]"  value="{$row.high_money}" data-rule="required" />
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="day_limit_money" class="control-label col-xs-12 col-sm-2">每日限额:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input type="number" class="form-control" id="day_limit_money" name="row[day_limit_money]" value="{$row.day_limit_money}" data-rule="required" />
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="status" class="control-label col-xs-12 col-sm-2">状态:</label>
+        <div class="col-xs-12 col-sm-8">
+            {:build_radios('row[status]', ['1'=>__('Normal'), '0'=>'禁用'], $row['status'])}
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="rate" class="control-label col-xs-12 col-sm-2">费率设置(%+N):</label>
+        <div class="col-xs-12 col-sm-8">
+            <input type="text" class="form-control" id="rate" name="row[rate]" autocomplete="off" value="{$row.rate}" data-rule="required" />
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="checksum" class="control-label col-xs-12 col-sm-2">谷歌验证码:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input type="text" class="form-control" id="checksum" name="row[checksum]" autocomplete="off" value="" data-rule="required" />
+        </div>
+    </div>
+    <input type="hidden" name="row[id]" value="{$row.id}">
+    
+    <div class="form-group hidden layer-footer">
+        <label class="control-label col-xs-12 col-sm-2"></label>
+        <div class="col-xs-12 col-sm-8">
+            <button type="submit" class="btn btn-primary btn-embossed disabled">{:__('OK')}</button>
+            <button type="reset" class="btn btn-default btn-embossed">{:__('Reset')}</button>
+        </div>
+    </div>
+</form>

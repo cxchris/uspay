@@ -1,0 +1,84 @@
+<form id="amonut-form" class="form-horizontal form-ajax" role="form" data-toggle="validator" method="POST" action="" >
+    {:token()}
+    <div class="form-group">
+        <label for="merchant_number" class="control-label col-xs-12 col-sm-2">商户号:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input type="text" class="form-control" id="merchant_number" name="row[merchant_number]"  value="{$row.merchant_number}" disabled="disabled" />
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="merchant_name" class="control-label col-xs-12 col-sm-2">商户名称:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input type="text" class="form-control" id="merchant_name" name="row[merchant_name]"  value="{$row.merchant_name}" disabled="disabled" />
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="merchant_amount" class="control-label col-xs-12 col-sm-2">代收余额:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input type="number" class="form-control" id="merchant_amount" name="row[merchant_amount]"  value="{$row.merchant_amount}" disabled="disabled" />
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="merchant_payment_amount" class="control-label col-xs-12 col-sm-2">代付余额:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input type="number" class="form-control" id="merchant_payment_amount" name="row[merchant_payment_amount]"  value="{$row.merchant_payment_amount}" disabled="disabled" />
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">类型:</label>
+        <div class="col-xs-12 col-sm-8">
+            {:build_select('row[type]', $type, null, ['class'=>'form-control selectpicker', 'data-rule'=>'required'])}
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="merchant_change_amount" class="control-label col-xs-12 col-sm-2">交易金额:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input type="number" class="form-control" id="merchant_change_amount" name="row[merchant_change_amount]"  value="" data-rule="required"/>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="note" class="control-label col-xs-12 col-sm-2">备注:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input type="text" class="form-control" id="note" name="row[note]"  value="" data-rule="required"/>
+        </div>
+    </div>
+    
+
+    <div class="form-group">
+        <label for="checksum" class="control-label col-xs-12 col-sm-2">谷歌验证码:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input type="text" class="form-control" id="checksum" name="row[checksum]" laceholder="请输入" autocomplete="off" value="" data-rule="required" />
+        </div>
+    </div>
+
+    <input type="hidden" name="row[id]" value="{$row.id}">
+    
+    <div class="form-group hidden layer-footer">
+        <label class="control-label col-xs-12 col-sm-2"></label>
+        <div class="col-xs-12 col-sm-8">
+            <button type="submit" class="btn btn-primary btn-embossed disabled">{:__('OK')}</button>
+            <button type="reset" class="btn btn-default btn-embossed">{:__('Reset')}</button>
+        </div>
+    </div>
+</form>
+
+<div class="panel panel-default panel-intro">
+    <div class="panel-heading"><div class="panel-lead"><em>历史记录</em></div></div>
+
+    <div class="panel-body">
+        <div id="myTabContent1" class="tab-content">
+            <div class="tab-pane fade active in" id="one">
+                <div class="widget-body no-padding">
+                    
+                    <table id="history-table" class="table table-striped table-bordered table-hover table-nowrap"
+                           
+                           width="100%" >
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

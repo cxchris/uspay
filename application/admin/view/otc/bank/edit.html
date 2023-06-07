@@ -1,0 +1,65 @@
+<form id="edit-form" class="form-horizontal form-ajax" role="form" data-toggle="validator" method="POST" action="">
+    {:token()}
+    <div class="form-group">
+        <label for="account_name" class="control-label col-xs-12 col-sm-2">账户名:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input type="text" class="form-control" id="account_name" name="row[account_name]" value="{$row.account_name}" data-rule="required" />
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="account_number" class="control-label col-xs-12 col-sm-2">账号:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input type="text" class="form-control" id="account_number" name="row[account_number]" value="{$row.account_number}" data-rule="required" />
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="ifsc" class="control-label col-xs-12 col-sm-2">银行编码:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input type="text" class="form-control" id="ifsc" name="row[ifsc]" placeholder="" value="{$row.ifsc}" data-rule="required" />
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="pkg" class="control-label col-xs-12 col-sm-2">包名:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input type="text" class="form-control" id="pkg" name="row[pkg]" placeholder="" value="{$row.pkg}" />
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="day_limit" class="control-label col-xs-12 col-sm-2">每日上限:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input type="text" class="form-control" id="day_limit" name="row[day_limit]" placeholder="" value="{$row.day_limit}" data-rule="required" />
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="isfloat" class="control-label col-xs-12 col-sm-2">是否浮动:</label>
+        <div class="col-xs-12 col-sm-8">
+            {:build_radios('row[isfloat]', ['1'=>'是', '0'=>'否'], $row['isfloat'])}
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">类型:</label>
+        <div class="col-xs-12 col-sm-8">
+            {:build_select('row[channel_id]', $collectionName, $row['channel_id'], ['class'=>'form-control selectpicker', 'data-rule'=>'required'])}
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="status" class="control-label col-xs-12 col-sm-2">状态:</label>
+        <div class="col-xs-12 col-sm-8">
+            {:build_radios('row[status]', ['1'=>__('Normal'), '0'=>'禁用'], $row['status'])}
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="checksum" class="control-label col-xs-12 col-sm-2">谷歌验证码:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input type="text" class="form-control" id="checksum" name="row[checksum]" autocomplete="off" value="" data-rule="required" />
+        </div>
+    </div>
+    
+    <div class="form-group hidden layer-footer">
+        <label class="control-label col-xs-12 col-sm-2"></label>
+        <div class="col-xs-12 col-sm-8">
+            <button type="submit" class="btn btn-primary btn-embossed disabled">{:__('OK')}</button>
+            <button type="reset" class="btn btn-default btn-embossed">{:__('Reset')}</button>
+        </div>
+    </div>
+</form>

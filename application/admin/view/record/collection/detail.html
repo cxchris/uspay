@@ -1,0 +1,106 @@
+<style>
+    .table-adminlog tr td {
+        word-break: break-all;
+    }
+</style>
+<table class="table table-striped table-adminlog">
+    <thead>
+    <tr>
+        <th width="100">{:__('Title')}</th>
+        <th>{:__('Content')}</th>
+    </tr>
+    </thead>
+    <tbody>
+
+    <tr>
+        <td>系统订单号</td>
+        <td>{$row.orderno}</td>
+    </tr>
+
+    <tr>
+        <td>所属商户</td>
+        <td>{$row.merchant_number}</td>
+    </tr>
+
+    <tr>
+        <td>商户订单号</td>
+        <td>{$row.out_trade_no}</td>
+    </tr>
+
+    <tr>
+        <td>三方订单号</td>
+        <td>{$row.tn}</td>
+    </tr>
+
+    <tr>
+        <td>交易金额</td>
+        <td>{$row.money}</td>
+    </tr>
+
+    <tr>
+        <td>手续费</td>
+        <td>{$row.rate_money}</td>
+    </tr>
+
+    <tr>
+        <td>客户姓名</td>
+        <td>{$row.customer_name}</td>
+    </tr>
+
+    <tr>
+        <td>客户手机</td>
+        <td>{$row.customer_mobile}</td>
+    </tr>
+
+    <tr>
+        <td>客户邮箱</td>
+        <td>{$row.customer_email}</td>
+    </tr>
+
+    <tr>
+        <td>创建时间</td>
+        <td>{$row.create_time}</td>
+    </tr>
+
+    <tr>
+        <td>支付状态</td>
+        <td><span style="color:#339999">{$row.status_type}</span></td>
+    </tr>
+
+    <tr>
+        <td>失败/成功时间</td>
+        <td>{$row.callback_time}</td>
+    </tr>
+
+    <tr>
+        <td>是否结算</td>
+        <td>{$row.is_billing}</td>
+    </tr>
+
+    <tr>
+        <td>结算时间</td>
+        <td>{$row.billing_time}</td>
+    </tr>
+
+    <tr>
+        <td>通知地址</td>
+        <td>{$row.notify_url}</td>
+    </tr>
+
+    <tr>
+        <td>回调地址</td>
+        <td>{$row.t_notify_url}</td>
+    </tr>
+    
+    <tr>
+        <td>通知状态</td>
+        <td><span style="color:#339999">{$row.notify_status_type}</span></td>
+    </tr>
+
+    <tr>
+        <td>通知次数</td>
+        <td>{$row.notify_number}</td>
+    </tr>
+
+    </tbody>
+</table>

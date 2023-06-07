@@ -1,0 +1,40 @@
+<style>
+    .table-adminlog tr td {
+        word-break: break-all;
+    }
+</style>
+<table class="table table-striped table-adminlog">
+    <thead>
+    <tr>
+        <th width="100">{:__('Title')}</th>
+        <th>{:__('Content')}</th>
+    </tr>
+    </thead>
+    <tbody>
+
+    <tr>
+        <td>账户名</td>
+        <td>{$row.account}</td>
+    </tr>
+
+    <tr>
+        <td>银行名称</td>
+        <td>{$row.bankname}</td>
+    </tr>
+
+    <tr>
+        <td>银行账户</td>
+        <td>{$row.banknumber}</td>
+    </tr>
+
+    <tr>
+        <td>IFSC Code</td>
+        <td>{$row.ifsccode}</td>
+    </tr>
+
+    <tr>
+        <td>备注</td>
+        <td>{$row.remark}</td>
+    </tr>
+    </tbody>
+</table>

@@ -1,0 +1,346 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="__CDN__/assets/img/dute_favicon_32x32.ico" />
+    <title>{:__('order')}</title>
+    <link href="__CDN__/assets/css/pay.css" rel="stylesheet">
+    <!-- <link href="__CDN__/assets/css/bootstrap.min.css" rel="stylesheet"> -->
+    <style type="text/css">
+        .list-left {
+            /*width: 80px;*/
+            display: inline-block;
+            color: #777;
+        }
+
+        .copy-account {
+            display: inline-block;
+            width: 190px;
+            background-color: #009649;
+            padding-top: 10px;
+            padding-bottom: 10px;
+            border-radius: 6px;
+            color: #eee;
+            font-size: 1.2rem;
+            cursor: pointer;
+            -webkit-tap-highlight-color: transparent; /* 适用于旧版本 Safari */
+            user-select: none;
+        }
+
+        .copy-name {
+            display: inline-block;
+            width: 190px;
+            background-color: #028EF9;
+            padding-top: 10px;
+            padding-bottom: 10px;
+            border-radius: 6px;
+            color: #eee;
+            font-size: 1.2rem;
+            cursor: pointer;
+            -webkit-tap-highlight-color: transparent; /* 适用于旧版本 Safari */
+            user-select: none;
+        }
+
+        .copy-code {
+            display: inline-block;
+            width: 190px;
+            background-color: #d902f9;
+            padding-top: 10px;
+            padding-bottom: 10px;
+            border-radius: 6px;
+            color: #eee;
+            font-size: 1.2rem;
+            cursor: pointer;
+            -webkit-tap-highlight-color: transparent; /* 适用于旧版本 Safari */
+            user-select: none;
+        }
+
+        #clocker {
+            color: #c51010;
+        }
+
+        .order {
+            padding: 12px;
+        }
+
+        @media screen and (min-width: 720px){
+            .order {
+                width: 750px;
+                margin: 0 auto;
+            }
+        }
+
+        .success {
+            display: none;
+        }
+        h3{
+            margin: 0;
+        }
+        body{
+            background: #f1f4f6;
+        }
+    </style>
+    <script type="text/javascript" src="__CDN__/assets/static/index/js/jquery.min.js"></script>
+    <script type="text/javascript" src="__CDN__/assets/layui/layer.mobile-v2.0/layer_mobile/layer.js"></script>
+    <script type="text/javascript" src="__CDN__/assets/js/clipboard.js"></script>
+    <script src="__CDN__/assets/libs/bootstrap/js/dropdown.js"></script>
+</head>
+<body>
+    <div class="order">
+        <h2>{:__('remind')}</h2>
+        <div class="dropdown">
+            <button type="button" class="btn dropdown-toggle" id="dropdownMenu1" data-toggle="dropdown">
+                {if $lang eq 'en'}
+                    English
+                {else /}
+                    繁體中文
+                {/if}
+                <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+                <li role="presentation">
+                    <a role="menuitem" tabindex="-1" href="?orderno={$order.eshopno}&lang=tc-cn">繁體中文</a>
+                </li>
+                <li role="presentation">
+                    <a role="menuitem" tabindex="-1" href="?orderno={$order.eshopno}&lang=en">English</a>
+                </li>
+            </ul>
+        </div>
+        <div style="color: #3a3535;">
+            <p>{:__('amount tips', $order['money'])}</p>
+            <p>{:__('order tips', ['minutes'=>$timeArray['minutes'],'seconds'=>$timeArray['seconds']])}</p>
+            <p>3、{:__('waiting msg')}</p>
+        </div>
+        <div style="padding: 10px;background-color: #FCF7FE;">
+            <h1 style="text-align: center; font-size: 3rem; margin: 60px 0;">HK$ {$order.money}</h1>
+            <div style="margin-left: 20px; border-top: 2px solid #ddd; padding-top: 15px;">
+                
+                {if $otc_info.type eq 1}
+                    <p>{:__('useremindfps')}</p>
+                {else /}
+                    <p>{:__('useremindbank')}</p>
+                {/if}
+
+                <p style="margin: 5px 0;"><span class="list-left">{:__('order number')}：</span><span>{$order.out_trade_no}</span></p>
+                <p style="margin: 5px 0;"><span class="list-left">{:__('account')}：</span><span>{$otc_info.account_number}</span></p>
+                <p style="margin: 5px 0;"><span class="list-left">{:__('account name')}：</span><span>{$otc_info.account_name}</span></p>
+                <p style="margin: 5px 0;"><span class="list-left copy-code-text">{:__('bank code')}：</span><span>{$otc_info.ifsc}</span></p>
+            </div>
+        </div>
+        <p style="text-align: center; margin-top: 30px;"><span data-clipboard-text="{$otc_info.account_number}" class="copy-account">{:__('copy account')}</span></p>
+        <p style="text-align: center;"><span data-clipboard-text="{$otc_info.account_name}" class="copy-name">{:__('copy name')}</span></p>
+        <p style="text-align: center;"><span data-clipboard-text="{$otc_info.ifsc}" class="copy-code">{:__('copy code')}</span></p>
+    </div>
+    <!-- <div class="success">
+        <div style="text-align: center;padding: 60px 0;">
+            <img src="/assets/images/icoSuccess.png" alt="">
+        </div>
+        <h2 style="text-align: center;margin-top: 0;">支付成功</h2>
+        <p style="text-align: center;font-size: 1.2rem;">您的支付已成功，請離開此頁面</p>
+    </div> -->
+</body>
+</html>
+
+
+<script>
+var index = function(){
+    this.url = "{:url('Card/applyutr')}";
+    this.orderinfoUrl = "{:url('Card/orderinfo')}";
+    this.money = "{$order.money}";
+    this.account_number = "{$otc_info.account_number}";
+    this.channel = 'hkpay';
+    this.loading;
+    this.is_click = 0
+    this.InfoId;
+    this.n = 0;
+    this.calc = "{$calc}";
+    this.init();
+}
+
+index.prototype = {
+    init: function() {
+        var _this = this;
+        //提交
+        // _this._submit();
+        //判断如果是正在处理的订单，就显示倒计时
+        _this.orderCheck();
+        _this.copy();
+        _this.lasttime();
+    },
+
+
+    //判断如果是正在处理的订单，就显示倒计时
+    orderCheck: function(){
+        var _this = this;
+        var status = "{$order.status}";
+        var calc = "{$calc}";
+        // console.log(status)
+        if(status == 3){
+            _this.min = calc;
+            // _this.lasttime();
+            _this.setIntervalByInfo();
+        }
+    },
+
+    //每隔2秒请求一次
+    setIntervalByInfo: function(){
+        var _this = this;
+        _this.InfoId = setInterval(function(){
+            _this.getorderinfo();
+            _this.n++;
+        },1500);
+    },
+
+    //下单成功且跳转后，间隔5秒一次请求获取订单状态是否成功
+    getorderinfo: function(){
+        var _this = this;
+        var data = {
+            orderno: _this.getUrlParam('orderno'),
+            isGetInfo:1,
+            isAjax:1
+        };
+
+        $.ajax({
+            url: _this.orderinfoUrl,
+            type: 'POST',
+            data: data,
+            beforeSend: function(){
+            },
+            success: function (data) {
+                // console.log(data);
+                if(data.code == 1){
+                    //根据状态给出弹窗
+                    if(data.data.status == 1){
+                        _this.layerOpen('success',"{:__('Order payment successful')}",function(){
+                            // console.log(1)
+                        });
+                        clearInterval(_this.InfoId);
+                    }else if(data.data.status == 2){
+                        _this.layerOpen('error','Order payment failed, please return to the app and try again.');
+                        clearInterval(_this.InfoId);
+                    }else if(data.data.status == 3){
+                        // _this.layerOpen('error','The order has timed out, please return to the app to place a new order.');
+                    }else{
+
+                    }
+                }else{
+                    _this.layerOpen('error',data.msg);
+                    clearInterval(_this.InfoId);
+                }
+                // console.log(_this.n)
+                if(_this.n > 60*60*2){
+                    clearInterval(_this.InfoId);
+                }
+            }
+        });
+    },
+
+    layerOpen: function($isSuccess = 'error',$msg = '',fun = null){
+        if($isSuccess == 'error'){
+            $title = 'error';
+            $bgColor = '#FF4351';
+        }else{
+            $title = 'success';
+            $bgColor = '#07c160';
+        }
+        jia.open({
+            title: [
+                $title,
+                'background-color: '+$bgColor+'; color:#fff;'
+            ],
+            content:$msg,
+            end:function(){
+                fun()
+            }
+        });
+    },
+
+    //倒计时
+    lasttime: function(){
+        var _this = this;
+        var expiredTime = "{$expire_time}";
+
+        _this.min = _this.calc;
+        var _minutes = Math.floor(_this.min/60); //怎么说呢  假如(60*10-1)s 正常应该就是的 9.983333  取整就是 9  
+        var _seconds = _this.min % 60;   //余数指定是个整数
+        _minutes = _this.valid_time(_minutes);
+        _seconds = _this.valid_time(_seconds);
+
+
+
+        var maxTime = _this.min;
+
+        var last = function(){
+            var minutes = Math.floor(maxTime/60); //怎么说呢  假如(60*10-1)s 正常应该就是的 9.983333  取整就是 9  
+            var seconds = maxTime % 60;   //余数指定是个整数
+            seconds = String(seconds);
+            minutes = String(minutes);
+
+
+            $('#minutes').html(minutes);
+            $('#seconds').html(seconds);
+            // var mes = "还剩下"+ minutes +"分"+ seconds +"秒";
+            // console.log(mes)
+            
+            maxTime--;
+            if(maxTime < 0){
+                clearInterval(_this.timeId);
+                _this.layerOpen('error',"{:__('timed out')}");
+                // window.location.href = "{$errorUrl}";
+            }
+        }
+
+        _this.timeId = setInterval(function(){
+            last();
+        },1000);
+
+        // clearInterval(_this.timeId);
+    },
+
+    valid_time: function(a){
+        if(a < 10)
+            return "0"+a;
+        else
+            return a;
+    },
+
+    getUrlParam: function(name) {
+        var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)"); // 构造一个含有目标参数的正则表达式对象
+        var r = window.location.search.substr(1).match(reg); // 匹配目标参数
+        if (r != null) return unescape(r[2]);
+        return null; // 返回参数值
+    },
+
+    copy: function(){
+        var _this = this;
+        
+        var clipboard1 = new Clipboard('.copy-account');
+        clipboard1.on('success', function (e) {
+            _this.jia_alert()
+        });
+
+        var clipboard2 = new Clipboard('.copy-name');
+        clipboard2.on('success', function (e) {
+            _this.jia_alert()
+        });
+
+        var clipboard3 = new Clipboard('.copy-code');
+        clipboard3.on('success', function (e) {
+            _this.jia_alert()
+        });
+    },
+
+    jia_alert: function(){
+        var _this = this;
+        jia.open({
+            content: "{:__('copy tips',$order['money'])}",
+            btn: "{:__('i got it')}",
+            end: function(){
+                // console.log(1)
+            }
+        });
+    }
+}
+var controller = new index();
+</script>

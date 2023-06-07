@@ -1,0 +1,643 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>## 代收接口文档</title>
+
+<script type="text/javascript" src="../js/light.js"></script>
+</script><script>hljs.initHighlightingOnLoad();</script>
+<link rel="stylesheet" type="text/css" href="../css/style.css">
+
+<style> @media print{ .hljs{overflow: visible; word-wrap: break-word !important;} }</style>
+
+</head>
+<body>
+<div class="markdown-body">
+    <h2 id="toc_0">代收接口文档</h2>
+
+    <h2 id="toc_1">1. 协议规则</h2>
+
+    <p>传输方式：采用HTTP传输(生产环境建议HTTPS)<br/>
+        提交方式：采用POST方式提交<br/>
+        字符编码：UTF-8<br/>
+        签名算法：MD5</p>
+
+    <h4 id="toc_2">1.1 参数规范</h4>
+
+    <p>交易金额：默认为港币（HKD）交易，参数值不能带小数。</p>
+
+    <h4 id="toc_3">1.2 安全规范</h4>
+
+    <p>签名算法</p>
+
+    <blockquote>
+        <p>签名生成的通用步骤如下</p>
+    </blockquote>
+
+    <p><strong>第一步：</strong>设所有发送或者接收到的数据为集合M，将集合M内非空参数值的参数按照参数名ASCII码从小到大排序（字典序），使用URL键值对的格式（即key1=value1&amp;key2=value2…）拼接成字符串stringA。<br/><br/>
+        特别注意以下重要规则：<br/><br/>
+        ◆ 参数名ASCII码从小到大排序（字典序）；<br/><br/>
+        ◆ 参数名区分大小写；<br/><br/>
+        ◆ 验证调用返回或支付中心主动通知签名时，传送的sign参数不参与签名，将生成的签名与该sign值作校验。<br/><br/>
+        ◆ 支付中心接口可能增加字段，验证签名时必须支持增加的扩展字段 </p>
+
+    <p><strong>第二步：</strong>在stringA最后拼接上key得到stringSignTemp字符串，并对stringSignTemp进行MD5运算，再将得到的字符串所有字符转换为大写，得到sign值signValue。
+    </p>
+
+    <p>如请求支付系统参数如下：</p>
+
+    <pre><code>
+        String payUrl = "http://localhost/ydpay/api/Pay/order";
+        String key = "21237146fded4075ad0cc41a10390d1b";
+        Map<String,Object> map = new HashMap<String,Object>();
+
+        String merchantNo = "Z16479536031659";
+        String merchantSn = "08b4f7f0977a493293cd54d998ad957f";
+        String amount = "100";
+        String channel = 1;
+        String notifyUrl = "http://localhost:70/paylink/notify.php";
+        String time = "1647601575";
+        String signType = "md5";
+        String remark = "测试订单";
+
+        map.put("merchantNo",merchantNo);
+        map.put("merchantSn",merchantSn);
+        map.put("amount",amount);
+        map.put("channel",channel);
+        map.put("notifyUrl",notifyUrl);
+        map.put("time",time);
+        map.put("signType",signType);
+        map.put("remark",remark);
+</code></pre>
+
+    <p><code>待签名值</code>：amount=100&channel=Payment&merchantNo=Z16479536031659&merchantSn=08b4f7f0977a493293cd54d998ad957f&notifyUrl=http://localhost:70/paylink/notify.php&remark=测试订单&signType=md5&time=1647601575&key=21237146fded4075ad0cc41a10390d1b
+        <br/>
+        <code>签名结果</code>6CB9957A49A8744C440EEEC11362D865<br/>
+        <code>最终请求支付系统参数</code>：amount=100&channel=Payment&merchantNo=Z16479536031659&merchantSn=08b4f7f0977a493293cd54d998ad957f&notifyUrl=http://localhost:70/paylink/notify.php&remark=测试订单&signType=md5&time=1647601575&sign=6CB9957A49A8744C440EEEC11362D865
+    </p>
+
+    <blockquote>
+        <p>商户登录商户系统后，通过安全中心查看或修改私钥key。</p>
+    </blockquote>
+
+    <h2 id="toc_4">2. 下单(POST方式提交)</h2>
+
+    <blockquote>
+        <p>接口描述</p>
+    </blockquote>
+
+    <p>业务通过统一下单接口可以发起任意三方支付渠道的支付订单。业务系统不必关心该如何调用三方支付，统一下单接口会根据业务系统选择的支付渠道ID，选择对应支付渠道的支付产品，发起下单请求，然后响应给业务系统支付请求所需参数。</p>
+
+    <blockquote>
+        <p>接口链接</p>
+    </blockquote>
+
+    <p>URL地址：<a href="#">https://onepayhk.com/api/Pay/order</a></p>
+
+    <blockquote>
+        <p>请求参数</p>
+    </blockquote>
+
+    <table>
+        <thead>
+        <tr>
+            <th>字段名</th>
+            <th>变量名</th>
+            <th>必填</th>
+            <th>类型</th>
+            <th>示例值</th>
+            <th>描述</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <tr>
+            <td>商户号</td>
+            <td>merchantNo</td>
+            <td>是</td>
+            <td>String</td>
+            <td>Z16479536031659</td>
+            <td>分配的商户号</td>
+        </tr>
+        <tr>
+            <td>商户订单号</td>
+            <td>merchantSn</td>
+            <td>是</td>
+            <td>String</td>
+            <td>08b4f7f0977a493293cd54d998ad957f</td>
+            <td>商户生成的订单号</td>
+        </tr>
+        <tr>
+            <td>支付金额</td>
+            <td>amount</td>
+            <td>是</td>
+            <td>int</td>
+            <td>100</td>
+            <td>支付金额</td>
+        </tr>
+        <tr>
+            <td>支付结果前端跳转URL</td>
+            <td>returnUrl</td>
+            <td>否</td>
+            <td>String</td>
+            <td><a href="https://www.google.com">https://www.google.com</a></td>
+            <td>支付结果回调URL</td>
+        </tr>
+        <tr>
+            <td>支付结果后台回调URL</td>
+            <td>notifyUrl</td>
+            <td>是</td>
+            <td>String</td>
+            <td><a href="http://商户回调网关/notify.htm">商户回调地址</a></td>
+            <td>支付结果回调URL</td>
+        </tr>
+        <!-- <tr>
+            <td>支付通道</td>
+            <td>channel</td>
+            <td>是</td>
+            <td>int</td>
+            <td>22</td>
+            <td>用户选择的支付通道id</td>
+        </tr> -->
+        <tr>
+            <td>时间戳</td>
+            <td>time</td>
+            <td>是</td>
+            <td>int</td>
+            <td>1647601575</td>
+            <td>时间戳，精确到秒</td>
+        </tr>
+        <tr>
+            <td>备注</td>
+            <td>remark</td>
+            <td>否</td>
+            <td>String</td>
+            <td>测试订单</td>
+            <td>备注，通知时返回为空不参与签名</td>
+        </tr>
+        <tr>
+            <td>签名</td>
+            <td>sign</td>
+            <td>是</td>
+            <td>String</td>
+            <td>6CB9957A49A8744C440EEEC11362D865</td>
+            <td>签名值，详见签名算法</td>
+        </tr>
+        </tbody>
+    </table>
+
+    <blockquote>
+        <p>前端通知返回结果</p>
+    </blockquote>
+
+    <table>
+        <thead>
+        <tr>
+            <th>字段名</th>
+            <th>变量名</th>
+            <th>必填</th>
+            <th>类型</th>
+            <th>示例值</th>
+            <th>描述</th>
+        </tr>
+        </thead>
+
+        <tbody>
+            <tr>
+                <td>返回状态码</td>
+                <td>code</td>
+                <td>是</td>
+                <td>Int</td>
+                <td>200</td>
+                <td>返回200表示成功</td>
+            </tr>
+            <tr>
+                <td>返回信息</td>
+                <td>msg</td>
+                <td>是</td>
+                <td>String</td>
+                <td>签名失败</td>
+                <td>返回信息，如非空，为错误原因 签名失败 参数格式 校验错误</td>
+            </tr>
+            <tr>
+                <td>data</td>
+                <td>data</td>
+                <td>是</td>
+                <td>Object</td>
+                <td></td>
+                <td>返回对象</td>
+            </tr>
+            <tr>
+                <td>商户号</td>
+                <td>merchantNo</td>
+                <td>是</td>
+                <td>String</td>
+                <td>Z16479536031659</td>
+                <td>成功时返回，商户号</td>
+            </tr>
+            <tr>
+                <td>商户订单号</td>
+                <td>merchantSn</td>
+                <td>是</td>
+                <td>String</td>
+                <td>18b4f7f0977a493293cd54d998ad957f</td>
+                <td>成功时返回，商户订单号</td>
+            </tr>
+            <tr>
+                <td>平台订单号</td>
+                <td>sn</td>
+                <td>是</td>
+                <td>String</td>
+                <td>2f03f72197594b4cbf1d96e065857cc5</td>
+                <td>成功时返回，平台订单号</td>
+            </tr>
+            <tr>
+                <td>支付结果前端跳转URL</td>
+                <td>payUrl</td>
+                <td>是</td>
+                <td>String</td>
+                <td width="400">https://onepayhk.com/index/pay?orderno=1dea843e29025c71&lang=tc-cn</td>
+                <td>成功时返回，支付链接</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h4 id="toc_4_1">通知参数MD5签名算法</h4>
+    <pre><code>
+        String key = "21237146fded4075ad0cc41a10390d1b";
+        Map<String,Object> map = new HashMap<String, Object>();
+        String key = "21237146fded4075ad0cc41a10390d1b";
+        map.put("merchantNo","Z16479536031659");
+        map.put("sn","2f03f72197594b4cbf1d96e065857cc5");
+        map.put("merchantSn","18b4f7f0977a493293cd54d998ad957f");
+        map.put("orderStatus","1");
+        map.put("payTime","1650630283");
+        map.put("createTime","1650630283");
+        map.put("money","100.00");
+        map.put("tax","3.00");
+        map.put("remark","测试订单");
+        String reqSign = PayDigestUtil.getSign(paramMap, key);
+    </code></pre>
+
+
+    <h2 id="toc_9">3. 支付结果通知</h2>
+
+    <blockquote>
+        <p>接口描述</p>
+    </blockquote>
+
+    <h4 id="toc_10">接口链接</h4>
+
+    <p>该链接是通过统一下单接口提交的参数notifyUrl设置，如果无法访问链接，业务系统将无法接收到支付中心的通知。</p>
+
+    <h4 id="toc_11">通知参数</h4>
+
+    <table>
+        <thead>
+        <tr>
+            <th>字段名</th>
+            <th>变量名</th>
+            <th>必填</th>
+            <th>类型</th>
+            <th>示例值</th>
+            <th>描述</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <tr>
+            <td>商户号</td>
+            <td>merchantNo</td>
+            <td>是</td>
+            <td>String</td>
+            <td>Z16479536031659</td>
+            <td>支付中心分配的商户号</td>
+        </tr>
+        <tr>
+            <td>平台订单号</td>
+            <td>sn</td>
+            <td>是</td>
+            <td>String</td>
+            <td>2f03f72197594b4cbf1d96e065857cc5</td>
+            <td>平台订单号</td>
+        </tr>
+        <tr>
+            <td>商户订单号</td>
+            <td>merchantSn</td>
+            <td>是</td>
+            <td>String</td>
+            <td>18b4f7f0977a493293cd54d998ad957f</td>
+            <td>商户订单号</td>
+        </tr>
+        
+        <tr>
+            <td>支付金额</td>
+            <td>amount</td>
+            <td>是</td>
+            <td>double</td>
+            <td>100.00</td>
+            <td>支付金额</td>
+        </tr>
+
+        <tr>
+            <td>三方手续费</td>
+            <td>tax</td>
+            <td>是</td>
+            <td>double</td>
+            <td>3.00</td>
+            <td>平台方收取手续费</td>
+        </tr>
+        <tr>
+            <td>状态</td>
+            <td>orderStatus</td>
+            <td>是</td>
+            <td>int</td>
+            <td>1</td>
+            <td>支付状态,-1 -支付失败,0-进行中,1-已支付,2-支付失败,3-支付中</td>
+        </tr>
+        <tr>
+            <td>订单生成时间</td>
+            <td>createTime</td>
+            <td>是</td>
+            <td>int</td>
+            <td>1650630283</td>
+            <td>精确到秒</td>
+        </tr>
+        <tr>
+            <td>支付成功时间</td>
+            <td>payTime</td>
+            <td>是</td>
+            <td>int</td>
+            <td>1650630283</td>
+            <td>精确到秒</td>
+        </tr>
+        <tr>
+            <td>备注</td>
+            <td>remark</td>
+            <td>是</td>
+            <td>String</td>
+            <td></td>
+            <td>备注</td>
+        </tr>
+        <tr>
+            <td>附加参数</td>
+            <td>ext_data</td>
+            <td>是</td>
+            <td>String</td>
+            <td></td>
+            <td>附加参数</td>
+        </tr>
+        <tr>
+            <td>签名</td>
+            <td>sign</td>
+            <td>是</td>
+            <td>String</td>
+            <td>49892860C80C4470CFC3E0A58B3F23B4</td>
+            <td>签名值，详见签名算法</td>
+        </tr>
+        </tbody>
+    </table>
+
+    <h4 id="toc_12">返回结果</h4>
+
+    <p>业务系统处理后同步返回给支付中心，返回字符串 success 则表示成功，返回非success则表示处理失败，支付中心会再次通知业务系统。（通知频率为60/120/180/240/300,单位：秒）</p>
+
+    <h4 id="toc_12_1">MD5签名算法</h4>
+    <pre><code>
+        String key = "21237146fded4075ad0cc41a10390d1b";
+        Map<String, Object> paramMap = new HashMap<>();
+        paramMap.put("merchantNo", "Z16479536031659");
+        paramMap.put("merchantSn", "631111fdec11149918831190d1b1");
+        paramMap.put("time", "1647601575");
+        // 先对原文签名
+        String reqSign = PayDigestUtil.getSign(paramMap, key);
+    </code></pre>
+
+    <h2 id="toc_6">4. 查询支付订单</h2>
+
+    <blockquote>
+        <p>接口描述</p>
+    </blockquote>
+
+    <p>业务系统通过查询支付订单接口获取最新的支付订单状态，并根据状态结果进一步处理业务逻辑。</p>
+
+    <blockquote>
+        <p>接口链接</p>
+    </blockquote>
+
+    <p>URL地址：<a >https://onepayhk.com/api/Pay/orderInfo</a></p>
+
+    <blockquote>
+        <p>请求参数</p>
+    </blockquote>
+
+    <table>
+        <thead>
+        <tr>
+            <th>字段名</th>
+            <th>变量名</th>
+            <th>必填</th>
+            <th>类型</th>
+            <th>示例值</th>
+            <th>描述</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <tr>
+            <td>商户号</td>
+            <td>merchantNo</td>
+            <td>是</td>
+            <td>String</td>
+            <td>Z16479536031659</td>
+            <td>支付中心分配的商户号</td>
+        </tr>
+        <tr>
+            <td>商户订单号</td>
+            <td>merchantSn</td>
+            <td>是</td>
+            <td>String</td>
+            <td>18b4f7f0977a493293cd54d998ad957f</td>
+            <td>商户生成的订单号，与payOrderId二者传一即可</td>
+        </tr>
+        <tr>
+            <td>时间戳</td>
+            <td>time</td>
+            <td>是</td>
+            <td>int</td>
+            <td>1647601575</td>
+            <td>时间戳，精确到秒</td>
+        </tr>
+        <tr>
+            <td>签名</td>
+            <td>sign</td>
+            <td>是</td>
+            <td>String(32)</td>
+            <td>8B72FF12BF1CB6A39D296C2C6E9405B3</td>
+            <td>签名值，详见签名算法</td>
+        </tr>
+        </tbody>
+    </table>
+
+    <h4 id="toc_7">返回结果</h4>
+
+    <table>
+        <thead>
+        <tr>
+            <th>字段名</th>
+            <th>变量名</th>
+            <th>必填</th>
+            <th>类型</th>
+            <th>示例值</th>
+            <th>描述</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <tr>
+            <td>返回状态码</td>
+            <td>code</td>
+            <td>是</td>
+            <td>String</td>
+            <td>200</td>
+            <td>返回200表示成功</td>
+        </tr>
+        <tr>
+            <td>返回信息</td>
+            <td>msg</td>
+            <td>是</td>
+            <td>String</td>
+            <td>签名失败</td>
+            <td>返回信息，如非空，为错误原因 签名失败 参数格式 校验错误</td>
+        </tr>
+        </tbody>
+    </table>
+
+    <h5 id="toc_8">以下字段在code为200的时候有返回</h5>
+
+    <table>
+        <thead>
+        <tr>
+            <th>字段名</th>
+            <th>变量名</th>
+            <th>必填</th>
+            <th>类型</th>
+            <th>示例值</th>
+            <th>描述</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <tr>
+            <td>商户号</td>
+            <td>merchantNo</td>
+            <td>是</td>
+            <td>String</td>
+            <td>Z16479536031659</td>
+            <td>支付中心分配的商户号</td>
+        </tr>
+        <tr>
+            <td>平台订单号</td>
+            <td>sn</td>
+            <td>是</td>
+            <td>String</td>
+            <td>2f03f72197594b4cbf1d96e065857cc5</td>
+            <td>平台订单号</td>
+        </tr>
+        <tr>
+            <td>商户订单号</td>
+            <td>merchantSn</td>
+            <td>是</td>
+            <td>String</td>
+            <td>18b4f7f0977a493293cd54d998ad957f</td>
+            <td>商户订单号</td>
+        </tr>
+        
+        <tr>
+            <td>支付金额</td>
+            <td>money</td>
+            <td>是</td>
+            <td>double</td>
+            <td>100.00</td>
+            <td>支付金额</td>
+        </tr>
+
+        <tr>
+            <td>三方手续费</td>
+            <td>tax</td>
+            <td>是</td>
+            <td>double</td>
+            <td>3.00</td>
+            <td>平台方收取手续费</td>
+        </tr>
+        <tr>
+            <td>状态</td>
+            <td>status</td>
+            <td>是</td>
+            <td>int</td>
+            <td>1</td>
+            <td>支付状态,-1 -支付失败,0-进行中,1-已支付,2-支付失败</td>
+        </tr>
+        <tr>
+            <td>订单生成时间</td>
+            <td>createTime</td>
+            <td>是</td>
+            <td>int</td>
+            <td>1650630283</td>
+            <td>精确到秒</td>
+        </tr>
+        <tr>
+            <td>支付成功时间</td>
+            <td>payTime</td>
+            <td>是</td>
+            <td>int</td>
+            <td>1650630283</td>
+            <td>精确到秒</td>
+        </tr>
+        <tr>
+            <td>备注</td>
+            <td>remark</td>
+            <td>是</td>
+            <td>String</td>
+            <td></td>
+            <td>备注</td>
+        </tr>
+        <tr>
+            <td>签名</td>
+            <td>sign</td>
+            <td>是</td>
+            <td>String</td>
+            <td>49892860C80C4470CFC3E0A58B3F23B4</td>
+            <td>签名值，详见签名算法</td>
+        </tr>
+        </tbody>
+    </table>
+
+
+    <!-- <h2 id="toc_16">6. 错误码</h2>
+
+    <table>
+        <thead>
+        <tr>
+            <th>错误码值</th>
+            <th>描述</th>
+            <th>原因</th>
+            <th>解决方案</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <tr>
+            <td>0010</td>
+            <td>系统错误</td>
+            <td>系统超时或异常</td>
+            <td>系统异常，请用相同参数重新调用</td>
+        </tr>
+        </tbody>
+    </table> -->
+
+</div>
+</body>
+
+</html>

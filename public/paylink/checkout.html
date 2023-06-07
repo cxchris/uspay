@@ -1,0 +1,19 @@
+<html>
+    <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, maximum-scale=1.0"/>
+    <head>
+        <title>checkout</title>
+    </head>
+    <body>
+
+        <form method="post" type="redirect" action="<?php echo $actionurl; ?>">
+            <input type="hidden" name="mid" value="<?php echo $response['mid']; ?>" />
+            <input type="hidden" name="orderId" value="<?php echo $response['orderId']; ?>" />
+            <input type="hidden" name="txnToken" value="<?php echo $response['txnToken']; ?>" />
+
+            <input type="text" name="paymentMode"  value="UPI" />
+            <input type="text" name="payerAccount"  value="7777777777@paytm" />
+            <input type="submit">
+        </form>
+        
+   </body>
+</html>

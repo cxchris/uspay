@@ -1,0 +1,267 @@
+<link href="__CDN__/assets/layui/css/layui.css?v={$Think.config.site.version}" rel="stylesheet">
+<style type="text/css">
+    
+    .panel-body{
+        background-color: #f2f2f2;
+    }
+
+    .layui-col-sm12{
+        background: #fff;
+    }
+
+    .layuiadmin-big-font {
+        font-size: 31px !important;
+        color: #666;
+    }
+    .title-header{
+        font-size: 20px;
+        font-weight: bold;
+    }
+
+    .form-horizontal{
+        display: inline-block;
+        width: 100%;
+    }
+</style>
+
+<div class="panel panel-default panel-intro">
+    <div class="panel-body">
+        <div class="layui-row layui-col-space15" id="one">
+            <div class="layui-card-header title-header">
+                代收钱包
+            </div>
+            <div class="layui-col-sm4">
+                <div class="layui-card">
+                    <div class="layui-card-body" style="background: #efefef;padding: 0">
+                        <div class="layui-row layui-col-space15">
+                            <div class="layui-col-md12">
+                                <div class="layui-card">
+                                    <div class="layui-card-header">总金额（可用金额 + 未结算金额）</div>
+                                    <div class="layui-card-body layuiadmin-card-list">
+                                        <p class="layuiadmin-big-font">₹ {$total_merchant_amount}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="layui-col-sm4">
+                <div class="layui-card">
+                    <div class="layui-card-body" style="background: #efefef;padding: 0">
+                        <div class="layui-row layui-col-space15">
+                            <div class="layui-col-md12">
+                                <div class="layui-card">
+                                    <div class="layui-card-header">可用金额（代收已结算金额）</div>
+                                    <div class="layui-card-body layuiadmin-card-list">
+                                        <p class="layuiadmin-big-font">₹ {$merchant_amount}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="layui-col-sm4">
+                <div class="layui-card">
+                    <div class="layui-card-body" style="background: #efefef;padding: 0">
+                        <div class="layui-row layui-col-space15">
+                            <div class="layui-col-md12">
+                                <div class="layui-card">
+                                    <div class="layui-card-header">未结算金额（代收未结算金额）</div>
+                                    <div class="layui-card-body layuiadmin-card-list">
+                                        <p class="layuiadmin-big-font">₹ {$check_amount}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="layui-row layui-col-space15" id="one">
+            <div class="layui-card-header title-header">
+                代付钱包
+            </div>
+            <div class="layui-col-sm4">
+                <div class="layui-card">
+                    <div class="layui-card-body" style="background: #efefef;padding: 0">
+                        <div class="layui-row layui-col-space15">
+                            <div class="layui-col-md12">
+                                <div class="layui-card">
+                                    <div class="layui-card-header">总金额（可用金额 + 预扣金额）</div>
+                                    <div class="layui-card-body layuiadmin-card-list">
+                                        <p class="layuiadmin-big-font">₹ {$total_payment_merchant_amount}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="layui-col-sm4">
+                <div class="layui-card">
+                    <div class="layui-card-body" style="background: #efefef;padding: 0">
+                        <div class="layui-row layui-col-space15">
+                            <div class="layui-col-md12">
+                                <div class="layui-card">
+                                    <div class="layui-card-header">可用金额（代付可用余额）</div>
+                                    <div class="layui-card-body layuiadmin-card-list">
+                                        <p class="layuiadmin-big-font">₹ {$merchant_payment_amount}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="layui-col-sm4">
+                <div class="layui-card">
+                    <div class="layui-card-body" style="background: #efefef;padding: 0">
+                        <div class="layui-row layui-col-space15">
+                            <div class="layui-col-md12">
+                                <div class="layui-card">
+                                    <div class="layui-card-header">冻结金额（代付冻结金额）</div>
+                                    <div class="layui-card-body layuiadmin-card-list">
+                                        <p class="layuiadmin-big-font">₹ {$check_pay_amount}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="layui-row layui-col-space15" id="one">
+            <div class="layui-card-header title-header">
+                申请下发
+            </div>
+            <div class="layui-col-sm2">
+                <div class="layui-card">
+                    <div class="layui-card-body" style="background: #efefef;padding: 0">
+                        <div class="layui-row layui-col-space15">
+                            <div class="layui-col-md12">
+                                <div class="layui-card">
+                                    <div class="layui-card-header">总金额</div>
+                                    <div class="layui-card-body layuiadmin-card-list">
+                                        <p class="layuiadmin-big-font">₹ <span id="issusd_money">0</span></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="layui-col-sm2">
+                <div class="layui-card">
+                    <div class="layui-card-body" style="background: #efefef;padding: 0">
+                        <div class="layui-row layui-col-space15">
+                            <div class="layui-col-md12">
+                                <div class="layui-card">
+                                    <div class="layui-card-header">总数量</div>
+                                    <div class="layui-card-body layuiadmin-card-list">
+                                        <p class="layuiadmin-big-font"><span id="issusd_total">0</span></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="layui-col-sm2">
+                <div class="layui-card">
+                    <div class="layui-card-body" style="background: #efefef;padding: 0">
+                        <div class="layui-row layui-col-space15">
+                            <div class="layui-col-md12">
+                                <div class="layui-card">
+                                    <div class="layui-card-header">成功总金额</div>
+                                    <div class="layui-card-body layuiadmin-card-list">
+                                        <p class="layuiadmin-big-font">₹ <span id="issusd_success_money">0</span></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="layui-col-sm2">
+                <div class="layui-card">
+                    <div class="layui-card-body" style="background: #efefef;padding: 0">
+                        <div class="layui-row layui-col-space15">
+                            <div class="layui-col-md12">
+                                <div class="layui-card">
+                                    <div class="layui-card-header">成功总数量</div>
+                                    <div class="layui-card-body layuiadmin-card-list">
+                                        <p class="layuiadmin-big-font"> <span id="issusd_success_total">0</span></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="layui-col-sm2">
+                <div class="layui-card">
+                    <div class="layui-card-body" style="background: #efefef;padding: 0">
+                        <div class="layui-row layui-col-space15">
+                            <div class="layui-col-md12">
+                                <div class="layui-card">
+                                    <div class="layui-card-header">失败总金额</div>
+                                    <div class="layui-card-body layuiadmin-card-list">
+                                        <p class="layuiadmin-big-font">₹ <span id="issusd_fail_money">0</span></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="layui-col-sm2">
+                <div class="layui-card">
+                    <div class="layui-card-body" style="background: #efefef;padding: 0">
+                        <div class="layui-row layui-col-space15">
+                            <div class="layui-col-md12">
+                                <div class="layui-card">
+                                    <div class="layui-card-header">失败总数量</div>
+                                    <div class="layui-card-body layuiadmin-card-list">
+                                        <p class="layuiadmin-big-font"> <span id="issusd_fail_total">0</span></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="tab-pane fade active in" id="one">
+            <div class="widget-body no-padding">
+
+                <div class="layui-card-header title-header">
+                    下发记录
+                </div>
+                
+                <div id="toolbar" class="toolbar">
+                    {:build_toolbar('refresh,issued')}
+                </div>
+
+
+                <table id="table" class="table table-striped table-bordered table-hover table-nowrap"
+                       
+                       width="100%">
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

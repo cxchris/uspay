@@ -1,0 +1,79 @@
+<link href="__CDN__/assets/layui/css/layui.css?v={$Think.config.site.version}" rel="stylesheet">
+<style>
+    .table-adminlog tr td {
+        word-break: break-all;
+    }
+    
+    .ml15 {
+        margin-left: 15px;
+    }
+    .title {
+        white-space: nowrap;
+        width: 130px;
+        text-align: right;
+    }
+    .layui-table td {
+        height: 34px;
+        line-height: 34px;
+    }
+    .desc {
+        float: left;
+        width: 185px;
+    }
+</style>
+<div class="panel-heading">
+   <!--  <div class="panel-lead">
+        账户信息
+    </div> -->
+</div>
+<div class="layui-col-md12">
+    <div class="layui-card">
+        <div class="layui-card-header">账户信息</div>
+        <div class="layui-card-body" pad15="">
+            <table class="layui-table" lay-skin="line">
+                <tbody>
+                    <tr>
+                        <td class="title">商户号：</td>
+                        <td>
+                            {$row.merchant_number}
+                            <!-- <button class="layui-btn layui-btn-normal ml15" id="changePasswordBtn">修改密码</button> -->
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="title">结算周期：</td>
+                        <td>{$row.merchant_billing_around}</td>
+                    </tr>
+                    <tr>
+                        <td class="title">费率：</td>
+                        <td>
+                            <div class="desc">代收：{$row.collection_fee_rate}</div>
+                            <div class="desc">代付：{$row.payment_fee_rate}</div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="title">账户余额：</td>
+                        <td>
+                            <div class="desc">商户余额：{$row.merchant_amount}</div>
+                            <div class="desc">代付余额：{$row.merchant_payment_amount}</div>
+                            <div class="desc">未结算资金：{$sum}</div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="title">代收信息：</td>
+                        <td>
+                            <div class="desc">今日限额：{$row.collection_limit}</div>
+                            <div class="desc">今日已代收：{$row.daily_collection_total}</div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="title">代付信息：</td>
+                        <td>
+                            <div class="desc">今日限额：{$row.payment_limit}</div>
+                            <div class="desc">今日已代付：0</div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

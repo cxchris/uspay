@@ -1,18 +1,23 @@
 {
+  "type":"module",
   "dependencies": {
+    "dotenv": "^16.1.4",
     "express": "^4.18.2",
+    "fs": "0.0.1-security",
     "imap": "^0.8.19",
     "mailparser": "^3.6.4",
     "mysql": "^2.18.1",
     "node-imap": "^0.9.6"
   },
   "scripts": {
-    "start": "nodemon --exec babel-node index.js"
+    "start": "nodemon --exec babel-node index.js",
+    "test": "nodemon --exec babel-node test.js"
   },
   "devDependencies": {
     "@babel/core": "^7.22.1",
     "@babel/node": "^7.22.1",
     "@babel/preset-env": "^7.22.4",
+    "@babel/register": "^7.21.0",
     "nodemon": "^2.0.22"
   }
 }

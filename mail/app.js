@@ -10,5 +10,6 @@ app.get('/', (req, res) => {
 // 启动服务器
 const port = 3000;
 app.listen(port, () => {
+  console.log('当前进程 ID:', process.pid);
   console.log(`Server is running on port ${port}`);
 });

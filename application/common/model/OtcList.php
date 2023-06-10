@@ -8,6 +8,7 @@ use think\Db;
 use fast\Sign;
 use fast\Http;
 use think\Log;
+use think\Process;
 
 class OtcList extends Model
 {
@@ -58,5 +59,188 @@ class OtcList extends Model
         ];
 
         return $data;
+    }
+
+    //node脚本处理
+    public function node_exce($params,$ids){
+        //判断node脚本是否启动，如果启动，就先关闭了，再重新修改配置，修改完成后再次启动，没有启动就直接生成配置，生成后再重启，如果启动失败了，那么则捕获异常出来
+        
+        // dump($nodeScriptPath);exit;
+
+        // 判断 Node.js 脚本是否正在运行
+        $isRunning = $this->checkNodeScriptRunning($params);
+        // dump($isRunning);exit;
+
+
+        // 修改配置
+        $this->modifyConfig($params,$ids);
+        
+        $pid = 0;
+        if($params['status'] == 1){
+            //启动node脚本
+            $pid = $this->startNodeScript($ids);
+        }
+        
+        return $pid;
+    }
+
+    // 检查 Node.js 脚本是否正在运行
+    private function checkNodeScriptRunning($params)
+    {
+        self::where(array('id'=>$params->id))->update(['pid'=>0,'status'=>0]);
+        // 使用适当的方法检查 Node.js 脚本是否正在运行
+        // 返回 true 表示正在运行，返回 false 表示未运行
+        // 使用示例
+        $pid = $params->pid;
+        if ($this->isWindows()) {
+            // Windows 系统
+            // 执行 Windows 相关的逻辑
+            if($pid == 0){
+                return false;
+            }else{
+                //有pid，说明正在运行，检查下运行情况，看是否断了
+                // 构造用于检查进程是否存在的命令
+                $command = "tasklist | findstr ".$pid;
+
+                // 执行命令并获取输出
+                exec($command, $output);
+                // dump($output);exit;
+                if(!empty($output)){
+                    $this->stopNodeScript($pid);
+                }
+
+                // 如果输出不为空，则表示进程存在
+                return !empty($output);
+            }
+        } else {
+            // Linux 系统
+            // 执行 Linux 相关的逻辑
+            if($pid == 0){
+                return false;
+            }else{
+                //有pid，说明正在运行，检查下运行情况，看是否断了
+                // 构造用于检查进程是否存在的命令
+                $command = 'ps -ef |grep '.$params->id.'.js';
+
+                // 执行命令并获取输出
+                exec($command, $output);
+                // dump($output);exit;
+                $string = 'node ';
+                $isProcessRunning = false;
+                if($output){
+                    foreach ($output as $k => $v) {
+                        if (strpos($v, $string.$params) !== false) {
+                            // 包含关键字，进程正在执行
+                            $isProcessRunning = true;
+                            break;
+                        } 
+                    }
+                }
+
+                if($isProcessRunning){
+                    $this->stopNodeScript($pid);
+                }
+
+                // 如果输出不为空，则表示进程存在
+                return $isProcessRunning;
+            }
+        }
+    }
+
+    // 停止正在运行的 Node.js 脚本
+    private function stopNodeScript($pid)
+    {
+        // 使用适当的方法停止正在运行的 Node.js 脚本
+        if ($this->isWindows()) {
+            $command = 'taskkill /F /PID '.$pid;
+        } else {
+            $command = 'kill -9 '.$pid;
+        }
+
+        exec($command, $output);
+    }
+
+    // 修改配置
+    private function modifyConfig($params,$ids)
+    {
+        // 根据你的需求修改配置
+        $filename = ROOT_PATH.'/mail/config/'.$ids.'.json'; // 配置路径
+        $json = [
+            'user' => $params['email'],
+            'password' => $params['password'],
+            'host' => $params['host'],
+            'port' => $params['port'],
+            'tls' => true,
+            'tlsOptions' => [
+                'rejectUnauthorized' => false
+            ]
+        ];
+        $json = json_encode($json,true);
+        file_put_contents($filename, $json);
+        // dump($json);exit;
+    }
+
+    // 启动 Node.js 脚本
+    private function startNodeScript($ids)
+    {
+        $file = ROOT_PATH.'/mail/src/'.$ids.'.js'; // Node.js 脚本路径
+        // 使用适当的方法启动 Node.js 脚本
+        $sourceFile = ROOT_PATH.'/mail/src/example.js';
+        if (!file_exists($file)) {
+            if (copy($sourceFile, $file)) {
+                // echo '文件拷贝成功。';
+            } else {
+                // echo '文件拷贝失败。';
+            }
+        }
+
+        $path = ROOT_PATH.'/mail/src/';
+
+        // dump($path);exit;
+        //然后执行nodejs
+        $pid = 0;
+        if ($this->isWindows()) {
+            $drive = substr($path, 0, 1);
+            $convertedPath = str_replace('\\', '/', $path);
+
+            // 生成最终的命令
+            $command = 'start /B cmd /c "cd /' . $drive .' '. $convertedPath . ' && '.'node '.$ids.'.js > NUL 2>&1"';
+            // $command = 'start /B cmd /c "cd /d D:\project\trunk\uspay\mail\src && node 8.js > NUL 2>&1"';
+            // dump($command);exit;
+            // 创建进程对象
+            $process = new Process($command);
+
+            // 运行进程
+            $process->run();
+
+            // 获取进程的输出
+            $command = 'wmic process where "commandline like \'%'.$ids.'.js%\'" get processid, commandline';
+
+            // 执行命令并获取输出
+            exec($command, $output);
+            if($output){
+                foreach ($output as $k => $v) {
+                    if($k == 3){
+                        if (preg_match("/js\s+(\d+)/", $v, $matches)) {
+                            $pid = $matches[1];
+                        }
+                    }
+                }
+            }
+        }else{
+            $command = 'cd ' . $path . ' && '.'nohup node '.$ids.'.js > output.log 2>&1 &';
+        }
+
+        //生成pid之后，插入数据库
+        self::where(array('id'=>$ids))->update(['pid'=>$pid,'status'=>1]);
+
+        return $pid;
+    }
+
+    private function isWindows()
+    {
+        $os = strtoupper(PHP_OS);
+
+        return (substr($os, 0, 3) === 'WIN');
     }
 }

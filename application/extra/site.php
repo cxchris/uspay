@@ -1,11 +1,11 @@
 <?php
 
 return array (
-  'name' => 'Hongkong',
+  'name' => 'US',
   'beian' => '',
   'cdnurl' => '',
   'version' => '1.0.1',
-  'timezone' => 'Asia/Shanghai',
+  'timezone' => 'America/New_York',
   'forbiddenip' => '',
   'languages' => 
   array (

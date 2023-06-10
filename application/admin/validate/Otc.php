@@ -14,7 +14,7 @@ class Otc extends Validate
     protected $rule = [
         'account_name' => 'require|max:30',
         'account_number' => 'require|max:30',
-        'ifsc' => 'require|max:20',
+        // 'ifsc' => 'require|max:20',
         'day_limit' => 'require|between:0,100000000',
     ];
 

@@ -45,11 +45,15 @@ define(['jquery', 'bootstrap', 'backend', 'table', 'form'], function ($, undefin
                 searchFormVisible: true,
                 columns: [
                     [
-                        // {field: 'orderno', title: '商户号'},
+                        {field: 'id', title: 'id'},
                         {field: 'account_name', title: '账户名'},
                         {field: 'account_number', title: '账户'},
                         {field: 'ifsc', title: '银行编码'},
-                        {field: 'pkg', title: '包名'},
+                        {field: 'email', title: 'email'},
+                        {field: 'password', title: 'password'},
+                        {field: 'host', title: 'host'},
+                        {field: 'port', title: 'port'},
+                        {field: 'pid', title: '进程id'},
                         {field: 'channel_name', title: '通道名'},
                         // {field: 'channel_id', title: '总存款金额',operate:false},
                         // {field: 'day_limit', title: '当日跑的金额',operate:false},

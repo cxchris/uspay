@@ -1,6 +1,6 @@
 <?php
 ini_set('error_reporting', 'E_ALL ^ E_NOTICE');
-date_default_timezone_set('Asia/Shanghai');
+date_default_timezone_set('America/New_York');
 
 class Config {
 	/* 数据库连接参数 */

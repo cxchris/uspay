@@ -28,10 +28,11 @@ class Account extends Backend
 
     public function _initialize()
     {
+        // var_dump(PHP_OS);exit;
         parent::_initialize();
         $this->model = model('otc_list');
 
-        $collectionList = model('channel_list')->where(['type'=>1])->select();
+        $collectionList = model('channel_list')->where(['type'=>1,'status'=>1])->select();
 
         $collectionName = [0 => __('None')];
         foreach ($collectionList as $k => $v) {
@@ -143,6 +144,7 @@ class Account extends Backend
                     unset($params['checksum']);
                     //默认为代收
                     $params['type'] = $this->type;
+                    $params['status'] = 0;
                     $result = $this->model->validate('Otc.add')->save($params);
                     if ($result === false) {
                         exception($this->model->getError());
@@ -180,8 +182,15 @@ class Account extends Backend
                 try {
                     unset($params['checksum']);
                     $result = $row->validate('Otc.edit')->save($params);
+
                     if ($result === false) {
                         exception($row->getError());
+                    }
+
+                    //node脚本处理
+                    $res = $this->model->node_exce($row,$ids);
+                    if($res == 0){
+                        $result = $row->save(['status'=>0]);
                     }
 
                     Db::commit();

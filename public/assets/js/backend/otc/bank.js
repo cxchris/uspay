@@ -49,7 +49,7 @@ define(['jquery', 'bootstrap', 'backend', 'table', 'form'], function ($, undefin
                         {field: 'account_name', title: '账户名'},
                         {field: 'account_number', title: '账户'},
                         {field: 'ifsc', title: '银行编码'},
-                        {field: 'pkg', title: '包名'},
+                        // {field: 'pkg', title: '包名'},
                         {field: 'channel_name', title: '通道名'},
                         // {field: 'channel_id', title: '总存款金额',operate:false},
                         // {field: 'day_limit', title: '当日跑的金额',operate:false},

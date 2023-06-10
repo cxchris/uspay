@@ -24,7 +24,7 @@
         <div class="navbar-custom-menu">
             <ul class="nav navbar-nav">
                 <li class="layui-nav-item hidden-xs" data-toggle="dropdown" lay-unselect="" style="width: 230px;height: 50px;line-height: 50px;">
-                    <input type="text" style="display: inline-block;vertical-align: middle;height: 32px;border: none;cursor: text;width: 210px;" autocomplete="off" class="layui-input layui-input-search currentTime" readonly="" value=" Hongkong: {php}echo datetime(time()){/php}">
+                    <input type="text" style="display: inline-block;vertical-align: middle;height: 32px;border: none;cursor: text;width: 210px;" autocomplete="off" class="layui-input layui-input-search currentTime" readonly="" value=" US-4: {php}echo datetime(time()){/php}">
                 </li>
                 <li class="hidden-xs">
                     <a href="__PUBLIC__" target="_blank"><i class="fa fa-home" style="font-size:14px;"></i> {:__('Home')}</a>
@@ -132,7 +132,7 @@
 <script type="text/javascript"> 
     setInterval(function(){
 
-        var time = getTimeByZone(8);
+        var time = getTimeByZone(-4);
         var year = time.getFullYear();  //获取年份
         var month = checkTime(time.getMonth()+1);  //获取月份
         var day = checkTime(time.getDate());   //获取日期
@@ -156,6 +156,6 @@
             return targetDate
         }
         var box = $(".currentTime");
-        box.val(' Hongkong: '+ year + "-" + month + "-" + day +" "+hour+":"+minite+":"+second);          
+        box.val(' US-4: '+ year + "-" + month + "-" + day +" "+hour+":"+minite+":"+second);          
     },1000); //setInterval(fn,i) 定时器，每隔i秒执行fn
 </script>

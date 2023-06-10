@@ -31,7 +31,7 @@ class Bank extends Backend
         parent::_initialize();
         $this->model = model('otc_list');
 
-        $collectionList = model('channel_list')->where(['type'=>1])->select();
+        $collectionList = model('channel_list')->where(['type'=>1,'status'=>1])->select();
 
         $collectionName = [0 => __('None')];
         foreach ($collectionList as $k => $v) {

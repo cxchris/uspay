@@ -1,12 +1,16 @@
 import Imap from 'imap';
+import log4js from './log4.js';
 
-function startEmailListener(config) {
+
+function startEmailListener(config,fileName) {
   const imap = new Imap(config);
+  // 获取 Logger 实例
+  const logger = log4js.getLogger(fileName+'.js');
 
   imap.once('ready', function() {
     imap.openBox('INBOX', true, function(err, box) {
       if (err) throw err;
-
+      logger.info('连接成功，等待新邮件到达...'+'当前进程 ID:'+process.pid);
       console.log('连接成功，等待新邮件到达...');
 
       imap.on('mail', function(numNewMsgs) {
@@ -25,12 +29,14 @@ function startEmailListener(config) {
             stream.on('end', function () {
               const parsed = Imap.parseHeader(buffer);
               console.log('Subject:', parsed.subject);
+              logger.info('Subject:', parsed.subject);
               console.log('=================================');
             });
           });
         });
 
         f.once('error', function(err) {
+          logger.info('获取邮件信息出错:'+err);
           console.error('获取邮件信息出错:', err);
         });
 
@@ -42,6 +48,7 @@ function startEmailListener(config) {
   });
 
   imap.once('error', function(err) {
+    logger.info('IMAP 错误:'+err);
     console.error('IMAP 错误:', err);
   });
 

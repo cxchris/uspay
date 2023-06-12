@@ -209,7 +209,7 @@ class OtcList extends Model
             // dump($command);exit;
             // 创建进程对象
             $process = new Process($command);
-            
+
             // 运行进程
             $process->run();
 
@@ -244,6 +244,7 @@ class OtcList extends Model
                     }
                 }
             }
+            
         }else{
 
         }

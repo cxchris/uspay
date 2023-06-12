@@ -209,10 +209,29 @@ class OtcList extends Model
             // dump($command);exit;
             // 创建进程对象
             $process = new Process($command);
-
+            
             // 运行进程
             $process->run();
 
+            // 获取进程的输出
+            $pid = $this->getcommand($ids);
+        }else{
+            $convertedPath = str_replace('\\', '/', $path);
+            $command = 'nohup node ' . $convertedPath .$ids. '.js > /dev/null 2>&1 &';
+            exec($command, $output, $returnVar);
+            dump($returnVar);exit;
+        }
+
+        //生成pid之后，插入数据库
+        self::where(array('id'=>$ids))->update(['pid'=>$pid,'status'=>1]);
+
+        return $pid;
+    }
+
+    //获取pid
+    public function getcommand($ids){
+        $pid = 0;
+        if ($this->isWindows()) {
             // 获取进程的输出
             $command = 'wmic process where "commandline like \'%'.$ids.'.js%\'" get processid, commandline';
 
@@ -220,19 +239,14 @@ class OtcList extends Model
             exec($command, $output);
             if($output){
                 foreach ($output as $k => $v) {
-                    if($k == 3){
-                        if (preg_match("/js\s+(\d+)/", $v, $matches)) {
-                            $pid = $matches[1];
-                        }
+                    if (preg_match("/js\s+(\d+)/", $v, $matches)) {
+                        $pid = $matches[1];
                     }
                 }
             }
         }else{
-            $command = 'cd ' . $path . ' && '.'nohup node '.$ids.'.js > output.log 2>&1 &';
-        }
 
-        //生成pid之后，插入数据库
-        self::where(array('id'=>$ids))->update(['pid'=>$pid,'status'=>1]);
+        }
 
         return $pid;
     }

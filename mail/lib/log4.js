@@ -10,7 +10,7 @@ log4js.configure({
       numBackups: 30,
       layout: {
         type: 'pattern',
-        pattern: '%d{yyyy-MM-dd hh:mm:ss} [%p] %c - %m%n'
+        pattern: '%d{yyyy-MM-dd hh:mm:ss} [%p] %c - %m'
       }
     }
   },

@@ -106,7 +106,17 @@ class Account extends Backend
             $items = $list->items();
             foreach ($items as $k => $v) {
                 $items[$k]['create_time'] = datevtime($v['create_time']);
-
+                //更新进程运行情况
+                $pid = $model->getcommand($v['id']);
+                if($pid == 0){
+                    $model->where('id',$v['id'])->update(['pid'=>0,'status'=>0]);
+                    $status = 0;
+                }else{
+                    $model->where('id',$v['id'])->update(['pid'=>$pid,'status'=>1]);
+                    $status = 1;
+                }
+                $items[$k]['pid'] = $pid;
+                $items[$k]['status'] = $status;
             }
 
             

@@ -218,8 +218,8 @@ class OtcList extends Model
         }else{
             $convertedPath = str_replace('\\', '/', $path);
             $command = 'nohup node ' . $convertedPath .$ids. '.js > /dev/null 2>&1 &';
+            dump($command);exit;
             exec($command, $output, $returnVar);
-            dump($returnVar);exit;
         }
 
         //生成pid之后，插入数据库

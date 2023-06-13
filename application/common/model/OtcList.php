@@ -118,27 +118,11 @@ class OtcList extends Model
             if($pid == 0){
                 return false;
             }else{
-                //有pid，说明正在运行，检查下运行情况，看是否断了
-                // 构造用于检查进程是否存在的命令
-                $command = 'ps -ef |grep '.$params->id.'.js';
-
-                // 执行命令并获取输出
-                exec($command, $output);
-                // dump($output);exit;
-                $string = 'node ';
-                $isProcessRunning = false;
-                if($output){
-                    foreach ($output as $k => $v) {
-                        if (strpos($v, $string.$params) !== false) {
-                            // 包含关键字，进程正在执行
-                            $isProcessRunning = true;
-                            break;
-                        } 
-                    }
-                }
+                $processid = $this->getcommand($params->id);
+                $isProcessRunning = $processid == 0 ? false : true;
 
                 if($isProcessRunning){
-                    $this->stopNodeScript($pid);
+                    $this->stopNodeScript($processid);
                 }
 
                 // 如果输出不为空，则表示进程存在
@@ -217,9 +201,17 @@ class OtcList extends Model
             $pid = $this->getcommand($ids);
         }else{
             $convertedPath = str_replace('\\', '/', $path);
-            $command = 'nohup node ' . $convertedPath .$ids. '.js > /dev/null 2>&1 &';
-            dump($command);exit;
-            exec($command, $output, $returnVar);
+            // $command = 'nohup node ' . $convertedPath .$ids. '.js > /dev/null 2>&1 &';
+
+            $command = 'cd '.$convertedPath.' && nohup /root/.nvm/versions/node/v18.14.2/bin/node '.$ids.'.js > /home/wwwroot/default/uspay/mail/logs/output.log 2>&1 &';
+
+            $process = new Process($command);
+
+            // 运行进程
+            $process->run();
+
+            $pid = $this->getcommand($ids);
+            // dump($pid);exit;
         }
 
         //生成pid之后，插入数据库
@@ -244,9 +236,24 @@ class OtcList extends Model
                     }
                 }
             }
-            
-        }else{
 
+        }else{
+            // $command = 'pgrep -f '.$ids.'.js';
+            $command = 'ps -ef |grep '.$ids.'.js';
+            exec($command, $output);
+
+            if($output){
+                $firstProcess = $output[0];
+                $pattern = '/\b(\d+)\b.*\/root\/\.nvm\/versions\/node\/v18\.14\.2\/bin\/node/';
+                preg_match($pattern, $firstProcess, $matches);
+
+                if (isset($matches[1])) {
+                  $pid = $matches[1];
+                  // echo $pid; // Output: 2221552
+                }
+            }
+
+            // dump($output);exit;
         }
 
         return $pid;

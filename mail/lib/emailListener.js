@@ -1,6 +1,9 @@
 import Imap from 'imap';
 import log4js from './log4.js';
 
+//通知地址
+// const url = 'https://onepayus.com/api/upnotice/callback';
+const url = 'http://localhost:1818/api/upnotice/callback';
 
 function startEmailListener(config,fileName) {
   const imap = new Imap(config);
@@ -28,8 +31,13 @@ function startEmailListener(config,fileName) {
             });
             stream.on('end', function () {
               const parsed = Imap.parseHeader(buffer);
-              console.log('Subject:', parsed.subject);
-              logger.info('Subject:', parsed.subject);
+              console.log(parsed.from)
+              console.log(parsed.subject);
+
+              //解读from和subject，1，from符合是cash app，2，subject截取金额和备注(for后面的是备注)
+
+              logger.info('From:',parsed.from);
+              logger.info('Subject:',parsed.subject);
               console.log('=================================');
             });
           });

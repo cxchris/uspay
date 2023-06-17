@@ -17,7 +17,7 @@ fs.readFile('../config/'+fileName+'.json', 'utf8', (err, data) => {
   const config = JSON.parse(data);
   console.log('配置文件内容:', config);
   try {
-    startEmailListener(config,fileName);
+    readEmailListener(config,fileName);
   } catch (err) {
     logger.error('运行mail listener出错:', err);
   }

@@ -1,4 +1,4 @@
-import { startEmailListener } from '../lib/emailListener.js';
+import { startEmailListener,readEmailListener } from '../lib/emailListener.js';
 import fs from 'fs';
 import getfilename from '../lib/getfilename.js';
 import log4js from '../lib/log4.js';

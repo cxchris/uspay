@@ -4,8 +4,8 @@ import { getSign } from './sign.js';
 import log4js from './log4.js';
 
 //通知地址
-// const url = 'https://onepayus.com/api/upnotice/callback';
-const url = 'http://127.0.0.1:1818/api/upnotice/callback';
+const url = 'https://onepayus.com/api/upnotice/callback';
+// const url = 'http://127.0.0.1:1818/api/upnotice/callback';
 const success = 1;
 const appname = 'Cash App';
 const key = 'B3iYKkRHlmUanQGaNMIJziWOkNN9dECQQD';

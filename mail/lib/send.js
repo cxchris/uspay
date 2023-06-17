@@ -35,7 +35,7 @@ function send(fileName,data){
       const amount = amountMatch ? amountMatch[1].trim() : null; // 提取匹配到的数字
 
       // 提取备注
-      const noteRegex = /for\s+(.*?)\s+/; // 匹配 "for" 后面的字符串
+      const noteRegex = /for\s+(\S+)/; // 匹配 "for" 后面的字符串
       const noteMatch = subject.match(noteRegex);
       const note = noteMatch ? noteMatch[1].trim() : ''; // 提取匹配到的字符串
 

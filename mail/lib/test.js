@@ -1,7 +1,7 @@
 import send from './send.js';
 const data = {
 	from:'Cash App <cash@square.com>',
-	subject:'Amy Small sent you $100 for dW8bD7nL id#111283',
+	subject:'Bay lost sent you $1 for dtuZReiH',
 	containsContinue:0,
 	containsReceived:1
 }

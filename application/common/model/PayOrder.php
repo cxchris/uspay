@@ -370,7 +370,7 @@ class PayOrder extends Model
             "1" => '已支付',
             "2" => '支付失败',
             "3" => '支付中',
-            "4" => '支付未验证UTR',
+            "4" => '支付未确认',
         ];
 
         if($is_array == 'json'){

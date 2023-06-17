@@ -103,7 +103,7 @@ class Pay extends Frontend
 
         //获取账户信息
         $order['money'] = sprintfnum($order['virtual_money']);
-        
+        // dump($order);exit;
 
         $calc = $this->_expire_time - (time() - $this->orderinfo['update_time']);
         $calc = $calc < 0?0:$calc;
@@ -131,6 +131,8 @@ class Pay extends Frontend
         if(!$this->otc_info){
             $this->error('Chennel closed');
         }
+
+        $cashUrl = 'https://cash.app/'.$order['ext_data'].'?qr=1';
         
         // dump($this->otc_info);exit;
         $this->view->assign("order", $order);
@@ -141,6 +143,7 @@ class Pay extends Frontend
         // $this->view->assign("payload", $data);
         $this->view->assign("errorUrl", $this->errorUrl);
         $this->view->assign("lang", $this->lang);
+        $this->view->assign("cashUrl", $cashUrl);
 
         $this->view->assign('logo',$this->logo);
         return $this->view->fetch();

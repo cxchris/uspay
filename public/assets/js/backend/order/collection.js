@@ -223,6 +223,8 @@ define(['jquery', 'bootstrap', 'backend', 'table', 'form'], function ($, undefin
                             {field: 'account_money', title: '到账金额',operate:false},
                             {field: 'billing_around', title: '结算周期',operate:false},
                             {field: 'billing_time', title: '结算时间',  operate: 'RANGE', addclass: 'datetimerange', sortable: true,operate:false},
+                            {field: 'utr', title: 'utr'},
+                            {field: 'txtUTR', title: 'txtUTR'},
                             {
                                 field: 'is_billing', 
                                 title: '结算状态', 

@@ -1,15 +1,19 @@
 {
   "type": "module",
   "dependencies": {
+    "axios": "^1.4.0",
+    "cheerio": "^1.0.0-rc.12",
     "dotenv": "^16.1.4",
     "express": "^4.18.2",
     "fs": "0.0.1-security",
     "imap": "^0.8.19",
     "log4js": "^6.9.1",
     "mailparser": "^3.6.4",
+    "md5": "^2.3.0",
     "moment": "^2.29.4",
     "mysql": "^2.18.1",
-    "node-imap": "^0.9.6"
+    "node-imap": "^0.9.6",
+    "qs": "^6.11.2"
   },
   "scripts": {
     "start": "nodemon --exec babel-node index.js",

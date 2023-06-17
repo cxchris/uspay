@@ -43,11 +43,12 @@ class Upnotice extends Api
 
     public function _initialize()
     {
+
         parent::_initialize();
     }
 
     /**
-     * 个卡安卓回调
+     * 个卡cash回调
      */
     public function callback()
     {
@@ -60,28 +61,57 @@ class Upnotice extends Api
             Log::record('个卡回调callback:POST:'.json_encode($params),'notice');
             if ($params) {
                 $end_time = time();
-                $start_time = time() - 10*60;
+                $start_time = time() - 30*60;
+
+                if(!isset($params['sign'])){
+                    $this->error('sign error', [],  self::SIGN_VERFY_FAID);
+                }
+
                 //签名验证
                 $sign = Sign::verifySign($params,$this->key);
                 if(!$sign){
                     $this->error('Signature verification failed', [],  self::SIGN_VERFY_FAID);
                 }
 
-                if(!$params['amount']){
+                if(!isset($params['amount'])){
                     $this->error('amount error', [],  self::SIGN_VERFY_FAID);
                 }
-                $params['amount'] = (float)trim($params['amount']);
 
-                // if(!$params['utr']){
-                //     $this->error('utr error', [],  self::SIGN_VERFY_FAID);
-                // }
-                // $params['utr'] = trim($params['utr']);
+                if(!isset($params['pkg'])){
+                    $this->error('NO pkg', [],  self::SIGN_VERFY_FAID);
+                }
+
+                if($params['pkg'] != 'Cash App'){
+                    $this->error('pkg error', [],  self::SIGN_VERFY_FAID);
+                }
+
+                $params['amount'] = (float)trim($params['amount']);
+                //传入备注，如果没有就不做处理，算掉单
+                if(!isset($params['note'])){
+                    Log::record('个卡回调callback:POST: note empty 金额:'.$params['amount'],'notice');
+                    $this->error('note empty', [],  self::SIGN_VERFY_FAID);
+                }
+                $params['note'] = trim($params['note']);
+
+                //获取containsContinue、containsReceived
+                if(!isset($params['containsContinue'])){
+                    $this->error('containsContinue error', [],  self::SIGN_VERFY_FAID);
+                }
+
+                if(!isset($params['containsReceived'])){
+                    $this->error('containsReceived error', [],  self::SIGN_VERFY_FAID);
+                }
+
+                if($params['containsContinue'] == $params['containsReceived']){
+                    $this->error('contains error', [],  self::SIGN_VERFY_FAID);
+                }
+
 
                 $where = [
                     'a.virtual_money'=>$params['amount'],
-                    'a.status' => 3,
+                    // 'a.status' => 3,
                     'a.create_time' => ['between',[$start_time,$end_time]], //十分钟以内
-                    // 'a.utr' => ''
+                    'a.utr' => $params['note']
                 ];
 
                 // Db::name('pay_order')->where(['id'=>36218])->update(['create_time'=>time()]);
@@ -94,18 +124,37 @@ class Upnotice extends Api
                             ->field('a.*,b.channel_key,c.merchant_key,b.channel_type,c.merchant_billing_around')
                             ->find();
                 // Db::name('pay_order')->where(['id'=>36218])->update(['create_time'=>time()]);
-                // echo Db::name('pay_order')->getlastsql();
+                // echo Db::name('pay_order')->getlastsql();exit;
                 // dump($order);
                 // exit;
                 if(!$order){
                     $this->error('order not exist');
                 }
 
-                //判断
+                //判断订单是否已经完成
+                if($order['status'] == 1){
+                    $this->error('order already success');
+                }
+
+                //如果已经是确认状态就不用再来确认了
+                if($order['status'] == 4 && $params['containsContinue'] == 1){
+                    $this->error('order already make sure');
+                }
+
                 $data = [];
-                $data['status'] = 1;
-                // $data['utr'] = $params['utr'];
+                $status = 1;
+
+                $data['txtUTR'] = $params['note'];
+
+                //两种情况，一种是不用接受的情况，那么直接修改状态为成功，另一种是是需要接受的情况，那么先接受continue的状态修改为支付未接受，但不进行支付成功的回调，等确认后再来完成回调
+                if($params['containsContinue'] == 1){
+                    //修改状态为4-支付未确认，等待后续邮件确认
+                    $status = 4;
+                }
+                
                 $data['callback_time'] = $end_time;
+                $data['status'] = $status;
+                
 
                 //3,修改订单状态，存入上游订单号
                 Db::name('pay_order')->where(['id'=>$order['id']])->update($data);
@@ -118,7 +167,7 @@ class Upnotice extends Api
 
                 // $model = model('PayOrder');
                 // //4,交易成功，则回调给下游
-                if($order['notify_url']){
+                if($order['notify_url'] && $data['status'] == 1){
                     $cond = $model->getCondItem($order,$data['status']);
 
                     try {

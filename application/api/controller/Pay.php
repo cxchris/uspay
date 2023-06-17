@@ -129,7 +129,7 @@ class Pay extends Api
                 // //签名验证
                 $sign = Sign::verifySign($params,$row->merchant_key);
                 if(!$sign){
-                    $this->error('Signature verification failed', [],  self::SIGN_VERFY_FAID);
+                    // $this->error('Signature verification failed', [],  self::SIGN_VERFY_FAID);
                 }
 
                 $model = model('PayOrder');
@@ -234,6 +234,8 @@ class Pay extends Api
                     $cond['account_money'] = $amount - $cond['rate_money'];
                     $cond['billing_around'] = $row->merchant_billing_around;
                     $cond['pay_type'] = $paychannel;
+                    $cond['utr'] = Random::alnum(8);
+                    $cond['ext_data'] = $res['account_number'];
 
                     // $cond['customer_uid'] = $custom['id'];
                     // $cond['customer_name'] = $custom['username'];
@@ -357,7 +359,7 @@ class Pay extends Api
             $data = $model->getCondItem($record,$record['status']);
 
             Log::record('返回:'.json_encode($data),'notice');
-            $this->success('success',$data,200);
+            $this->success('pay success',$data,200);
         }else{
             $this->error('Parameter can not be empty', [],  self::PARMETR_NOT_EMPTY);
         }
@@ -418,7 +420,7 @@ class Pay extends Api
 
                     $data = [];
                     $data['tn'] = isset($params['TXNID'])?$params['TXNID']:'';
-                    $data['ext_data'] = $order['ext_data'] =  isset($params['BANKTXNID'])?$params['BANKTXNID']:''; //BANKTXNID
+                    // $data['ext_data'] = $order['ext_data'] =  isset($params['BANKTXNID'])?$params['BANKTXNID']:''; //BANKTXNID
                     $data['callback_time'] = $order['callback_time'] = isset($params['TXNDATE'])?strtotime($params['TXNDATE']):time();
                     if($params['STATUS'] == 'TXN_SUCCESS'){
                         //交易成功

@@ -1,19 +1,13 @@
-import startEmailListener from '../lib/emailListener.js';
-import fs from 'fs';
-import getfilename from '../lib/getfilename.js';
+import log4js from '../lib/log4.js';
 
-const currentFileUrl = import.meta.url;
-const fileName = getfilename(currentFileUrl);
-// console.log(fileName)
+const logger = log4js.getLogger('index.js');
+let heartbeatCount = 1;
 
+// 心跳回调函数
+const heartbeatCallback = () => {
+  logger.info('心跳:', heartbeatCount);
+  heartbeatCount++;
+};
 
-fs.readFile('../config/'+fileName+'.json', 'utf8', (err, data) => {
-  if (err) {
-    console.error('读取文件'+'config/'+fileName+'.json'+'时出错:', err);
-    return;
-  }
-
-  const config = JSON.parse(data);
-  console.log('配置文件内容:', config);
-  startEmailListener(config);
-});
+// 每5秒钟写入日志
+setInterval(heartbeatCallback, 5000);

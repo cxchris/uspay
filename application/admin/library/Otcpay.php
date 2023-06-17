@@ -128,7 +128,7 @@ class Otcpay
     public static function dispose($res,$orderinfo,$channel){
         $data = [
             'tn' => null,
-            'url' => $channel->link.'?orderno='.$orderinfo['eshopno'].'&lang=tc-cn',
+            'url' => $channel->link.'?orderno='.$orderinfo['eshopno'].'&lang=en',
         ];
         return $data;
     }

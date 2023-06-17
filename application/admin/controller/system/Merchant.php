@@ -48,7 +48,11 @@ class Merchant extends Backend
 
         //获取所有银行卡支付渠道
         // $collectionList = \think\Db::name("channel_list")->field('*', true)->where(array('status'=>1,'type'=>$this->collection_type))->order('id ASC')->select();
-        $collectionList = model('otc_list')->where(['status'=>1])->select();
+        $collectionList = model('otc_list')
+                            ->field('a.*')
+                            ->alias('a')
+                            ->join('channel_list b','a.channel_id = b.id','LEFT')
+                            ->where(['a.status'=>1,'b.status'=>1])->select();
         $paymentList = \think\Db::name("channel_list")->field('*', true)->where(array('status'=>1,'type'=>$this->payment_type))->order('id ASC')->select();
         
         //获取name
@@ -56,8 +60,8 @@ class Merchant extends Backend
         $paymentListName = [0 => __('None')];
 
         foreach ($collectionList as $k => $v) {
-            $type = $v['type'] == 1 ? '转数快' : '银行卡';
-            $collectionName[$v['id']] = $type.'-'.$v['account_number'].'-'.$v['ifsc'];
+            $type = $v['type'] == 1 ? 'CASHAPP' : '银行卡';
+            $collectionName[$v['id']] = $type.'-'.$v['email'];
         }
         foreach ($paymentList as $k => $v) {
             $paymentListName[$v['id']] = $v['channel_name'];

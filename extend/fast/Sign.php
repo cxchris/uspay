@@ -26,15 +26,13 @@ class Sign
             $str = urldecode($str);
         }
         
-        // dump($str);
+        // dump($str);exit;
         if($isstrtoupper){
             $res = strtoupper(md5($str));
         }else{
             $res = md5($str);
         }
-        
         // dump($res);exit;
-
         return $res;
     }
 

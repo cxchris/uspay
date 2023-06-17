@@ -1,346 +1,320 @@
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="shortcut icon" href="__CDN__/assets/img/dute_favicon_32x32.ico" />
-    <title>{:__('order')}</title>
-    <link href="__CDN__/assets/css/pay.css" rel="stylesheet">
-    <!-- <link href="__CDN__/assets/css/bootstrap.min.css" rel="stylesheet"> -->
-    <style type="text/css">
-        .list-left {
-            /*width: 80px;*/
-            display: inline-block;
-            color: #777;
-        }
 
-        .copy-account {
-            display: inline-block;
-            width: 190px;
-            background-color: #009649;
-            padding-top: 10px;
-            padding-bottom: 10px;
-            border-radius: 6px;
-            color: #eee;
-            font-size: 1.2rem;
-            cursor: pointer;
-            -webkit-tap-highlight-color: transparent; /* 适用于旧版本 Safari */
-            user-select: none;
-        }
-
-        .copy-name {
-            display: inline-block;
-            width: 190px;
-            background-color: #028EF9;
-            padding-top: 10px;
-            padding-bottom: 10px;
-            border-radius: 6px;
-            color: #eee;
-            font-size: 1.2rem;
-            cursor: pointer;
-            -webkit-tap-highlight-color: transparent; /* 适用于旧版本 Safari */
-            user-select: none;
-        }
-
-        .copy-code {
-            display: inline-block;
-            width: 190px;
-            background-color: #d902f9;
-            padding-top: 10px;
-            padding-bottom: 10px;
-            border-radius: 6px;
-            color: #eee;
-            font-size: 1.2rem;
-            cursor: pointer;
-            -webkit-tap-highlight-color: transparent; /* 适用于旧版本 Safari */
-            user-select: none;
-        }
-
-        #clocker {
-            color: #c51010;
-        }
-
-        .order {
-            padding: 12px;
-        }
-
-        @media screen and (min-width: 720px){
-            .order {
-                width: 750px;
-                margin: 0 auto;
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport" />
+        <title>Cashier</title>
+        <script type="text/javascript" src="__CDN__/assets/static/index/js/jquery.min.js"></script>
+        <script type="text/javascript" src="__CDN__/assets/js/clipboard.js"></script>
+        <style type="text/css">
+            body {
+                font-size: 15px;
+                font-family: Montserrat, sans-serif;
+                background-image: linear-gradient(rgb(0, 200, 83) 0%, rgb(10, 190, 73) 100%);/* #e860ff */
+                background-position: center;
+                background-attachment: fixed;
+                margin: 0;
+                box-sizing: border-box;
+                place-items: center;
             }
-        }
+            button{
+                border-radius: 5px;
+                border: 0px;
+                padding:7px 10px 7px 10px;
+                background-color: rgb(0, 214, 79);
+                color: white;
+            }
+            .appdiv{
+                border-radius: 10px;
+                border: 1px solid #1baff3;
+                width: 50px;
+                height: 50px;
+                text-align: center;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+            input:focus{
+                outline:none;  
+                box-shadow:0 0 0 1.5px #f7941d;
+            }
+            select:focus{
+                outline:none;  
+                box-shadow:0 0 0 1.5px #f7941d;
+            }
+            .copy_tip {
+                width: 2.5rem !important;
+                height: 2.5rem !important;
+                right: 1.7rem;
+                top: 5.7rem;
+                position: absolute;
+                -webkit-animation: scaleDraw 3s ease-in-out infinite;
+            }
+            @keyframes scaleDraw { 
+                0%{
+                    transform: scale(1);
+                }
+                25%{
+                    transform:scale(1.2);
+                }
+                50%{
+                    transform:scale(1);
+                }
+                75%{
+                    transform:scale(1.2);
+                }
+            }
+            .form-control {
+                display: block;
+                width: 100%;
+                padding: 0.375rem 0.75rem;
+                font-size: 1rem;
+                font-weight: 400;
+                line-height: 1.5;
+                color: #212529;
+                background-color: #fff;
+                background-clip: padding-box;
+                border: 2px solid #ced4da;
+                -webkit-appearance: none;
+                -moz-appearance: none;
+                appearance: none;
+                border-radius: 0.375rem;
+            }
+        </style>
+    </head>
+    <body>
+        <!-- <div style="color: black;background-color: white;padding: 10px;font-weight: bold;font-size: 20px;">
+            <div style="text-align: center;">
+                Cashier
+            </div>
+            <div style="clear: both;"></div>
+        </div> -->
+        <div id="info" style="max-width: 512px; margin: 0 auto;">
+            <div style="color: #eeee00;font-size: 24px;font-weight: 700;padding-top: 12px;line-height: 40px;color: white;">
+                <img src="__CDN__/assets/img/icon-cash-app-reverse.svg" 
+                    type="2" alt="" width="40px" style="margin-left: 12px;margin-right: 12px;vertical-align: middle;">
+                Cash App
+            </div>
+            <div style="text-align: center;color: #eeee00;padding-top: 10px;">
+                <!-- <span style="font-size:12px;font-weight: bold;">Amount</span> -->
+                <!-- <div style="font-size:20px;font-weight: bold;">$ <span id="amount"></span></div> -->
+            </div>
+            <div id="qrinfo">
+                <div id="paytmdiv" style="background-color: white;margin-top: 10px;padding: 10px;border-radius: 15px;margin-left: 10px;margin-right: 10px;">
+                    <div style="color:red;font-size: 12px;font-weight: bold;padding: 0px 0px 5px 0px;">Payment information</div>
+                    <div style="flex-direction: row;display: flex;height: 40px;">
+                        <div style="width:25%;line-height: 30px;color: rgb(0, 214, 79)">
+                            Account
+                        </div>
+                        <div style="width:55%;line-height: 30px;">
+                            <div style="font-size: 16px;font-weight: bold;" id="upi1">{$order.ext_data}</div>
+                        </div>
+                        <div style="width:20%;line-height: 30px;text-align: center;">
+                            <button class="addrCopy" onclick="copyUrl('addrCopy')" data-clipboard-action="copy" data-clipboard-target="#upi1">Copy</button>
+                        </div>
+                    </div>
+                    <div style="flex-direction: row;display: flex;height: 40px;">
+                        <div style="width:25%;line-height: 30px;color: rgb(0, 214, 79)">
+                            Amount
+                        </div>
+                        <div style="width:5%;line-height: 30px;color: rgb(0, 214, 79);">
+                            $
+                        </div>
+                        <div style="width:50%;line-height: 30px;">
+                            <div style="font-size: 16px;font-weight: bold;" id="amount1">{$order.money}</div>
+                        </div>
+                        <div style="width:20%;line-height: 30px;text-align: center;">
+                            <button class="addrCopy" onclick="copyUrl('addrCopy')" data-clipboard-action="copy" data-clipboard-target="#amount1">Copy</button>
+                        </div>
+                    </div>
+                    <div style="color: red;font-size: 12px;margin-top: -10px;">
+                        Your transfer amount must match your order amount
+                    </div>
+                    <div style="flex-direction: row;display: flex;height: 40px;margin-top: 10px;">
+                        <div style="width:25%;line-height: 30px;color: rgb(0, 214, 79)">
+                            Memo
+                        </div>
+                        <div style="width:55%;line-height: 30px;">
+                            <div style="font-size: 16px;font-weight: bold;" id="remark">{$order.utr}</div>
+                        </div>
+                        <div style="width:20%;line-height: 30px;text-align: center;">
+                            <button class="addrCopy" onclick="copyUrl('addrCopy')" data-clipboard-action="copy" data-clipboard-target="#remark">Copy</button>
+                        </div>
+                    </div>
+                    <div style="color: red;font-size: 12px;margin-top: -10px;">
+                        Please be sure to fill in the correct note/memo
+                    </div>
+                    <div style="height: 56px;margin-top: 20px;">
+                        <div style="text-align: center;">
+                            <button style="height: 56px;padding: 0px 18px;font-size: 18px;font-weight: 700;border-radius: 28px;width:80%;" 
+                                class="addrCopy" onclick="toCash('addrCopy')" data-clipboard-action="copy" data-clipboard-target="#remark">Go to pay</button>
+                        </div>
+                    </div>
+                </div>
+                <div id="qrtips" style="font-size: 10px;background-color: white;margin-top: 10px;padding: 10px;border-radius: 15px;margin-left: 10px;margin-right: 10px;">
+                    <div style="margin-top: 5px;">
+                        <div style="color:red;font-size: 12px;font-weight: bold;">Step 1</div>
+                        <div style="border-bottom: 1px #dedede solid;padding-bottom: 5px;">
+                            Copy and paste your
+                        </div>
+                    </div>
+                    <div style="margin-top: 5px;">
+                        <div style="color:red;font-size: 12px;font-weight: bold;">Step 2</div>
+                        <div style="">
+                            Enter the amount you wish to process in the payment
+                        </div>
+                    </div>
 
-        .success {
-            display: none;
-        }
-        h3{
-            margin: 0;
-        }
-        body{
-            background: #f1f4f6;
-        }
-    </style>
-    <script type="text/javascript" src="__CDN__/assets/static/index/js/jquery.min.js"></script>
-    <script type="text/javascript" src="__CDN__/assets/layui/layer.mobile-v2.0/layer_mobile/layer.js"></script>
-    <script type="text/javascript" src="__CDN__/assets/js/clipboard.js"></script>
-    <script src="__CDN__/assets/libs/bootstrap/js/dropdown.js"></script>
-</head>
-<body>
-    <div class="order">
-        <h2>{:__('remind')}</h2>
-        <div class="dropdown">
-            <button type="button" class="btn dropdown-toggle" id="dropdownMenu1" data-toggle="dropdown">
-                {if $lang eq 'en'}
-                    English
-                {else /}
-                    繁體中文
-                {/if}
-                <span class="caret"></span>
-            </button>
-            <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
-                <li role="presentation">
-                    <a role="menuitem" tabindex="-1" href="?orderno={$order.eshopno}&lang=tc-cn">繁體中文</a>
-                </li>
-                <li role="presentation">
-                    <a role="menuitem" tabindex="-1" href="?orderno={$order.eshopno}&lang=en">English</a>
-                </li>
-            </ul>
-        </div>
-        <div style="color: #3a3535;">
-            <p>{:__('amount tips', $order['money'])}</p>
-            <p>{:__('order tips', ['minutes'=>$timeArray['minutes'],'seconds'=>$timeArray['seconds']])}</p>
-            <p>3、{:__('waiting msg')}</p>
-        </div>
-        <div style="padding: 10px;background-color: #FCF7FE;">
-            <h1 style="text-align: center; font-size: 3rem; margin: 60px 0;">HK$ {$order.money}</h1>
-            <div style="margin-left: 20px; border-top: 2px solid #ddd; padding-top: 15px;">
-                
-                {if $otc_info.type eq 1}
-                    <p>{:__('useremindfps')}</p>
-                {else /}
-                    <p>{:__('useremindbank')}</p>
-                {/if}
-
-                <p style="margin: 5px 0;"><span class="list-left">{:__('order number')}：</span><span>{$order.out_trade_no}</span></p>
-                <p style="margin: 5px 0;"><span class="list-left">{:__('account')}：</span><span>{$otc_info.account_number}</span></p>
-                <p style="margin: 5px 0;"><span class="list-left">{:__('account name')}：</span><span>{$otc_info.account_name}</span></p>
-                <p style="margin: 5px 0;"><span class="list-left copy-code-text">{:__('bank code')}：</span><span>{$otc_info.ifsc}</span></p>
+                    <!-- <div style="margin-top: 5px;">
+                        <div style="color:red;font-size: 12px;font-weight: bold;">Step 3</div>
+                        <div style="">
+                            Enter the amount you wish to process in the payment
+                        </div>
+                    </div> -->
+                    <div style="clear: both;"></div>
+                </div>
+                <div style="text-align: center;margin-top: 20px;color:white;font-size: 12px;">
+                    <img alt="" src="__CDN__/assets/img/secure.png" height="16px" style="vertical-align: middle;"> 100% Secure Payments Powered by OnePay
+                </div>
             </div>
         </div>
-        <p style="text-align: center; margin-top: 30px;"><span data-clipboard-text="{$otc_info.account_number}" class="copy-account">{:__('copy account')}</span></p>
-        <p style="text-align: center;"><span data-clipboard-text="{$otc_info.account_name}" class="copy-name">{:__('copy name')}</span></p>
-        <p style="text-align: center;"><span data-clipboard-text="{$otc_info.ifsc}" class="copy-code">{:__('copy code')}</span></p>
-    </div>
-    <!-- <div class="success">
-        <div style="text-align: center;padding: 60px 0;">
-            <img src="/assets/images/icoSuccess.png" alt="">
+        <div id="copytip" style="top: 5%;right: 0px;position: fixed;background-color: #e0ffe2;color: #19ba00;padding: 15px 15px 15px 30px;font-weight: bold;display: none;">
+            ✔ Copy successfully
         </div>
-        <h2 style="text-align: center;margin-top: 0;">支付成功</h2>
-        <p style="text-align: center;font-size: 1.2rem;">您的支付已成功，請離開此頁面</p>
-    </div> -->
-</body>
-</html>
-
-
-<script>
-var index = function(){
-    this.url = "{:url('Card/applyutr')}";
-    this.orderinfoUrl = "{:url('Card/orderinfo')}";
-    this.money = "{$order.money}";
-    this.account_number = "{$otc_info.account_number}";
-    this.channel = 'hkpay';
-    this.loading;
-    this.is_click = 0
-    this.InfoId;
-    this.n = 0;
-    this.calc = "{$calc}";
-    this.init();
-}
-
-index.prototype = {
-    init: function() {
-        var _this = this;
-        //提交
-        // _this._submit();
-        //判断如果是正在处理的订单，就显示倒计时
-        _this.orderCheck();
-        _this.copy();
-        _this.lasttime();
-    },
-
-
-    //判断如果是正在处理的订单，就显示倒计时
-    orderCheck: function(){
-        var _this = this;
-        var status = "{$order.status}";
-        var calc = "{$calc}";
-        // console.log(status)
-        if(status == 3){
-            _this.min = calc;
-            // _this.lasttime();
-            _this.setIntervalByInfo();
-        }
-    },
-
-    //每隔2秒请求一次
-    setIntervalByInfo: function(){
-        var _this = this;
-        _this.InfoId = setInterval(function(){
-            _this.getorderinfo();
-            _this.n++;
-        },1500);
-    },
-
-    //下单成功且跳转后，间隔5秒一次请求获取订单状态是否成功
-    getorderinfo: function(){
-        var _this = this;
-        var data = {
-            orderno: _this.getUrlParam('orderno'),
-            isGetInfo:1,
-            isAjax:1
-        };
-
-        $.ajax({
-            url: _this.orderinfoUrl,
-            type: 'POST',
-            data: data,
-            beforeSend: function(){
-            },
-            success: function (data) {
-                // console.log(data);
-                if(data.code == 1){
-                    //根据状态给出弹窗
-                    if(data.data.status == 1){
-                        _this.layerOpen('success',"{:__('Order payment successful')}",function(){
-                            // console.log(1)
-                        });
-                        clearInterval(_this.InfoId);
-                    }else if(data.data.status == 2){
-                        _this.layerOpen('error','Order payment failed, please return to the app and try again.');
-                        clearInterval(_this.InfoId);
-                    }else if(data.data.status == 3){
-                        // _this.layerOpen('error','The order has timed out, please return to the app to place a new order.');
-                    }else{
-
-                    }
-                }else{
-                    _this.layerOpen('error',data.msg);
-                    clearInterval(_this.InfoId);
+        <div id="upitip" style="top: 5%;right: 0px;position: fixed;background-color: #e0ffe2;color: red;padding: 15px 15px 15px 30px;font-weight: bold;display: none;">
+            ✖ 
+        </div>
+        <div id="upitipdui" style="top: 5%;right: 0px;position: fixed;background-color: #e0ffe2;color: #19ba00;padding: 15px 15px 15px 30px;font-weight: bold;display: none;">
+            ✔
+        </div>
+        <div id="tipdivutr" style="display: block;">
+            <div style="top: 0;left:0;;position: fixed;width:100%; height:100%;background-color: black;opacity: 0.5;">
+            </div>
+            <div style="top: 20%;left:10%;right:10%;position: fixed;width: 80%;background-color: white;border-radius: 10px;">
+                <div style="text-align: center;font-weight: bold;font-size: 18px;padding-top: 10px;color:red;">Tips</div>
+                <div style="padding:10px 20px;font-size: 14px;border-bottom: 1px gray solid;color: gray;">
+                    1.The Cash App  account generated is ONE-TIME-ONLY. Please do not save the current Cash App  account for future usage. Make sure that the Cash App  account you obtained is the latest one.<br/>
+                    2.If you breach or violate this agreement, the platform will not be responsible for any unrecoverable financial losses incurred. <br/>
+                    3.Please contact customer service if you have any further questions.  
+                </div>
+                <div style="line-height: 40px;text-align: center;font-weight: bold;background-color: rgb(0, 214, 79);color: white;" onclick="$('#tipdivutr').hide();">
+                    <!-- I know and continue to pay -->
+                    OK
+                </div>
+            </div>
+        </div>
+        <script>
+            var isIos = false;
+            var ispc = false;
+            if ((navigator.userAgent.match(/(iPhone|iPod|Android|ios|iOS|iPad|Backerry|WebOS|Symbian|Windows Phone|Phone)/i))) {
+                //$("#utrdiv").hide();
+                if(/(iPhone|iPad|iPod|iOS)/i.test(navigator.userAgent)){
+                    isIos = true;
+                    $("#upiother").hide();
                 }
-                // console.log(_this.n)
-                if(_this.n > 60*60*2){
-                    clearInterval(_this.InfoId);
-                }
+                $("#upiDiv").hide();
+            }else{
+                $("#appdiv").hide();
+                //$("#upiDiv").show();
+                //$("#paytmdiv").hide();
+                $("#ordiv").hide();
+                //$("#qrtips").hide();
+                ispc = true;
             }
-        });
-    },
-
-    layerOpen: function($isSuccess = 'error',$msg = '',fun = null){
-        if($isSuccess == 'error'){
-            $title = 'error';
-            $bgColor = '#FF4351';
-        }else{
-            $title = 'success';
-            $bgColor = '#07c160';
-        }
-        jia.open({
-            title: [
-                $title,
-                'background-color: '+$bgColor+'; color:#fff;'
-            ],
-            content:$msg,
-            end:function(){
-                fun()
-            }
-        });
-    },
-
-    //倒计时
-    lasttime: function(){
-        var _this = this;
-        var expiredTime = "{$expire_time}";
-
-        _this.min = _this.calc;
-        var _minutes = Math.floor(_this.min/60); //怎么说呢  假如(60*10-1)s 正常应该就是的 9.983333  取整就是 9  
-        var _seconds = _this.min % 60;   //余数指定是个整数
-        _minutes = _this.valid_time(_minutes);
-        _seconds = _this.valid_time(_seconds);
-
-
-
-        var maxTime = _this.min;
-
-        var last = function(){
-            var minutes = Math.floor(maxTime/60); //怎么说呢  假如(60*10-1)s 正常应该就是的 9.983333  取整就是 9  
-            var seconds = maxTime % 60;   //余数指定是个整数
-            seconds = String(seconds);
-            minutes = String(minutes);
-
-
-            $('#minutes').html(minutes);
-            $('#seconds').html(seconds);
-            // var mes = "还剩下"+ minutes +"分"+ seconds +"秒";
-            // console.log(mes)
+            var token = getQueryVariable("token");
+            var address = "";
+            var addressParam = {};
+            var addressParamPhonepe = {};
+            var domain = "https://"+location.host+"/";
+            var index2;
+            var index1;
+            var havePaid = "0";
+            var iscopy = false;
+            var cashUrl = "{$cashUrl}";
+            var orderinfoUrl = "{:url('Card/orderinfo')}"
+            var n = 0;
             
-            maxTime--;
-            if(maxTime < 0){
-                clearInterval(_this.timeId);
-                _this.layerOpen('error',"{:__('timed out')}");
-                // window.location.href = "{$errorUrl}";
+            function getQueryVariable(variable){
+                   var query = window.location.search.substring(1);
+                   var vars = query.split("&");
+                   for (var i=0;i<vars.length;i++) {
+                           var pair = vars[i].split("=");
+                           if(pair[0] == variable){return pair[1];}
+                   }
+                   return "";
+                   //#ff9eaa
             }
-        }
 
-        _this.timeId = setInterval(function(){
-            last();
-        },1000);
+            index2 = setInterval(
+                        function(){
+                            checked();
+                        },3000
+                    );
 
-        // clearInterval(_this.timeId);
-    },
+            function checked(){
+                var data = {
+                    orderno: getQueryVariable('orderno'),
+                    isGetInfo:1,
+                    isAjax:1
+                };
+                $.ajax({
+                    url: orderinfoUrl,
+                    type: 'POST',
+                    data: data,
+                    async:false,
+                    beforeSend: function(){
+                    },
+                    success: function (data) {
+                        // console.log(data);
+                        if(data.code == 1){
+                            //根据状态给出弹窗
+                            if(data.data.status == 1){
+                                $("#info").html("<div style='color:#005831;text-align:center;margin-top:20px;font-size:50px;'>✔</div><div style='color:#005831;text-align:center;margin-top:20px;'>"+data.msg+"</div>");
+                                clearInterval(index2);
+                            }else if(data.data.status == 2){
+                                $("#info").html("<div style='color:#b22c46;text-align:center;margin-top:20px;font-size:50px;'>✖</div><div style='color:#b22c46;text-align:center;margin-top:20px;'>Order payment failed, please return to the app and try again.</div>");
+                                clearInterval(index2);
+                            }else if(data.data.status == 3){
+                                //pay ing...
+                            }else if(data.data.status == 4){
+                                $("#info").html("<div style='color:#005831;text-align:center;margin-top:20px;font-size:50px;'>✔</div><div style='color:#005831;text-align:center;margin-top:20px;'>More information is required to accept this payment</div>");
+                                // clearInterval(index2);
+                            }
+                        }else{
+                            $("#info").html("<div style='color:#b22c46;text-align:center;margin-top:20px;font-size:50px;'>✖</div><div style='color:#b22c46;text-align:center;margin-top:20px;'>"+data.msg+"</div>");
+                                clearInterval(index2);
+                        }
+                        // console.log(_this.n)
+                        if(n > 60*60*2){
+                            clearInterval(index2);
+                        }
+                    }
+                });
 
-    valid_time: function(a){
-        if(a < 10)
-            return "0"+a;
-        else
-            return a;
-    },
-
-    getUrlParam: function(name) {
-        var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)"); // 构造一个含有目标参数的正则表达式对象
-        var r = window.location.search.substr(1).match(reg); // 匹配目标参数
-        if (r != null) return unescape(r[2]);
-        return null; // 返回参数值
-    },
-
-    copy: function(){
-        var _this = this;
-        
-        var clipboard1 = new Clipboard('.copy-account');
-        clipboard1.on('success', function (e) {
-            _this.jia_alert()
-        });
-
-        var clipboard2 = new Clipboard('.copy-name');
-        clipboard2.on('success', function (e) {
-            _this.jia_alert()
-        });
-
-        var clipboard3 = new Clipboard('.copy-code');
-        clipboard3.on('success', function (e) {
-            _this.jia_alert()
-        });
-    },
-
-    jia_alert: function(){
-        var _this = this;
-        jia.open({
-            content: "{:__('copy tips',$order['money'])}",
-            btn: "{:__('i got it')}",
-            end: function(){
-                // console.log(1)
+                n++;
             }
-        });
-    }
-}
-var controller = new index();
-</script>
+            
+            function toCash(cli){
+                copyUrl(cli);
+                setTimeout(function(){
+                    window.open(cashUrl,"_blank");
+                },500);
+            }
+            function copyUrl(cli){
+                var clipboard = new Clipboard('.'+cli);
+                clipboard.on('success', function(e) {
+                    clipboard.destroy();
+                    //alert("Copy success!");
+                    iscopy = true;
+                    $("#copytip").show();
+                    setTimeout(function(){$("#copytip").hide();},2000);
+                });
+                clipboard.on('error', function(e) {
+                    clipboard.destroy();
+                    alert("Copy failed!");
+                });
+            }
+        </script>
+    </body>
+</html>

@@ -52,7 +52,8 @@ function send(fileName,data){
       };
 
       postData.sign = getSign(postData,key);
-      console.log(postData)
+      logger.info('发送 msg:',JSON.stringify(postData));
+      // console.log(postData)
       
       axios.post(url, postData)
         .then((response) => {

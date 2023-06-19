@@ -642,7 +642,7 @@ class Collection extends Backend
             'total' => $total,
             'price' => sprintfnum($price),
             'tax' => sprintfnum($tax),
-            'rate' => sprintfnum($rate),
+            'rate' => $rate,
             'three_tax' => sprintfnum($three_tax),
             'success_total' => $success_total
         ];

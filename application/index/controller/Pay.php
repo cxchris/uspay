@@ -14,8 +14,8 @@ class Pay extends Frontend
     protected $noNeedLogin = '*';
     protected $noNeedRight = '*';
     protected $errorUrl = 'https://www.google.com';
-    protected $expire_time = 10*60;
-    protected $_expire_time = 10*60; //前端超时时间
+    protected $expire_time = 15*60;
+    protected $_expire_time = 15*60; //前端超时时间
     protected $logo = '/ydpay/public/assets/img/dute_favicon_32x32.ico';
     protected $akey = 'qwerty';
     protected $lang = 'tc-cn';
@@ -82,7 +82,7 @@ class Pay extends Frontend
 
             //判断超时，超时时间15分钟
             if($calc > $this->expire_time){
-                // $this->_error('Order timed out');
+                $this->_error('Order timed out');
             }
         }
     }

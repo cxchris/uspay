@@ -151,6 +151,7 @@ define(['jquery', 'bootstrap', 'backend', 'table', 'form'], function ($, undefin
                     $("#success_total").text(json.extend.success_total);
                     $("#price").text(json.extend.price);
                     $("#tax").text(json.extend.tax);
+                    $("#three_tax").text(json.extend.three_tax);
                     $("#rate").text(json.extend.rate);
                 });
 

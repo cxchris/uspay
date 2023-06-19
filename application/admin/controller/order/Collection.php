@@ -601,7 +601,7 @@ class Collection extends Backend
                 ->where('status',$success_status)
                 ->sum('money');
 
-        //交易手续费
+        //商户手续费
         $tax = $model
                 ->alias('a')
                 ->where($timewhere)
@@ -610,6 +610,16 @@ class Collection extends Backend
                 ->where('status',$success_status)
                 ->where($where)
                 ->sum('rate_money');
+
+        //三方手续费
+        $three_tax = $model
+                ->alias('a')
+                ->where($timewhere)
+                ->where($statuswhere)
+                ->where($merchant_where)
+                ->where('status',$success_status)
+                ->where($where)
+                ->sum('rate_t_money');
 
         //成功率
         $count = $model
@@ -633,6 +643,7 @@ class Collection extends Backend
             'price' => sprintfnum($price),
             'tax' => sprintfnum($tax),
             'rate' => $rate,
+            'three_tax' => $three_tax,
             'success_total' => $success_total
         ];
 

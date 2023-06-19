@@ -167,8 +167,8 @@ class Merchant extends Backend
                 try {
                     //验证器
                     $validate = new \think\Validate;
-                    $validate->rule('collection_fee_rate_per', 'require|number|between:1,100')
-                            ->rule('payment_fee_rate_per', 'require|number|between:1,100');
+                    $validate->rule('collection_fee_rate_per', 'require|number|between:0,100')
+                            ->rule('payment_fee_rate_per', 'require|number|between:0,100');
                     $validdata = [
                         'collection_fee_rate_per'  => $params['collection_fee_rate_per'],
                         'payment_fee_rate_per' => $params['payment_fee_rate_per']

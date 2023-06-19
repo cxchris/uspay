@@ -24,7 +24,7 @@
 
 <h4 id="toc_2">1.1 参数规范</h4>
 
-<p>交易金额：默认为港币（HKD）交易，参数值不能带小数。</p>
+<p>交易金额：默认为美元（USD）交易，参数值不能带小数。</p>
 
 <h4 id="toc_3">1.2 安全规范</h4>
 
@@ -142,32 +142,8 @@
     <td>accountNo</td>
     <td>是</td>
     <td>Number</td>
-    <td>6222020200098541458</td>
-    <td>交易類型為bank時，此项内容为受益人帳戶號碼，交易類型為UPI時，此项内容为VPA/UPI ID</td>
-</tr>
-<tr>
-    <td>开户行名称</td>
-    <td>bankName</td>
-    <td>是</td>
-    <td>String</td>
-    <td>北京上地支行</td>
-    <td>开户行名称</td>
-</tr>
-<tr>
-    <td>银行编号</td>
-    <td>bankCode</td>
-    <td>是</td>
-    <td>String</td>
-    <td>HDFC0001898</td>
-    <td>银行在金融系统编码（ifscCode）,当交易類型为bank时为必传项</td>
-</tr>
-<tr>
-    <td>银行分店</td>
-    <td>branchName</td>
-    <td>是</td>
-    <td>String</td>
-    <td>KOCHI，KERALA</td>
-    <td>银行分店名称</td>
+    <td>waters99999</td>
+    <td>交易類型為cash時，此项内容为收款人的Cash app账号（目前仅支持Cash app账号）</td>
 </tr>
 <tr>
     <td>代付结果回调URL</td>
@@ -183,14 +159,14 @@
     <td>是</td>
     <td>int</td>
     <td>22</td>
-    <td>用户选择的支付通道id</td>
+    <td>用户选择的支付通道id,目前仅支持cash，请找管理员获取channel id</td>
 </tr>
 <tr>
     <td>备注</td>
     <td>remark</td>
     <td>是</td>
     <td>String</td>
-    <td>代付1000卢比</td>
+    <td>代付100</td>
     <td>备注</td>
 </tr>
 <tr>

@@ -181,10 +181,11 @@ define(['jquery', 'bootstrap', 'backend', 'table', 'form'], function ($, undefin
                     },
                     columns: [
                         [
-                            {field: 'orderno', title: '平台订单号'},
+                            // {field: 'orderno', title: '平台订单号'},
+                            {field: 'eshopno', title: '平台订单号',operate: 'LIKE'},
                             {field: 'out_trade_no', title: '商户订单号',operate: 'LIKE'},
-                            {field: 'eshopno', title: '电商订单',operate: 'LIKE'},
-                            {field: 'tn', title: '三方订单号'},
+                            // {field: 'tn', title: '三方订单号'},
+                            {field: 'utr', title: 'utr'},
                             {field: 'channel_id', title: '代收通道',formatter: function (value,row) 
                             {
                                 return row.channel_name+'('+value+')';
@@ -224,7 +225,6 @@ define(['jquery', 'bootstrap', 'backend', 'table', 'form'], function ($, undefin
                             {field: 'account_money', title: '到账金额',operate:false},
                             {field: 'billing_around', title: '结算周期',operate:false},
                             {field: 'billing_time', title: '结算时间',  operate: 'RANGE', addclass: 'datetimerange', sortable: true,operate:false},
-                            {field: 'utr', title: 'utr'},
                             {field: 'txtUTR', title: 'txtUTR'},
                             {
                                 field: 'is_billing', 

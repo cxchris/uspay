@@ -61,7 +61,7 @@ class Merchant extends Backend
 
         foreach ($collectionList as $k => $v) {
             $type = $v['type'] == 1 ? 'CASHAPP' : '银行卡';
-            $collectionName[$v['id']] = $type.'-'.$v['email'];
+            $collectionName[$v['id']] = $type.'-'.$v['account_number'];
         }
         foreach ($paymentList as $k => $v) {
             $paymentListName[$v['id']] = $v['channel_name'];

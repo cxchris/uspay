@@ -97,9 +97,9 @@
         </div>
     </div>
     <div class="form-group">
-        <label for="payment_channel_id" class="control-label col-xs-12 col-sm-2">代付通道:</label>
+        <label for="payment_channel_id" class="control-label col-xs-12 col-sm-2">代付卡池:</label>
         <div class="col-xs-12 col-sm-8">
-            {:build_select('row[payment_channel_id]', $paymentListName, $row['payment_channel_id'], ['class'=>'form-control selectpicker'])}
+            {:build_checkboxs('row[payment_channel_id][]', $paymentListName, $row['payment_channel_id'])}
         </div>
     </div>
     <!-- <div class="form-group">

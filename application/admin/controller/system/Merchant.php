@@ -53,18 +53,19 @@ class Merchant extends Backend
                             ->alias('a')
                             ->join('channel_list b','a.channel_id = b.id','LEFT')
                             ->where(['a.status'=>1,'b.status'=>1])->select();
-        $paymentList = \think\Db::name("channel_list")->field('*', true)->where(array('status'=>1,'type'=>$this->payment_type))->order('id ASC')->select();
+        // $paymentList = \think\Db::name("channel_list")->field('*', true)->where(array('status'=>1,'type'=>$this->payment_type))->order('id ASC')->select();
         
+        $paymentList = model('otc_list')->where(['type'=>1])->select();
         //获取name
         $collectionName = [];
-        $paymentListName = [0 => __('None')];
+        $paymentListName = [];
 
         foreach ($collectionList as $k => $v) {
             $type = $v['type'] == 1 ? 'CASHAPP' : '银行卡';
             $collectionName[$v['id']] = $type.'-'.$v['account_number'];
         }
         foreach ($paymentList as $k => $v) {
-            $paymentListName[$v['id']] = $v['channel_name'];
+            $paymentListName[$v['id']] = 'CASHAPP'.'-'.$v['account_number'];
         }
         // dump($collectionName);exit;
         $this->view->assign("collectionName", $collectionName);
@@ -492,12 +493,25 @@ class Merchant extends Backend
         $data['payment_fee_rate'] = $payment_fee_rate;
 
         //代收卡池里存字符串、兼容多个
-        $collection_channel_arr = $data['collection_channel_id'];
-        $collection_channel_id = implode(',',$collection_channel_arr);
+        if(isset($data['collection_channel_id'])){
+            $collection_channel_arr = $data['collection_channel_id'];
+            $collection_channel_id = implode(',',$collection_channel_arr);
 
-        $data['collection_channel_id'] = $collection_channel_id;
+            $data['collection_channel_id'] = $collection_channel_id;
+        }else{
+            $data['collection_channel_id'] = '';
+        }
+        
 
+        //代付卡池里存字符串、兼容多个
+        if(isset($data['payment_channel_id'])){
+            $payment_channel_arr = $data['payment_channel_id'];
+            $payment_channel_id = implode(',',$payment_channel_arr);
 
+            $data['payment_channel_id'] = $payment_channel_id;
+        }else{
+            $data['payment_channel_id'] = '';
+        }
 
         unset($data['collection_fee_rate_per']);
         unset($data['collection_fee_rate_sigle']);

@@ -59,11 +59,11 @@ class Payment extends Backend
             // dump($op);exit;
             //组装搜索
             $timewhere = $statuswhere = $groupwhere = [];
-            $field = 'a.*,b.channel_name,c.merchant_number,c.merchant_name';
+            $field = 'a.*,b.channel_name,c.merchant_number,c.merchant_name,d.account_name';
             if($this->group_id == self::MERCHANT_GROUP){
                 //如果是商户，加上订单搜索条件
                 $groupwhere = ['a.merchant_id'=>$this->merchant['id']];
-                $field = 'a.id,orderno,tn,out_trade_no,a.status,c.merchant_number,c.merchant_name,money,rate_money,reduce_money,notify_status,a.create_time,a.update_time,a.callback_time,b.channel_name,channel_id';
+                $field = 'a.id,orderno,tn,out_trade_no,a.status,c.merchant_number,c.merchant_name,money,rate_money,reduce_money,notify_status,a.create_time,a.update_time,a.callback_time,b.channel_name,a.channel_id';
             }
             if (isset($filter['create_time'])) {
                 $timearr = explode(' - ',$filter['create_time']);
@@ -102,6 +102,7 @@ class Payment extends Backend
                 ->where($where)
                 ->join('channel_list b','a.channel_id = b.id','LEFT')
                 ->join('merchant c','a.merchant_id = c.id','LEFT')
+                ->join('otc_list d','a.channel_id = d.id','LEFT')
                 ->field($field)
                 ->order($sort, $order)
                 ->paginate($limit);

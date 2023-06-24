@@ -20,8 +20,8 @@ class Apply extends Validate
 
         'accountName' => 'require|max:128',
         'accountNo' => 'require|max:128',
-        'bankName' => 'require|max:128',
-        'bankCode' => 'require|max:128',
+        'bankName' => 'max:128',
+        'bankCode' => 'max:128',
         // 'branchName' => 'require|max:128',
 
         'time' => 'require|integer|max:20',

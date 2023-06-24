@@ -113,13 +113,20 @@
     <td>56544ssfdec11149918831190d1b1</td>
     <td>商户代付订单号</td>
 </tr>
+    <td>通道类型</td>
+    <td>channel</td>
+    <td>是</td>
+    <td>String(64)</td>
+    <td>cashapp</td>
+    <td>用户选择的代付通道类型,目前仅支持cashapp</td>
+</tr>
 <tr>
-    <td>交易类型</td>
-    <td>pay_type</td>
-    <td>否</td>
-    <td>String</td>
-    <td>bank</td>
-    <td>交易类型(只允许传bank或者upi)</td>
+    <td>通道id</td>
+    <td>channel_id</td>
+    <td>是</td>
+    <td>int</td>
+    <td>8</td>
+    <td>通道id,从可用的cash列表中获取的id</td>
 </tr>
 <tr>
     <td>代付金额</td>
@@ -134,16 +141,16 @@
     <td>accountName</td>
     <td>是</td>
     <td>String(64)</td>
-    <td>manager</td>
-    <td>收款人账户名</td>
+    <td>Yang</td>
+    <td>收款人的cash app的账户名</td>
 </tr>
 <tr>
     <td>收款人账户号</td>
     <td>accountNo</td>
     <td>是</td>
     <td>Number</td>
-    <td>waters99999</td>
-    <td>交易類型為cash時，此项内容为收款人的Cash app账号（目前仅支持Cash app账号）</td>
+    <td>$waters99999</td>
+    <td>收款人的cash app的账户号</td>
 </tr>
 <tr>
     <td>代付结果回调URL</td>
@@ -152,14 +159,6 @@
     <td>String</td>
     <td>http://www.baidu.com</a></td>
     <td>代付结果回调URL</td>
-</tr>
-<tr>
-    <td>支付通道</td>
-    <td>channel</td>
-    <td>是</td>
-    <td>int</td>
-    <td>22</td>
-    <td>用户选择的支付通道id,目前仅支持cash，请找管理员获取channel id</td>
 </tr>
 <tr>
     <td>备注</td>
@@ -288,7 +287,99 @@
 </tbody>
 </table>
 
-<h2 id="toc_5">3. 查询代付订单</h2>
+<h2 id="toc_5">3. 查询可用申请代付的cash账号列表</h2>
+
+<blockquote>
+<p>接口描述</p>
+</blockquote>
+
+<p>商户通过该接口查询可用申请代付的cash账号列表,把账号展示到前端给用户选择，并从列表中获取到的id提交给代付接口</p>
+
+<blockquote>
+<p>接口链接</p>
+</blockquote>
+
+<p>URL地址：https://onepayus.com/api/apply/cashlist</a></p>
+
+<blockquote>
+<p>请求参数</p>
+</blockquote>
+
+<table>
+<thead>
+<tr>
+<th>字段名</th>
+<th>变量名</th>
+<th>必填</th>
+<th>类型</th>
+<th>示例值</th>
+<th>描述</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+    <td>商户号</td>
+    <td>merchantNo</td>
+    <td>是</td>
+    <td>String</td>
+    <td>Z16479536031659</td>
+    <td>分配的商户号</td>
+</tr>
+<tr>
+    <td>时间戳</td>
+    <td>time</td>
+    <td>是</td>
+    <td>int</td>
+    <td>1647601575</td>
+    <td>时间戳，精确到秒</td>
+</tr>
+<tr>
+    <td>签名</td>
+    <td>sign</td>
+    <td>是</td>
+    <td>String(32)</td>
+    <td>C380BEC2BFD727A4B6845133519F3AD6</td>
+    <td>签名值，详见签名算法</td>
+</tr>
+</tbody>
+</table>
+
+<h4 id="toc_6">返回结果</h4>
+
+<table>
+<thead>
+    <tr>
+        <th>字段名</th>
+        <th>变量名</th>
+        <th>必填</th>
+        <th>类型</th>
+        <th>示例值</th>
+        <th>描述</th>
+    </tr>
+</thead>
+
+<tbody>
+    <tr>
+        <td>id</td>
+        <td>id</td>
+        <td>是</td>
+        <td>int</td>
+        <td>id</td>
+        <td>cashapp代付账户的系统id，用来在代付接口传入</td>
+    </tr>
+    <tr>
+        <td>cashapp代付账户的账户名</td>
+        <td>account_number</td>
+        <td>是</td>
+        <td>String</td>
+        <td>$dreghxs67g</td>
+        <td>cashapp代付账户的账户名，用于展示给玩家</td>
+    </tr>
+</tbody>
+</table>
+
+<h2 id="toc_5">4. 查询代付订单</h2>
 
 <blockquote>
 <p>接口描述</p>
@@ -300,7 +391,7 @@
 <p>接口链接</p>
 </blockquote>
 
-<p>URL地址：https://onepayhk.com/api/apply/orderInfo</a></p>
+<p>URL地址：https://onepayus.com/api/apply/orderInfo</a></p>
 
 <blockquote>
 <p>请求参数</p>
@@ -454,7 +545,7 @@
 </tbody>
 </table>
 
-<h2 id="toc_7">4. 支付结果通知</h2>
+<h2 id="toc_7">5. 支付结果通知</h2>
 
 <blockquote>
 <p>接口描述</p>

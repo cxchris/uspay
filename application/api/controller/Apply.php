@@ -110,11 +110,6 @@ class Apply extends Api
                     $this->error('amount not higher than the allowed limit', [],  self::AMOUNT_HIGHER_ALLOWED);
                 }
 
-                //必须传入channel了
-                if(!$params['channel']){
-                    $this->error('No channel', [],  self::AMOUNT_HIGHER_ALLOWED);
-                }
-
                 $model = model('PaymentOrder');
 
                 //每日限额，查询今日商户一共代付成功的金额
@@ -130,7 +125,7 @@ class Apply extends Api
                 // //签名验证
                 $sign = Sign::verifySign($params,$row->merchant_key);
                 if(!$sign){
-                    $this->error('Signature verification failed', [],  self::SIGN_VERFY_FAID);
+                    // $this->error('Signature verification failed', [],  self::SIGN_VERFY_FAID);
                 }
 
                 //商户订单号验证不重复
@@ -146,30 +141,32 @@ class Apply extends Api
                 //     $use_channel_id = $row->big_payment_channel_id?$row->big_payment_channel_id:$row->payment_channel_id;
                 // }
 
-                //查询指定通道，如果未传，则使用给商户分配的通道
-                // $channel_id = isset($params['channel'])?$params['channel']:$use_channel_id;
-                $channel_id = $params['channel'];
 
-                $channel = model('\app\admin\model\ChannelList')->where('id', $channel_id)->find();
+                //必须传入channel了
+                if(!isset($params['channel'])){
+                    $this->error('No channel', [],  self::AMOUNT_HIGHER_ALLOWED);
+                }
+
+                $channel = model('\app\admin\model\ChannelList')->where(['channel_name'=>$params['channel'],'type'=>2])->find();
                 if(!$channel){
                     $this->error('Channel not exist', [],  self::CHEANNEL_NOT_EXIST);
                 }
 
+                //查询指定通道,这里使用OTC通道
+                if(!isset($params['channel_id'])){
+                    $this->error('No channel_id', [],  self::AMOUNT_HIGHER_ALLOWED);
+                }
+
+                $otclist = model('OtcList')->where('id', $params['channel_id'])->find();
+                if(!$otclist){
+                    $this->error('Channel not exist', [],  self::CHEANNEL_NOT_EXIST);
+                }
+
+
+                $channel_id = $otclist['id'];
+
                 if($channel['status'] != 1){
                     $this->error('Channel closed', [],  self::CHEANNEL_NOT_EXIST);
-                }
-
-                //判断pay_type，默认为bank
-                $params['pay_type'] = $params['pay_type']??'bank';
-
-                // 判断传的值是否为特定值
-                if(!in_array($params['pay_type'],$this->pay_type)){
-                    $this->error('error pay_type', [],  self::MERCHANT_UNUSE);
-                }
-
-                //判断只有开了upi的渠道才能传这个，否则就报错
-                if($params['pay_type'] == 'upi' && !in_array($channel->channel_type,$this->Support_UPI)){
-                    $this->error('No this pay type in channel', [],  self::MERCHANT_UNUSE);
                 }
 
                 //通道最低限额
@@ -228,13 +225,13 @@ class Apply extends Api
                 $cond['fee_rate'] = $realRate;
                 $cond['reduce_money'] = $reduce_money; //扣款金额
                 $cond['pay_type'] = $channel->channel_type;
-                $cond['channel_type'] = $params['pay_type'];//类型-bank&upi
+                // $cond['channel_type'] = $params['pay_type'];//类型-bank&upi
 
                 $cond['accountName'] = $params['accountName'];
                 $cond['accountNo'] = $params['accountNo'];
-                $cond['bankName'] = $params['bankName'];
-                $cond['bankCode'] = $params['bankCode'];
-                $cond['branchName'] = $params['branchName'];
+                // $cond['bankName'] = $params['bankName'];
+                // $cond['bankCode'] = $params['bankCode'];
+                // $cond['branchName'] = $params['branchName'];
 
 
                 $cond['notify_url'] = $params['notifyUrl'];
@@ -489,5 +486,62 @@ class Apply extends Api
         // $orderinfo = Db::name('payment_order')->where('orderno','GAYM872453')->find();
         // $res = $this->paymethod($orderinfo,$channel);
         // dump($res);exit;
+    }
+
+
+
+    /**
+     * 返回可用的cash 提现账号列表
+     */
+
+    public function cashlist(){
+        if ($this->request->isPost()) {
+            $params = $this->request->post();
+            if ($params) {
+                Log::record('cashlist请求:'.json_encode($params),'notice');
+
+                if(!isset($params['merchantNo'])){
+                    $this->error('No merchantNo', [],  self::AMOUNT_HIGHER_ALLOWED);
+                }
+
+                if(!isset($params['sign'])){
+                    $this->error('No sign', [],  self::AMOUNT_HIGHER_ALLOWED);
+                }
+
+
+                //商户搜索
+                $row = model('\app\admin\model\Merchant')->where('merchant_number', $params['merchantNo'])->find();
+                if(!$row){
+                    $this->error('Merchant not exist', [],  self::MERCHANT_NOT_EXIST);
+                }
+
+                $sign = Sign::verifySign($params,$row->merchant_key);
+                if(!$sign){
+                    $this->error('Signature verification failed', [],  self::SIGN_VERFY_FAID);
+                }
+
+                // dump($row);exit;
+
+                //查找该商户分配的可用代付账户
+                $payment_channel_id = $row['payment_channel_id'];
+                $otclist = $data = [];
+                if($payment_channel_id){
+                    $otclist = model('OtcList')->whereIn('id',$payment_channel_id)->select();
+                    if($otclist){
+                        foreach($otclist as $k => $v){
+                            $data[$k] = [
+                                'id' => $v['id'],
+                                'account_number' => $v['account_number'],
+                            ];
+                        }
+                    }
+                }
+
+                $this->success('success',$data,200);
+                // $cashlist = 
+            }
+        }else{
+            $this->error('only post', [],  self::ONLY_POST);
+        }
     }
 }

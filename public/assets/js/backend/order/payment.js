@@ -36,11 +36,11 @@ define(['jquery', 'bootstrap', 'backend', 'table', 'form'], function ($, undefin
                 columns = [
                     {field: 'orderno', title: '平台订单号'},
                     {field: 'out_trade_no', title: '商户订单号'},
-                    {field: 'tn', title: '三方订单号'},
+                    // {field: 'tn', title: '三方订单号'},
                     {
-                        field: 'channel_id', title: '代付通道',
+                        field: 'channel_id', title: '代付卡池',
                         formatter: function (value,row) {
-                            return row.channel_name+'('+value+')';
+                            return row.account_name+'('+value+')';
                         },
                         searchList: $.getJSON("order/payment/colselect")
                     },
@@ -86,14 +86,16 @@ define(['jquery', 'bootstrap', 'backend', 'table', 'form'], function ($, undefin
                 columns = [
                     {field: 'orderno', title: '平台订单号'},
                     {field: 'out_trade_no', title: '商户订单号'},
-                    {field: 'tn', title: '三方订单号'},
+                    // {field: 'tn', title: '三方订单号'},
                     {
-                        field: 'channel_id', title: '代付通道',
+                        field: 'channel_id', title: '代付卡池',
                         formatter: function (value,row) {
-                            return row.channel_name+'('+value+')';
+                            return row.account_name+'('+value+')';
                         },
                         searchList: $.getJSON("order/payment/colselect")
                     },
+                    {field: 'accountName', title: '收款人cashapp账户名'},
+                    {field: 'accountNo', title: '收款人cashapp账户号'},
                     
                     {
                         field: 'status_type', 
@@ -119,7 +121,7 @@ define(['jquery', 'bootstrap', 'backend', 'table', 'form'], function ($, undefin
                         searchList: $.getJSON("order/payment/merchantList")
                     },
                     {field: 'pay_type', title: '代付方式',operate:false},
-                    {field: 'channel_type', title: '付款方式',operate:false},
+                    // {field: 'channel_type', title: '付款方式',operate:false},
                     {field: 'create_time', title: '创建时间',  operate: 'RANGE', addclass: 'datetimerange', sortable: true,defaultValue:Moment().startOf('day').format('YYYY-MM-DD 00:00:00') + ' - ' + Moment().endOf('day').format('YYYY-MM-DD 23:59:59')},
                     {field: 'callback_time', title: '回调时间', operate: 'RANGE', addclass: 'datetimerange', sortable: true},
                     {field: 'money', title: '交易金额',operate:false},

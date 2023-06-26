@@ -162,12 +162,12 @@ class PayOrder extends Model
             }
 
             // //2.将到账金额加给用商户的代收余额里
-            $merchant = Db::name('merchant')->field('merchant_amount')->where('merchant_number',$v['merchant_number'])->find(); //先查找商家前值
+            $merchant = Db::name('merchant')->field('merchant_payment_amount')->where('merchant_number',$v['merchant_number'])->find(); //先查找商家前值
 
             $res2 = Db::name('merchant')
                 ->where('merchant_number',$v['merchant_number'])
                 ->update([
-                    'merchant_amount'=>['inc', $v['account_money']]
+                    'merchant_payment_amount'=>['inc', $v['account_money']]
                 ]);
             if(!$res2){
                 exception('添加商户代收余额失败');
@@ -178,9 +178,9 @@ class PayOrder extends Model
                 'merchant_number' => $v['merchant_number'],
                 'orderno' => $v['orderno'],
                 'type' => 2, //type = 2-代付结算
-                'bef_amount' => $merchant['merchant_amount'],
+                'bef_amount' => $merchant['merchant_payment_amount'],
                 'change_amount' => $v['account_money'],
-                'aft_amount' => $merchant['merchant_amount'] + $v['account_money'],
+                'aft_amount' => $merchant['merchant_payment_amount'] + $v['account_money'],
                 'status' => 1,
                 'create_time' => time()
             ];

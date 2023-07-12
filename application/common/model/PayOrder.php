@@ -190,6 +190,35 @@ class PayOrder extends Model
                 exception('添加账变记录失败');
             }
 
+            //4.添加到系统营收中
+            $system_aomout = Db::name('config')->field('value')->where('name','system_aomout')->find(); //先查找system_aomout前值
+
+            $res4 = Db::name('config')
+                ->where('name','system_aomout')
+                ->update([
+                    'value'=>['inc', $v['rate_t_money']]
+                ]);
+            if(!$res4){
+                exception('添加系统余额失败');
+            }
+
+            //5.添加到系统营收记录
+            $adddata = [
+                'merchant_number' => $v['merchant_number'],
+                'orderno' => $v['eshopno'],
+                'type' => 2, //type = 2-代收结算
+                'bef_amount' => $system_aomout['value'],
+                'change_amount' => $v['rate_t_money'],
+                'aft_amount' => $system_aomout['value'] + $v['rate_t_money'],
+                'status' => 1,
+                'create_time' => time()
+            ];
+            // dump($adddata);exit;
+            $res3 = Db::name('system_amount_change_record')->insert($adddata);
+            if(!$res3){
+                exception('添加账变记录失败');
+            }
+
             Db::commit();
         } catch (\Exception $e) {
             Db::rollback();

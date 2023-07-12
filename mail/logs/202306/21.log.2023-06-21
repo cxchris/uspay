@@ -1,0 +1,817 @@
+2023-06-21 08:28:01 [INFO] 9.js - 连接成功，等待新邮件到达...当前进程 ID:15472
+2023-06-21 08:28:01 [INFO] 8.js - 连接成功，等待新邮件到达...当前进程 ID:16112
+2023-06-21 08:28:33 [INFO] 8.js - 连接成功，等待新邮件到达...当前进程 ID:22740
+2023-06-21 08:48:12 [INFO] 9.js - 发送 msg: {"amount":"5","pkg":"Cash App","note":"lFGcfNRh","containsContinue":1,"containsReceived":0,"time":1687351692787,"sign":"AB4945F004B1E61A786EF32A53A0106B"}
+2023-06-21 08:48:12 [INFO] 9.js - From: Cash App <cash@square.com>
+2023-06-21 08:48:12 [INFO] 9.js - Subject: Tahtiana Bonner sent you $5 for lFGcfNRh
+2023-06-21 08:48:12 [INFO] 9.js - 是否存在 "Continue": true
+2023-06-21 08:48:12 [INFO] 9.js - 是否存在 "Received": false
+2023-06-21 08:48:13 [INFO] 9.js - 响应 msg: {
+  code: 0,
+  msg: 'order already make sure',
+  time: '1687351693',
+  data: null
+}
+2023-06-21 08:48:28 [INFO] 9.js - 发送 msg: {"amount":null,"pkg":"Cash App","note":"","containsContinue":0,"containsReceived":0,"time":1687351708831,"sign":"D9A559F63175975F7A8DE9BA133320EF"}
+2023-06-21 08:48:28 [INFO] 9.js - From: Cash App <cash@square.com>
+2023-06-21 08:48:28 [INFO] 9.js - Subject: Payment failed
+2023-06-21 08:48:28 [INFO] 9.js - 是否存在 "Continue": false
+2023-06-21 08:48:28 [INFO] 9.js - 是否存在 "Received": false
+2023-06-21 08:48:29 [INFO] 9.js - 响应 msg: {
+  code: 3026,
+  msg: 'Signature verification failed',
+  time: '1687351708',
+  data: []
+}
+2023-06-21 08:52:55 [INFO] 9.js - 发送 msg: {"amount":"10","pkg":"Cash App","note":"mt2wdbVM","containsContinue":1,"containsReceived":0,"time":1687351975781,"sign":"BE47BDCCCA36032239524339C4128E4C"}
+2023-06-21 08:52:55 [INFO] 9.js - From: Cash App <cash@square.com>
+2023-06-21 08:52:55 [INFO] 9.js - Subject: Tahtiana Bonner sent you $10 for mt2wdbVM
+2023-06-21 08:52:55 [INFO] 9.js - 是否存在 "Continue": true
+2023-06-21 08:52:55 [INFO] 9.js - 是否存在 "Received": false
+2023-06-21 08:52:56 [INFO] 9.js - 响应 msg: {
+  code: 0,
+  msg: 'order already make sure',
+  time: '1687351976',
+  data: null
+}
+2023-06-21 09:01:57 [INFO] 9.js - 发送 msg: {"amount":"5","pkg":"Cash App","note":"","containsContinue":0,"containsReceived":1,"time":1687352517428,"sign":"8441E78AF73947E4EDDB0E55FBABFBE0"}
+2023-06-21 09:01:57 [INFO] 9.js - From: Cash App <cash@square.com>
+2023-06-21 09:01:57 [INFO] 9.js - Subject: Rebecca Quevedo sent you $5
+2023-06-21 09:01:57 [INFO] 9.js - 是否存在 "Continue": false
+2023-06-21 09:01:57 [INFO] 9.js - 是否存在 "Received": true
+2023-06-21 09:01:58 [INFO] 9.js - 响应 msg: { code: 0, msg: 'order not exist', time: '1687352517', data: null }
+2023-06-21 09:02:47 [INFO] 9.js - 发送 msg: {"amount":null,"pkg":"Cash App","note":"","containsContinue":0,"containsReceived":0,"time":1687352567690,"sign":"8224E5E11986B6650E9D969B24F3FC64"}
+2023-06-21 09:02:47 [INFO] 9.js - From: Cash App <cash@square.com>
+2023-06-21 09:02:47 [INFO] 9.js - Subject: Payment failed
+2023-06-21 09:02:47 [INFO] 9.js - 是否存在 "Continue": false
+2023-06-21 09:02:47 [INFO] 9.js - 是否存在 "Received": false
+2023-06-21 09:02:48 [INFO] 9.js - 响应 msg: {
+  code: 3026,
+  msg: 'Signature verification failed',
+  time: '1687352567',
+  data: []
+}
+2023-06-21 09:32:05 [INFO] 9.js - 发送 msg: {"amount":"5","pkg":"Cash App","note":"","containsContinue":1,"containsReceived":0,"time":1687354325788,"sign":"A6572EE6A7A2876BC2BC7E9BE4AF9951"}
+2023-06-21 09:32:05 [INFO] 9.js - From: Cash App <cash@square.com>
+2023-06-21 09:32:05 [INFO] 9.js - Subject: Lunyea Willis sent you $5
+2023-06-21 09:32:05 [INFO] 9.js - 是否存在 "Continue": true
+2023-06-21 09:32:05 [INFO] 9.js - 是否存在 "Received": false
+2023-06-21 09:32:06 [INFO] 9.js - 响应 msg: { code: 0, msg: 'order not exist', time: '1687354326', data: null }
+2023-06-21 09:32:30 [INFO] 9.js - 发送 msg: {"amount":null,"pkg":"Cash App","note":"","containsContinue":0,"containsReceived":0,"time":1687354350073,"sign":"36B936965C0093FF2985CDB8061A2C61"}
+2023-06-21 09:32:30 [INFO] 9.js - From: Cash App <cash@square.com>
+2023-06-21 09:32:30 [INFO] 9.js - Subject: Payment failed
+2023-06-21 09:32:30 [INFO] 9.js - 是否存在 "Continue": false
+2023-06-21 09:32:30 [INFO] 9.js - 是否存在 "Received": false
+2023-06-21 09:32:30 [INFO] 9.js - 响应 msg: {
+  code: 3026,
+  msg: 'Signature verification failed',
+  time: '1687354350',
+  data: []
+}
+2023-06-21 09:37:21 [INFO] 9.js - 发送 msg: {"amount":"20","pkg":"Cash App","note":"","containsContinue":0,"containsReceived":0,"time":1687354641225,"sign":"B5A9233E6F12B5C1D6D5528D73E5DFCA"}
+2023-06-21 09:37:21 [INFO] 9.js - From: Cash App <cash@square.com>
+2023-06-21 09:37:21 [INFO] 9.js - Subject: You sent $20 to Candelario Martinez
+2023-06-21 09:37:21 [INFO] 9.js - 是否存在 "Continue": false
+2023-06-21 09:37:21 [INFO] 9.js - 是否存在 "Received": false
+2023-06-21 09:37:22 [INFO] 9.js - 响应 msg: { code: 3026, msg: 'contains error', time: '1687354641', data: [] }
+2023-06-21 09:43:30 [INFO] 9.js - 发送 msg: {"amount":"6","pkg":"Cash App","note":"","containsContinue":0,"containsReceived":1,"time":1687355010724,"sign":"831E9104CC427AF126CB2EEBA5FAC256"}
+2023-06-21 09:43:30 [INFO] 9.js - From: Cash App <cash@square.com>
+2023-06-21 09:43:30 [INFO] 9.js - Subject: Jarrett M sent you $6
+2023-06-21 09:43:30 [INFO] 9.js - 是否存在 "Continue": false
+2023-06-21 09:43:30 [INFO] 9.js - 是否存在 "Received": true
+2023-06-21 09:43:31 [INFO] 9.js - 响应 msg: { code: 0, msg: 'order not exist', time: '1687355011', data: null }
+2023-06-21 09:47:33 [INFO] 9.js - 发送 msg: {"amount":"10","pkg":"Cash App","note":"151128641687355213740","containsContinue":0,"containsReceived":1,"time":1687355253819,"sign":"A334144E70E98C8D3BAB60521D8FCEA4"}
+2023-06-21 09:47:33 [INFO] 9.js - From: Cash App <cash@square.com>
+2023-06-21 09:47:33 [INFO] 9.js - Subject: Amber Katrice sent you $10 for 151128641687355213740
+2023-06-21 09:47:33 [INFO] 9.js - 是否存在 "Continue": false
+2023-06-21 09:47:33 [INFO] 9.js - 是否存在 "Received": true
+2023-06-21 09:47:34 [INFO] 9.js - 响应 msg: { code: 0, msg: 'order not exist', time: '1687355254', data: null }
+2023-06-21 09:57:16 [INFO] 9.js - 发送 msg: {"amount":"5","pkg":"Cash App","note":"YbFUVHmA","containsContinue":1,"containsReceived":0,"time":1687355836804,"sign":"49DEB32935B431AACC4246DB1393126B"}
+2023-06-21 09:57:16 [INFO] 9.js - From: Cash App <cash@square.com>
+2023-06-21 09:57:16 [INFO] 9.js - Subject: Tahtiana Bonner sent you $5 for YbFUVHmA
+2023-06-21 09:57:16 [INFO] 9.js - 是否存在 "Continue": true
+2023-06-21 09:57:16 [INFO] 9.js - 是否存在 "Received": false
+2023-06-21 09:57:17 [INFO] 9.js - 响应 msg: {
+  code: 0,
+  msg: 'order already make sure',
+  time: '1687355837',
+  data: null
+}
+2023-06-21 09:57:46 [INFO] 9.js - 发送 msg: {"amount":null,"pkg":"Cash App","note":"","containsContinue":0,"containsReceived":0,"time":1687355866994,"sign":"D9A772DFB8FC67F8056EC0EBF80C486E"}
+2023-06-21 09:57:46 [INFO] 9.js - From: Cash App <cash@square.com>
+2023-06-21 09:57:46 [INFO] 9.js - Subject: Payment failed
+2023-06-21 09:57:46 [INFO] 9.js - 是否存在 "Continue": false
+2023-06-21 09:57:46 [INFO] 9.js - 是否存在 "Received": false
+2023-06-21 09:57:47 [INFO] 9.js - 响应 msg: {
+  code: 3026,
+  msg: 'Signature verification failed',
+  time: '1687355867',
+  data: []
+}
+2023-06-21 10:12:00 [INFO] 9.js - 发送 msg: {"amount":"5","pkg":"Cash App","note":"106677","containsContinue":0,"containsReceived":1,"time":1687356720395,"sign":"AD9EFFE613235C60221975A0B2FCE4DC"}
+2023-06-21 10:12:00 [INFO] 9.js - From: Cash App <cash@square.com>
+2023-06-21 10:12:00 [INFO] 9.js - Subject: Joker sent you $5 for 106677
+2023-06-21 10:12:00 [INFO] 9.js - 是否存在 "Continue": false
+2023-06-21 10:12:00 [INFO] 9.js - 是否存在 "Received": true
+2023-06-21 10:12:01 [INFO] 9.js - 响应 msg: { code: 0, msg: 'order not exist', time: '1687356720', data: null }
+2023-06-21 10:15:41 [INFO] 9.js - 发送 msg: {"amount":"20","pkg":"Cash App","note":"","containsContinue":1,"containsReceived":0,"time":1687356941187,"sign":"573990D32907E6B1F2C8F80DAD325AD1"}
+2023-06-21 10:15:41 [INFO] 9.js - From: Cash App <cash@square.com>
+2023-06-21 10:15:41 [INFO] 9.js - Subject: Edwardo Rodriguez sent you $20
+2023-06-21 10:15:41 [INFO] 9.js - 是否存在 "Continue": true
+2023-06-21 10:15:41 [INFO] 9.js - 是否存在 "Received": false
+2023-06-21 10:15:41 [INFO] 9.js - 响应 msg: { code: 0, msg: 'order not exist', time: '1687356941', data: null }
+2023-06-21 10:16:05 [INFO] 9.js - 发送 msg: {"amount":"20","pkg":"Cash App","note":"","containsContinue":0,"containsReceived":0,"time":1687356965178,"sign":"5AB7C1BBA41DB44C1C113B92006A0954"}
+2023-06-21 10:16:05 [INFO] 9.js - From: Cash App <cash@square.com>
+2023-06-21 10:16:05 [INFO] 9.js - Subject: Edwardo Rodriguez canceled the $20 payment sent on 6/21/23
+2023-06-21 10:16:05 [INFO] 9.js - 是否存在 "Continue": false
+2023-06-21 10:16:05 [INFO] 9.js - 是否存在 "Received": false
+2023-06-21 10:16:05 [INFO] 9.js - 响应 msg: { code: 3026, msg: 'contains error', time: '1687356965', data: [] }
+2023-06-21 10:28:09 [INFO] 9.js - 发送 msg: {"amount":"5","pkg":"Cash App","note":"3Je9V1cW","containsContinue":1,"containsReceived":0,"time":1687357689820,"sign":"384C640F146F9CC704FDB02CB5D766FF"}
+2023-06-21 10:28:09 [INFO] 9.js - From: Cash App <cash@square.com>
+2023-06-21 10:28:09 [INFO] 9.js - Subject: Tahtiana Bonner sent you $5 for 3Je9V1cW
+2023-06-21 10:28:09 [INFO] 9.js - 是否存在 "Continue": true
+2023-06-21 10:28:09 [INFO] 9.js - 是否存在 "Received": false
+2023-06-21 10:28:10 [INFO] 9.js - 响应 msg: {
+  code: 0,
+  msg: 'order already make sure',
+  time: '1687357690',
+  data: null
+}
+2023-06-21 10:28:33 [INFO] 9.js - 发送 msg: {"amount":null,"pkg":"Cash App","note":"","containsContinue":0,"containsReceived":0,"time":1687357713891,"sign":"77EF6FD01F8DAAA4CDAE8ACE328CD2CC"}
+2023-06-21 10:28:33 [INFO] 9.js - From: Cash App <cash@square.com>
+2023-06-21 10:28:33 [INFO] 9.js - Subject: Payment failed
+2023-06-21 10:28:33 [INFO] 9.js - 是否存在 "Continue": false
+2023-06-21 10:28:33 [INFO] 9.js - 是否存在 "Received": false
+2023-06-21 10:28:34 [INFO] 9.js - 响应 msg: {
+  code: 3026,
+  msg: 'Signature verification failed',
+  time: '1687357713',
+  data: []
+}
+2023-06-21 11:09:09 [INFO] 9.js - 发送 msg: {"amount":"10","pkg":"Cash App","note":"","containsContinue":0,"containsReceived":1,"time":1687360149751,"sign":"2B658100DFCCB647F67C3AFFC322247B"}
+2023-06-21 11:09:09 [INFO] 9.js - From: Cash App <cash@square.com>
+2023-06-21 11:09:09 [INFO] 9.js - Subject: Brittany Shrider sent you $10
+2023-06-21 11:09:09 [INFO] 9.js - 是否存在 "Continue": false
+2023-06-21 11:09:09 [INFO] 9.js - 是否存在 "Received": true
+2023-06-21 11:09:10 [INFO] 9.js - 响应 msg: { code: 0, msg: 'order not exist', time: '1687360150', data: null }
+2023-06-21 11:14:34 [INFO] 9.js - 发送 msg: {"amount":"10","pkg":"Cash App","note":"","containsContinue":0,"containsReceived":1,"time":1687360474690,"sign":"E20776A7AFB1DDFA3163E08CDB378A18"}
+2023-06-21 11:14:34 [INFO] 9.js - From: Cash App <cash@square.com>
+2023-06-21 11:14:34 [INFO] 9.js - Subject: Brittany Shrider sent you $10
+2023-06-21 11:14:34 [INFO] 9.js - 是否存在 "Continue": false
+2023-06-21 11:14:34 [INFO] 9.js - 是否存在 "Received": true
+2023-06-21 11:14:35 [INFO] 9.js - 响应 msg: { code: 0, msg: 'order not exist', time: '1687360475', data: null }
+2023-06-21 11:17:21 [INFO] 9.js - 发送 msg: {"amount":"10","pkg":"Cash App","note":"","containsContinue":0,"containsReceived":1,"time":1687360641310,"sign":"5687750AF5E82B28C6B6463169C5A583"}
+2023-06-21 11:17:21 [INFO] 9.js - From: Cash App <cash@square.com>
+2023-06-21 11:17:21 [INFO] 9.js - Subject: Brittany Shrider sent you $10
+2023-06-21 11:17:21 [INFO] 9.js - 是否存在 "Continue": false
+2023-06-21 11:17:21 [INFO] 9.js - 是否存在 "Received": true
+2023-06-21 11:17:21 [INFO] 9.js - 响应 msg: { code: 0, msg: 'order not exist', time: '1687360641', data: null }
+2023-06-21 11:40:32 [INFO] 9.js - 发送 msg: {"amount":"156","pkg":"Cash App","note":"","containsContinue":0,"containsReceived":0,"time":1687362032393,"sign":"086B2536802AAD365D7002CAA2D7FB84"}
+2023-06-21 11:40:32 [INFO] 9.js - From: Cash App <cash@square.com>
+2023-06-21 11:40:32 [INFO] 9.js - Subject: You sent $156 to KIM Lancaster
+2023-06-21 11:40:32 [INFO] 9.js - 是否存在 "Continue": false
+2023-06-21 11:40:32 [INFO] 9.js - 是否存在 "Received": false
+2023-06-21 11:40:33 [INFO] 9.js - 响应 msg: { code: 3026, msg: 'contains error', time: '1687362032', data: [] }
+2023-06-21 11:55:33 [INFO] 9.js - 发送 msg: {"amount":"10","pkg":"Cash App","note":"","containsContinue":0,"containsReceived":1,"time":1687362933006,"sign":"716C9CC6BD72DBB07E032FC545FFE28B"}
+2023-06-21 11:55:33 [INFO] 9.js - From: Cash App <cash@square.com>
+2023-06-21 11:55:33 [INFO] 9.js - Subject: Brittany Shrider sent you $10
+2023-06-21 11:55:33 [INFO] 9.js - 是否存在 "Continue": false
+2023-06-21 11:55:33 [INFO] 9.js - 是否存在 "Received": true
+2023-06-21 11:55:33 [INFO] 9.js - 响应 msg: { code: 0, msg: 'order not exist', time: '1687362933', data: null }
+2023-06-21 12:27:01 [INFO] 9.js - 发送 msg: {"amount":"15","pkg":"Cash App","note":"","containsContinue":0,"containsReceived":0,"time":1687364821970,"sign":"74357D55C2AC1C03CE369403954FC1E5"}
+2023-06-21 12:27:01 [INFO] 9.js - From: Cash App <cash@square.com>
+2023-06-21 12:27:01 [INFO] 9.js - Subject: You sent $15 to Joker
+2023-06-21 12:27:01 [INFO] 9.js - 是否存在 "Continue": false
+2023-06-21 12:27:01 [INFO] 9.js - 是否存在 "Received": false
+2023-06-21 12:27:02 [INFO] 9.js - 响应 msg: { code: 3026, msg: 'contains error', time: '1687364822', data: [] }
+2023-06-21 12:27:04 [INFO] 9.js - 发送 msg: {"amount":"10","pkg":"Cash App","note":"malyssa647","containsContinue":0,"containsReceived":1,"time":1687364824048,"sign":"14385398B9510530FA410F098293FBED"}
+2023-06-21 12:27:04 [INFO] 9.js - From: Cash App <cash@square.com>
+2023-06-21 12:27:04 [INFO] 9.js - Subject: Alyssa Morris sent you $10 for malyssa647
+2023-06-21 12:27:04 [INFO] 9.js - 是否存在 "Continue": false
+2023-06-21 12:27:04 [INFO] 9.js - 是否存在 "Received": true
+2023-06-21 12:27:04 [INFO] 9.js - 响应 msg: { code: 0, msg: 'order not exist', time: '1687364824', data: null }
+2023-06-21 12:27:17 [INFO] 9.js - 发送 msg: {"amount":"6","pkg":"Cash App","note":"103376","containsContinue":0,"containsReceived":1,"time":1687364837988,"sign":"6C7613AD5A1995011CC4819A35FEB40B"}
+2023-06-21 12:27:17 [INFO] 9.js - From: Cash App <cash@square.com>
+2023-06-21 12:27:17 [INFO] 9.js - Subject: Jason Shifflett sent you $6 for 103376 Jason shifflett
+2023-06-21 12:27:17 [INFO] 9.js - 是否存在 "Continue": false
+2023-06-21 12:27:17 [INFO] 9.js - 是否存在 "Received": true
+2023-06-21 12:27:18 [INFO] 9.js - 响应 msg: { code: 0, msg: 'order not exist', time: '1687364838', data: null }
+2023-06-21 12:27:56 [INFO] 9.js - 发送 msg: {"amount":"17","pkg":"Cash App","note":"","containsContinue":1,"containsReceived":0,"time":1687364876187,"sign":"97717FC9D9F171CEE49F9DD61629D26C"}
+2023-06-21 12:27:56 [INFO] 9.js - From: Cash App <cash@square.com>
+2023-06-21 12:27:56 [INFO] 9.js - Subject: Ti Montira sent you $17
+2023-06-21 12:27:56 [INFO] 9.js - 是否存在 "Continue": true
+2023-06-21 12:27:56 [INFO] 9.js - 是否存在 "Received": false
+2023-06-21 12:27:56 [INFO] 9.js - 响应 msg: { code: 0, msg: 'order not exist', time: '1687364876', data: null }
+2023-06-21 12:28:28 [INFO] 9.js - 发送 msg: {"amount":"17","pkg":"Cash App","note":"","containsContinue":0,"containsReceived":1,"time":1687364908595,"sign":"28F917816295C29E9975A12D0D9547E3"}
+2023-06-21 12:28:28 [INFO] 9.js - From: Cash App <cash@square.com>
+2023-06-21 12:28:28 [INFO] 9.js - Subject: You accepted $17 from Ti Montira
+2023-06-21 12:28:28 [INFO] 9.js - 是否存在 "Continue": false
+2023-06-21 12:28:28 [INFO] 9.js - 是否存在 "Received": true
+2023-06-21 12:28:29 [INFO] 9.js - 响应 msg: { code: 0, msg: 'order not exist', time: '1687364908', data: null }
+2023-06-21 12:42:24 [INFO] 9.js - 发送 msg: {"amount":"10","pkg":"Cash App","note":"","containsContinue":0,"containsReceived":1,"time":1687365744509,"sign":"BE5F02C2E7DBE64151BA92D2791923C7"}
+2023-06-21 12:42:24 [INFO] 9.js - From: Cash App <cash@square.com>
+2023-06-21 12:42:24 [INFO] 9.js - Subject: ClaireLiz Carey sent you $10
+2023-06-21 12:42:24 [INFO] 9.js - 是否存在 "Continue": false
+2023-06-21 12:42:24 [INFO] 9.js - 是否存在 "Received": true
+2023-06-21 12:42:25 [INFO] 9.js - 响应 msg: { code: 0, msg: 'order not exist', time: '1687365744', data: null }
+2023-06-21 12:46:34 [INFO] 9.js - 发送 msg: {"amount":"4.94","pkg":"Cash App","note":"chever456","containsContinue":0,"containsReceived":1,"time":1687365994278,"sign":"88E056F7C1DA91337284F7D2CA5C11C9"}
+2023-06-21 12:46:34 [INFO] 9.js - From: Cash App <cash@square.com>
+2023-06-21 12:46:34 [INFO] 9.js - Subject: Bc86 sent you $4.94 for chever456
+2023-06-21 12:46:34 [INFO] 9.js - 是否存在 "Continue": false
+2023-06-21 12:46:34 [INFO] 9.js - 是否存在 "Received": true
+2023-06-21 12:46:34 [INFO] 9.js - 响应 msg: { code: 0, msg: 'order not exist', time: '1687365994', data: null }
+2023-06-21 12:48:28 [INFO] 9.js - 发送 msg: {"amount":"5","pkg":"Cash App","note":"","containsContinue":0,"containsReceived":1,"time":1687366108852,"sign":"24AD804E7D96021F27F72144901541D9"}
+2023-06-21 12:48:28 [INFO] 9.js - From: Cash App <cash@square.com>
+2023-06-21 12:48:28 [INFO] 9.js - Subject: Samantha Dudley sent you $5
+2023-06-21 12:48:28 [INFO] 9.js - 是否存在 "Continue": false
+2023-06-21 12:48:28 [INFO] 9.js - 是否存在 "Received": true
+2023-06-21 12:48:29 [INFO] 9.js - 响应 msg: { code: 0, msg: 'order not exist', time: '1687366109', data: null }
+2023-06-21 13:06:10 [INFO] 9.js - 发送 msg: {"amount":"90","pkg":"Cash App","note":"","containsContinue":0,"containsReceived":0,"time":1687367170799,"sign":"59A8328E91589BADC2B5F323DFA944AE"}
+2023-06-21 13:06:10 [INFO] 9.js - From: Cash App <cash@square.com>
+2023-06-21 13:06:10 [INFO] 9.js - Subject: You paid Tiffanie Perry $90
+2023-06-21 13:06:10 [INFO] 9.js - 是否存在 "Continue": false
+2023-06-21 13:06:10 [INFO] 9.js - 是否存在 "Received": false
+2023-06-21 13:06:11 [INFO] 9.js - 响应 msg: { code: 3026, msg: 'contains error', time: '1687367171', data: [] }
+2023-06-21 13:15:41 [INFO] 9.js - 发送 msg: {"amount":"10","pkg":"Cash App","note":"","containsContinue":0,"containsReceived":1,"time":1687367741050,"sign":"6954594596AC511DFF39B7B4C64F5205"}
+2023-06-21 13:15:41 [INFO] 9.js - From: Cash App <cash@square.com>
+2023-06-21 13:15:41 [INFO] 9.js - Subject: Brittany Shrider sent you $10
+2023-06-21 13:15:41 [INFO] 9.js - 是否存在 "Continue": false
+2023-06-21 13:15:41 [INFO] 9.js - 是否存在 "Received": true
+2023-06-21 13:15:41 [INFO] 9.js - 响应 msg: { code: 0, msg: 'order not exist', time: '1687367741', data: null }
+2023-06-21 13:36:21 [INFO] 9.js - 发送 msg: {"amount":"20","pkg":"Cash App","note":"pXoK4cn6","containsContinue":0,"containsReceived":1,"time":1687368981296,"sign":"4B8FF54D13244ED2B086C5239D131078"}
+2023-06-21 13:36:21 [INFO] 9.js - From: Cash App <cash@square.com>
+2023-06-21 13:36:21 [INFO] 9.js - Subject: Justin Rebowe sent you $20 for pXoK4cn6
+2023-06-21 13:36:21 [INFO] 9.js - 是否存在 "Continue": false
+2023-06-21 13:36:21 [INFO] 9.js - 是否存在 "Received": true
+2023-06-21 13:36:22 [INFO] 9.js - 响应 msg: {
+  code: 0,
+  msg: 'order already success',
+  time: '1687368981',
+  data: null
+}
+2023-06-21 13:41:35 [INFO] 9.js - 发送 msg: {"amount":"100","pkg":"Cash App","note":"","containsContinue":0,"containsReceived":0,"time":1687369295024,"sign":"67449AEAF8E992422115234D6F6A9024"}
+2023-06-21 13:41:35 [INFO] 9.js - From: Cash App <cash@square.com>
+2023-06-21 13:41:35 [INFO] 9.js - Subject: You sent $100 to Justin Rebowe
+2023-06-21 13:41:35 [INFO] 9.js - 是否存在 "Continue": false
+2023-06-21 13:41:35 [INFO] 9.js - 是否存在 "Received": false
+2023-06-21 13:41:36 [INFO] 9.js - 响应 msg: { code: 3026, msg: 'contains error', time: '1687369295', data: [] }
+2023-06-21 13:56:22 [INFO] 9.js - 发送 msg: {"amount":"5","pkg":"Cash App","note":"lieDGrXp","containsContinue":0,"containsReceived":1,"time":1687370182052,"sign":"E21A88E2059B3CB62FE723F3682A65A6"}
+2023-06-21 13:56:22 [INFO] 9.js - From: Cash App <cash@square.com>
+2023-06-21 13:56:22 [INFO] 9.js - Subject: Britney Fowler sent you $5 for lieDGrXp
+2023-06-21 13:56:22 [INFO] 9.js - 是否存在 "Continue": false
+2023-06-21 13:56:22 [INFO] 9.js - 是否存在 "Received": true
+2023-06-21 13:56:23 [INFO] 9.js - 响应 msg: { code: 1, msg: '订单处理完成', time: '1687370182', data: null }
+2023-06-21 14:33:15 [INFO] 9.js - 发送 msg: {"amount":"8","pkg":"Cash App","note":"","containsContinue":0,"containsReceived":1,"time":1687372395413,"sign":"85053C7C0A88106B73E7DC1D44340F01"}
+2023-06-21 14:33:15 [INFO] 9.js - From: Cash App <cash@square.com>
+2023-06-21 14:33:15 [INFO] 9.js - Subject: Ashnicolee3 sent you $8
+2023-06-21 14:33:15 [INFO] 9.js - 是否存在 "Continue": false
+2023-06-21 14:33:15 [INFO] 9.js - 是否存在 "Received": true
+2023-06-21 14:33:16 [INFO] 9.js - 响应 msg: { code: 0, msg: 'order not exist', time: '1687372395', data: null }
+2023-06-21 14:54:26 [INFO] 9.js - 发送 msg: {"amount":"10","pkg":"Cash App","note":"","containsContinue":0,"containsReceived":1,"time":1687373666509,"sign":"DCADDB16DD9F131E91D641C1326232F5"}
+2023-06-21 14:54:26 [INFO] 9.js - From: Cash App <cash@square.com>
+2023-06-21 14:54:26 [INFO] 9.js - Subject: Brittany Shrider sent you $10
+2023-06-21 14:54:26 [INFO] 9.js - 是否存在 "Continue": false
+2023-06-21 14:54:26 [INFO] 9.js - 是否存在 "Received": true
+2023-06-21 14:54:27 [INFO] 9.js - 响应 msg: { code: 0, msg: 'order not exist', time: '1687373666', data: null }
+2023-06-21 14:56:12 [INFO] 9.js - 发送 msg: {"amount":"10","pkg":"Cash App","note":"lucky","containsContinue":1,"containsReceived":0,"time":1687373772917,"sign":"332710C254A780AEEA143ED2ECE2AB3C"}
+2023-06-21 14:56:12 [INFO] 9.js - From: Cash App <cash@square.com>
+2023-06-21 14:56:12 [INFO] 9.js - Subject: Kenneth Biggs sent you $10 for lucky winner,Biggs7665
+2023-06-21 14:56:12 [INFO] 9.js - 是否存在 "Continue": true
+2023-06-21 14:56:12 [INFO] 9.js - 是否存在 "Received": false
+2023-06-21 14:56:13 [INFO] 9.js - 响应 msg: { code: 0, msg: 'order not exist', time: '1687373772', data: null }
+2023-06-21 14:56:26 [INFO] 9.js - 发送 msg: {"amount":"20","pkg":"Cash App","note":"ock4vGl0","containsContinue":0,"containsReceived":1,"time":1687373786923,"sign":"1B2E9813373BF41C70D19F0C4BB0DF4A"}
+2023-06-21 14:56:26 [INFO] 9.js - From: Cash App <cash@square.com>
+2023-06-21 14:56:26 [INFO] 9.js - Subject: Justin Rebowe sent you $20 for ock4vGl0
+2023-06-21 14:56:26 [INFO] 9.js - 是否存在 "Continue": false
+2023-06-21 14:56:26 [INFO] 9.js - 是否存在 "Received": true
+2023-06-21 14:56:27 [INFO] 9.js - 响应 msg: { code: 1, msg: '订单处理完成', time: '1687373786', data: null }
+2023-06-21 14:56:59 [INFO] 9.js - 发送 msg: {"amount":"10","pkg":"Cash App","note":"lucky","containsContinue":0,"containsReceived":1,"time":1687373819144,"sign":"DC58D411DD7BB99A8B3D7E75F0DAA140"}
+2023-06-21 14:56:59 [INFO] 9.js - From: Cash App <cash@square.com>
+2023-06-21 14:56:59 [INFO] 9.js - Subject: You accepted $10 from Kenneth Biggs for lucky winner,Biggs7665
+2023-06-21 14:56:59 [INFO] 9.js - 是否存在 "Continue": false
+2023-06-21 14:56:59 [INFO] 9.js - 是否存在 "Received": true
+2023-06-21 14:56:59 [INFO] 9.js - 响应 msg: { code: 0, msg: 'order not exist', time: '1687373819', data: null }
+2023-06-21 15:06:26 [INFO] 9.js - 发送 msg: {"amount":"20","pkg":"Cash App","note":"VYof2pym","containsContinue":0,"containsReceived":1,"time":1687374386472,"sign":"163CA0A471EF731E7D90E7BA70059E91"}
+2023-06-21 15:06:26 [INFO] 9.js - From: Cash App <cash@square.com>
+2023-06-21 15:06:26 [INFO] 9.js - Subject: Justin Rebowe sent you $20 for VYof2pym
+2023-06-21 15:06:26 [INFO] 9.js - 是否存在 "Continue": false
+2023-06-21 15:06:26 [INFO] 9.js - 是否存在 "Received": true
+2023-06-21 15:06:27 [INFO] 9.js - 响应 msg: { code: 1, msg: '订单处理完成', time: '1687374386', data: null }
+2023-06-21 15:13:30 [INFO] 9.js - 发送 msg: {"amount":"10","pkg":"Cash App","note":"","containsContinue":0,"containsReceived":1,"time":1687374810636,"sign":"8D4F6BE5C1DC068B1AC8F6E9814A4CB0"}
+2023-06-21 15:13:30 [INFO] 9.js - From: Cash App <cash@square.com>
+2023-06-21 15:13:30 [INFO] 9.js - Subject: Brittany Shrider sent you $10
+2023-06-21 15:13:30 [INFO] 9.js - 是否存在 "Continue": false
+2023-06-21 15:13:30 [INFO] 9.js - 是否存在 "Received": true
+2023-06-21 15:13:31 [INFO] 9.js - 响应 msg: { code: 0, msg: 'order not exist', time: '1687374810', data: null }
+2023-06-21 15:19:20 [INFO] 9.js - 发送 msg: {"amount":"10","pkg":"Cash App","note":"malyssa647","containsContinue":0,"containsReceived":1,"time":1687375160782,"sign":"00F5231D675546532A043CE0B92A14D8"}
+2023-06-21 15:19:20 [INFO] 9.js - From: Cash App <cash@square.com>
+2023-06-21 15:19:20 [INFO] 9.js - Subject: Alyssa Morris sent you $10 for malyssa647
+2023-06-21 15:19:20 [INFO] 9.js - 是否存在 "Continue": false
+2023-06-21 15:19:20 [INFO] 9.js - 是否存在 "Received": true
+2023-06-21 15:19:21 [INFO] 9.js - 响应 msg: { code: 0, msg: 'order not exist', time: '1687375161', data: null }
+2023-06-21 15:32:13 [INFO] 9.js - 发送 msg: {"amount":"10","pkg":"Cash App","note":"K8XLsNmT","containsContinue":0,"containsReceived":1,"time":1687375933015,"sign":"338864572AFCF5061F1145B02ACF4252"}
+2023-06-21 15:32:13 [INFO] 9.js - From: Cash App <cash@square.com>
+2023-06-21 15:32:13 [INFO] 9.js - Subject: Paul Corvino sent you $10 for K8XLsNmT
+2023-06-21 15:32:13 [INFO] 9.js - 是否存在 "Continue": false
+2023-06-21 15:32:13 [INFO] 9.js - 是否存在 "Received": true
+2023-06-21 15:32:13 [INFO] 9.js - 响应 msg: {
+  code: 0,
+  msg: 'order already success',
+  time: '1687375933',
+  data: null
+}
+2023-06-21 15:40:57 [INFO] 9.js - 发送 msg: {"amount":"20","pkg":"Cash App","note":"Coffman758","containsContinue":1,"containsReceived":0,"time":1687376457704,"sign":"1FFB142DA15C80DAF040A0A880D70FAD"}
+2023-06-21 15:40:57 [INFO] 9.js - From: Cash App <cash@square.com>
+2023-06-21 15:40:57 [INFO] 9.js - Subject: Debbie Coffman sent you $20 for Coffman758
+2023-06-21 15:40:57 [INFO] 9.js - 是否存在 "Continue": true
+2023-06-21 15:40:57 [INFO] 9.js - 是否存在 "Received": false
+2023-06-21 15:40:58 [INFO] 9.js - 响应 msg: { code: 0, msg: 'order not exist', time: '1687376457', data: null }
+2023-06-21 15:41:37 [INFO] 9.js - 发送 msg: {"amount":"20","pkg":"Cash App","note":"Coffman758","containsContinue":0,"containsReceived":1,"time":1687376497810,"sign":"66610BF8A43A79CDFDFC6661553FE568"}
+2023-06-21 15:41:37 [INFO] 9.js - From: Cash App <cash@square.com>
+2023-06-21 15:41:37 [INFO] 9.js - Subject: You accepted $20 from Debbie Coffman for Coffman758
+2023-06-21 15:41:37 [INFO] 9.js - 是否存在 "Continue": false
+2023-06-21 15:41:37 [INFO] 9.js - 是否存在 "Received": true
+2023-06-21 15:41:38 [INFO] 9.js - 响应 msg: { code: 0, msg: 'order not exist', time: '1687376497', data: null }
+2023-06-21 15:47:27 [INFO] 9.js - 发送 msg: {"amount":"10","pkg":"Cash App","note":"","containsContinue":1,"containsReceived":0,"time":1687376847851,"sign":"5F97AC9DF8797CA3A01B5DFA0CB280FA"}
+2023-06-21 15:47:27 [INFO] 9.js - From: Cash App <cash@square.com>
+2023-06-21 15:47:27 [INFO] 9.js - Subject: Jose sent you $10
+2023-06-21 15:47:27 [INFO] 9.js - 是否存在 "Continue": true
+2023-06-21 15:47:27 [INFO] 9.js - 是否存在 "Received": false
+2023-06-21 15:47:28 [INFO] 9.js - 响应 msg: { code: 0, msg: 'order not exist', time: '1687376848', data: null }
+2023-06-21 15:47:51 [INFO] 9.js - 发送 msg: {"amount":"10","pkg":"Cash App","note":"","containsContinue":0,"containsReceived":1,"time":1687376871009,"sign":"D8CB3351BF0905B4D721712C5772041B"}
+2023-06-21 15:47:51 [INFO] 9.js - From: Cash App <cash@square.com>
+2023-06-21 15:47:51 [INFO] 9.js - Subject: You accepted $10 from Jose
+2023-06-21 15:47:51 [INFO] 9.js - 是否存在 "Continue": false
+2023-06-21 15:47:51 [INFO] 9.js - 是否存在 "Received": true
+2023-06-21 15:47:51 [INFO] 9.js - 响应 msg: { code: 0, msg: 'order not exist', time: '1687376870', data: null }
+2023-06-21 15:54:02 [INFO] 9.js - 发送 msg: {"amount":null,"pkg":"Cash App","note":"","containsContinue":0,"containsReceived":0,"time":1687377242295,"sign":"58D00CC52C321A4CC1B8B24D0AA632DC"}
+2023-06-21 15:54:02 [INFO] 9.js - From: Cash App <cash@square.com>
+2023-06-21 15:54:02 [INFO] 9.js - Subject: Bc86 requested a refund
+2023-06-21 15:54:02 [INFO] 9.js - 是否存在 "Continue": false
+2023-06-21 15:54:02 [INFO] 9.js - 是否存在 "Received": false
+2023-06-21 15:54:03 [INFO] 9.js - 响应 msg: {
+  code: 3026,
+  msg: 'Signature verification failed',
+  time: '1687377242',
+  data: []
+}
+2023-06-21 16:04:41 [INFO] 9.js - 发送 msg: {"amount":"800","pkg":"Cash App","note":"","containsContinue":0,"containsReceived":0,"time":1687377881156,"sign":"54556C7A11F9229CB6887DE6260635B8"}
+2023-06-21 16:04:41 [INFO] 9.js - From: Cash App <cash@square.com>
+2023-06-21 16:04:41 [INFO] 9.js - Subject: wen zhang just accepted the $800 you sent
+2023-06-21 16:04:41 [INFO] 9.js - 是否存在 "Continue": false
+2023-06-21 16:04:41 [INFO] 9.js - 是否存在 "Received": false
+2023-06-21 16:04:42 [INFO] 9.js - 响应 msg: { code: 3026, msg: 'contains error', time: '1687377881', data: [] }
+2023-06-21 16:07:48 [INFO] 9.js - 发送 msg: {"amount":"10","pkg":"Cash App","note":"","containsContinue":0,"containsReceived":0,"time":1687378068020,"sign":"3B67C93BADA6889CEEE886DF4A9D8DE5"}
+2023-06-21 16:07:48 [INFO] 9.js - From: Cash App <cash@square.com>
+2023-06-21 16:07:48 [INFO] 9.js - Subject: You sent $10 to Just~N~Time
+2023-06-21 16:07:48 [INFO] 9.js - 是否存在 "Continue": false
+2023-06-21 16:07:48 [INFO] 9.js - 是否存在 "Received": false
+2023-06-21 16:07:48 [INFO] 9.js - 响应 msg: { code: 3026, msg: 'contains error', time: '1687378067', data: [] }
+2023-06-21 16:15:33 [INFO] 9.js - 发送 msg: {"amount":"10","pkg":"Cash App","note":"gaming","containsContinue":0,"containsReceived":1,"time":1687378533163,"sign":"85C7AD9464A1B530095E3BC87F26599C"}
+2023-06-21 16:15:33 [INFO] 9.js - From: Cash App <cash@square.com>
+2023-06-21 16:15:33 [INFO] 9.js - Subject: Sip ThaLoc sent you $10 for gaming
+2023-06-21 16:15:33 [INFO] 9.js - 是否存在 "Continue": false
+2023-06-21 16:15:33 [INFO] 9.js - 是否存在 "Received": true
+2023-06-21 16:15:34 [INFO] 9.js - 响应 msg: { code: 0, msg: 'order not exist', time: '1687378533', data: null }
+2023-06-21 16:15:57 [INFO] 9.js - 发送 msg: {"amount":"5","pkg":"Cash App","note":"C5BJQRZS.","containsContinue":0,"containsReceived":1,"time":1687378557233,"sign":"65701DAEF247C3927990710061A71835"}
+2023-06-21 16:15:57 [INFO] 9.js - From: Cash App <cash@square.com>
+2023-06-21 16:15:57 [INFO] 9.js - Subject: Candelario Martinez sent you $5 for C5BJQRZS.  0112720
+2023-06-21 16:15:57 [INFO] 9.js - 是否存在 "Continue": false
+2023-06-21 16:15:57 [INFO] 9.js - 是否存在 "Received": true
+2023-06-21 16:15:57 [INFO] 9.js - 响应 msg: { code: 0, msg: 'order not exist', time: '1687378557', data: null }
+2023-06-21 16:17:31 [INFO] 9.js - 发送 msg: {"amount":"100","pkg":"Cash App","note":"Elijah76356","containsContinue":1,"containsReceived":0,"time":1687378651441,"sign":"31F451C20EB72511F85710CD44FCA5FF"}
+2023-06-21 16:17:31 [INFO] 9.js - From: Cash App <cash@square.com>
+2023-06-21 16:17:31 [INFO] 9.js - Subject: Elijah Harper sent you $100 for Elijah76356
+2023-06-21 16:17:31 [INFO] 9.js - 是否存在 "Continue": true
+2023-06-21 16:17:31 [INFO] 9.js - 是否存在 "Received": false
+2023-06-21 16:17:32 [INFO] 9.js - 响应 msg: { code: 0, msg: 'order not exist', time: '1687378651', data: null }
+2023-06-21 16:18:04 [INFO] 9.js - 发送 msg: {"amount":"100","pkg":"Cash App","note":"Elijah76356","containsContinue":0,"containsReceived":1,"time":1687378684033,"sign":"31A350EE667638E3AE764993C29911B1"}
+2023-06-21 16:18:04 [INFO] 9.js - From: Cash App <cash@square.com>
+2023-06-21 16:18:04 [INFO] 9.js - Subject: You accepted $100 from Elijah Harper for Elijah76356
+2023-06-21 16:18:04 [INFO] 9.js - 是否存在 "Continue": false
+2023-06-21 16:18:04 [INFO] 9.js - 是否存在 "Received": true
+2023-06-21 16:18:04 [INFO] 9.js - 响应 msg: { code: 0, msg: 'order not exist', time: '1687378683', data: null }
+2023-06-21 16:35:33 [INFO] 9.js - 发送 msg: {"amount":"5","pkg":"Cash App","note":"","containsContinue":0,"containsReceived":1,"time":1687379733955,"sign":"BF2BE9F1163F9699371958FBA07F3F35"}
+2023-06-21 16:35:33 [INFO] 9.js - From: Cash App <cash@square.com>
+2023-06-21 16:35:33 [INFO] 9.js - Subject: Brittany Shrider sent you $5
+2023-06-21 16:35:33 [INFO] 9.js - 是否存在 "Continue": false
+2023-06-21 16:35:33 [INFO] 9.js - 是否存在 "Received": true
+2023-06-21 16:35:34 [INFO] 9.js - 响应 msg: { code: 0, msg: 'order not exist', time: '1687379734', data: null }
+2023-06-21 16:54:39 [INFO] 9.js - 发送 msg: {"amount":"1","pkg":"Cash App","note":"AliMariePri87","containsContinue":0,"containsReceived":1,"time":1687380879880,"sign":"DF595CF4E7BA745C7C35526691C00926"}
+2023-06-21 16:54:39 [INFO] 9.js - From: Cash App <cash@square.com>
+2023-06-21 16:54:39 [INFO] 9.js - Subject: Alicia Pritchett sent you $1 for AliMariePri87
+2023-06-21 16:54:39 [INFO] 9.js - 是否存在 "Continue": false
+2023-06-21 16:54:39 [INFO] 9.js - 是否存在 "Received": true
+2023-06-21 16:54:40 [INFO] 9.js - 响应 msg: { code: 0, msg: 'order not exist', time: '1687380880', data: null }
+2023-06-21 17:33:30 [INFO] 9.js - 发送 msg: {"amount":"129","pkg":"Cash App","note":"","containsContinue":0,"containsReceived":0,"time":1687383210165,"sign":"FB796F3DFBD37A5C923BAC64D3C1EF0B"}
+2023-06-21 17:33:30 [INFO] 9.js - From: Cash App <cash@square.com>
+2023-06-21 17:33:30 [INFO] 9.js - Subject: You sent $129 to Justin Rebowe
+2023-06-21 17:33:30 [INFO] 9.js - 是否存在 "Continue": false
+2023-06-21 17:33:30 [INFO] 9.js - 是否存在 "Received": false
+2023-06-21 17:33:31 [INFO] 9.js - 响应 msg: { code: 3026, msg: 'contains error', time: '1687383210', data: [] }
+2023-06-21 17:45:23 [INFO] 9.js - 发送 msg: {"amount":"20","pkg":"Cash App","note":"","containsContinue":1,"containsReceived":0,"time":1687383923176,"sign":"A6A23F2CCC85658E78469490ED4A43BA"}
+2023-06-21 17:45:23 [INFO] 9.js - From: Cash App <cash@square.com>
+2023-06-21 17:45:23 [INFO] 9.js - Subject: Carrie Lopez sent you $20
+2023-06-21 17:45:23 [INFO] 9.js - 是否存在 "Continue": true
+2023-06-21 17:45:23 [INFO] 9.js - 是否存在 "Received": false
+2023-06-21 17:45:24 [INFO] 9.js - 响应 msg: { code: 0, msg: 'order not exist', time: '1687383923', data: null }
+2023-06-21 17:45:45 [INFO] 9.js - 发送 msg: {"amount":null,"pkg":"Cash App","note":"","containsContinue":0,"containsReceived":0,"time":1687383945235,"sign":"B2B1AFD8C76C44267A9FA98F0472979B"}
+2023-06-21 17:45:45 [INFO] 9.js - From: Cash App <cash@square.com>
+2023-06-21 17:45:45 [INFO] 9.js - Subject: Payment failed
+2023-06-21 17:45:45 [INFO] 9.js - 是否存在 "Continue": false
+2023-06-21 17:45:45 [INFO] 9.js - 是否存在 "Received": false
+2023-06-21 17:45:45 [INFO] 9.js - 响应 msg: {
+  code: 3026,
+  msg: 'Signature verification failed',
+  time: '1687383945',
+  data: []
+}
+2023-06-21 17:47:05 [INFO] 9.js - 发送 msg: {"amount":"5","pkg":"Cash App","note":"","containsContinue":0,"containsReceived":1,"time":1687384025615,"sign":"3DC5676CF21E26F08CF82F0317946D40"}
+2023-06-21 17:47:05 [INFO] 9.js - From: Cash App <cash@square.com>
+2023-06-21 17:47:05 [INFO] 9.js - Subject: Stoney White sent you $5
+2023-06-21 17:47:05 [INFO] 9.js - 是否存在 "Continue": false
+2023-06-21 17:47:05 [INFO] 9.js - 是否存在 "Received": true
+2023-06-21 17:47:06 [INFO] 9.js - 响应 msg: { code: 0, msg: 'order not exist', time: '1687384025', data: null }
+2023-06-21 18:15:39 [INFO] 9.js - 发送 msg: {"amount":"20","pkg":"Cash App","note":"","containsContinue":0,"containsReceived":1,"time":1687385739125,"sign":"C36F1A9BBC8C314FC9422FE1902A56B0"}
+2023-06-21 18:15:39 [INFO] 9.js - From: Cash App <cash@square.com>
+2023-06-21 18:15:39 [INFO] 9.js - Subject: JJ Jones sent you $20
+2023-06-21 18:15:39 [INFO] 9.js - 是否存在 "Continue": false
+2023-06-21 18:15:39 [INFO] 9.js - 是否存在 "Received": true
+2023-06-21 18:15:40 [INFO] 9.js - 响应 msg: { code: 0, msg: 'order not exist', time: '1687385739', data: null }
+2023-06-21 18:22:36 [INFO] 9.js - 发送 msg: {"amount":"10","pkg":"Cash App","note":"","containsContinue":0,"containsReceived":1,"time":1687386156324,"sign":"4C1FEC80BB36428AA8F4514E6E3A30BD"}
+2023-06-21 18:22:36 [INFO] 9.js - From: Cash App <cash@square.com>
+2023-06-21 18:22:36 [INFO] 9.js - Subject: Zach Day sent you $10
+2023-06-21 18:22:36 [INFO] 9.js - 是否存在 "Continue": false
+2023-06-21 18:22:36 [INFO] 9.js - 是否存在 "Received": true
+2023-06-21 18:22:37 [INFO] 9.js - 响应 msg: { code: 0, msg: 'order not exist', time: '1687386156', data: null }
+2023-06-21 18:25:22 [INFO] 9.js - 发送 msg: {"amount":"10","pkg":"Cash App","note":"Stephanie","containsContinue":1,"containsReceived":0,"time":1687386322786,"sign":"065B43A7D62A1F2D9540E521D86BBCD5"}
+2023-06-21 18:25:22 [INFO] 9.js - From: Cash App <cash@square.com>
+2023-06-21 18:25:22 [INFO] 9.js - Subject: Stephanie Sanders sent you $10 for Stephanie Sanders
+2023-06-21 18:25:22 [INFO] 9.js - 是否存在 "Continue": true
+2023-06-21 18:25:22 [INFO] 9.js - 是否存在 "Received": false
+2023-06-21 18:25:23 [INFO] 9.js - 响应 msg: { code: 0, msg: 'order not exist', time: '1687386322', data: null }
+2023-06-21 18:25:38 [INFO] 9.js - 发送 msg: {"amount":"10","pkg":"Cash App","note":"","containsContinue":0,"containsReceived":1,"time":1687386338816,"sign":"2D3A42B2AC292433D65DCB02019DEBF9"}
+2023-06-21 18:25:38 [INFO] 9.js - From: Cash App <cash@square.com>
+2023-06-21 18:25:38 [INFO] 9.js - Subject: n windelow sent you $10
+2023-06-21 18:25:38 [INFO] 9.js - 是否存在 "Continue": false
+2023-06-21 18:25:38 [INFO] 9.js - 是否存在 "Received": true
+2023-06-21 18:25:39 [INFO] 9.js - 响应 msg: { code: 0, msg: 'order not exist', time: '1687386338', data: null }
+2023-06-21 18:25:48 [INFO] 9.js - 发送 msg: {"amount":null,"pkg":"Cash App","note":"","containsContinue":0,"containsReceived":0,"time":1687386348871,"sign":"EAE3293955B3C69FF3991CBF6E503CEB"}
+2023-06-21 18:25:48 [INFO] 9.js - From: Cash App <cash@square.com>
+2023-06-21 18:25:48 [INFO] 9.js - Subject: Payment failed
+2023-06-21 18:25:48 [INFO] 9.js - 是否存在 "Continue": false
+2023-06-21 18:25:48 [INFO] 9.js - 是否存在 "Received": false
+2023-06-21 18:25:49 [INFO] 9.js - 响应 msg: {
+  code: 3026,
+  msg: 'Signature verification failed',
+  time: '1687386348',
+  data: []
+}
+2023-06-21 18:29:11 [INFO] 9.js - 发送 msg: {"amount":"10","pkg":"Cash App","note":"","containsContinue":1,"containsReceived":0,"time":1687386551547,"sign":"11481D0365C0AEDC16A2431FFD883CAD"}
+2023-06-21 18:29:11 [INFO] 9.js - From: Cash App <cash@square.com>
+2023-06-21 18:29:11 [INFO] 9.js - Subject: Virginia Ann Wiliams Burleson sent you $10
+2023-06-21 18:29:11 [INFO] 9.js - 是否存在 "Continue": true
+2023-06-21 18:29:11 [INFO] 9.js - 是否存在 "Received": false
+2023-06-21 18:29:12 [INFO] 9.js - 响应 msg: { code: 0, msg: 'order not exist', time: '1687386551', data: null }
+2023-06-21 18:29:39 [INFO] 9.js - 发送 msg: {"amount":"10","pkg":"Cash App","note":"","containsContinue":0,"containsReceived":1,"time":1687386579610,"sign":"B35519D9581F7C5E4A661AF3C08B7CAE"}
+2023-06-21 18:29:39 [INFO] 9.js - From: Cash App <cash@square.com>
+2023-06-21 18:29:39 [INFO] 9.js - Subject: You accepted $10 from Virginia Ann Wiliams Burleson
+2023-06-21 18:29:39 [INFO] 9.js - 是否存在 "Continue": false
+2023-06-21 18:29:39 [INFO] 9.js - 是否存在 "Received": true
+2023-06-21 18:29:40 [INFO] 9.js - 响应 msg: { code: 0, msg: 'order not exist', time: '1687386579', data: null }
+2023-06-21 18:49:18 [INFO] 9.js - 发送 msg: {"amount":"20","pkg":"Cash App","note":"112475","containsContinue":0,"containsReceived":1,"time":1687387758580,"sign":"773C948201C2A51C3820F5671BD9C7E5"}
+2023-06-21 18:49:18 [INFO] 9.js - From: Cash App <cash@square.com>
+2023-06-21 18:49:18 [INFO] 9.js - Subject: Jae Gee sent you $20 for 112475
+2023-06-21 18:49:18 [INFO] 9.js - 是否存在 "Continue": false
+2023-06-21 18:49:18 [INFO] 9.js - 是否存在 "Received": true
+2023-06-21 18:49:19 [INFO] 9.js - 响应 msg: { code: 0, msg: 'order not exist', time: '1687387758', data: null }
+2023-06-21 18:49:52 [INFO] 9.js - 发送 msg: {"amount":"5","pkg":"Cash App","note":"","containsContinue":0,"containsReceived":1,"time":1687387792721,"sign":"374BB0681E59686C608A69372A587CEC"}
+2023-06-21 18:49:52 [INFO] 9.js - From: Cash App <cash@square.com>
+2023-06-21 18:49:52 [INFO] 9.js - Subject: Zach Day sent you $5
+2023-06-21 18:49:52 [INFO] 9.js - 是否存在 "Continue": false
+2023-06-21 18:49:52 [INFO] 9.js - 是否存在 "Received": true
+2023-06-21 18:49:53 [INFO] 9.js - 响应 msg: { code: 0, msg: 'order not exist', time: '1687387792', data: null }
+2023-06-21 19:12:22 [INFO] 9.js - 发送 msg: {"amount":"20","pkg":"Cash App","note":"","containsContinue":1,"containsReceived":0,"time":1687389142694,"sign":"79171DDF125941785CB6B312EA231455"}
+2023-06-21 19:12:22 [INFO] 9.js - From: Cash App <cash@square.com>
+2023-06-21 19:12:22 [INFO] 9.js - Subject: Kaitlin Shuttleworth sent you $20
+2023-06-21 19:12:22 [INFO] 9.js - 是否存在 "Continue": true
+2023-06-21 19:12:22 [INFO] 9.js - 是否存在 "Received": false
+2023-06-21 19:12:23 [INFO] 9.js - 响应 msg: { code: 0, msg: 'order not exist', time: '1687389142', data: null }
+2023-06-21 19:12:46 [INFO] 9.js - 发送 msg: {"amount":null,"pkg":"Cash App","note":"","containsContinue":0,"containsReceived":0,"time":1687389166760,"sign":"635EBF9F2AA28F51F4D4962962A59AD0"}
+2023-06-21 19:12:46 [INFO] 9.js - From: Cash App <cash@square.com>
+2023-06-21 19:12:46 [INFO] 9.js - Subject: Payment failed
+2023-06-21 19:12:46 [INFO] 9.js - 是否存在 "Continue": false
+2023-06-21 19:12:46 [INFO] 9.js - 是否存在 "Received": false
+2023-06-21 19:12:47 [INFO] 9.js - 响应 msg: {
+  code: 3026,
+  msg: 'Signature verification failed',
+  time: '1687389166',
+  data: []
+}
+2023-06-21 19:14:18 [INFO] 9.js - 发送 msg: {"amount":"5","pkg":"Cash App","note":"102040","containsContinue":0,"containsReceived":1,"time":1687389258965,"sign":"12DA429548FBA127764B7CB9892FF23C"}
+2023-06-21 19:14:18 [INFO] 9.js - From: Cash App <cash@square.com>
+2023-06-21 19:14:18 [INFO] 9.js - Subject: Justin Maleski sent you $5 for 102040
+2023-06-21 19:14:18 [INFO] 9.js - 是否存在 "Continue": false
+2023-06-21 19:14:18 [INFO] 9.js - 是否存在 "Received": true
+2023-06-21 19:14:19 [INFO] 9.js - 响应 msg: { code: 0, msg: 'order not exist', time: '1687389258', data: null }
+2023-06-21 19:14:30 [INFO] 9.js - 发送 msg: {"amount":"20","pkg":"Cash App","note":"112475","containsContinue":0,"containsReceived":1,"time":1687389270986,"sign":"C83AF00DA7112DC7CED0F3732F096AA1"}
+2023-06-21 19:14:30 [INFO] 9.js - From: Cash App <cash@square.com>
+2023-06-21 19:14:30 [INFO] 9.js - Subject: Jae Gee sent you $20 for 112475
+2023-06-21 19:14:30 [INFO] 9.js - 是否存在 "Continue": false
+2023-06-21 19:14:30 [INFO] 9.js - 是否存在 "Received": true
+2023-06-21 19:14:31 [INFO] 9.js - 响应 msg: { code: 0, msg: 'order not exist', time: '1687389270', data: null }
+2023-06-21 19:23:28 [INFO] 9.js - 发送 msg: {"amount":"20","pkg":"Cash App","note":"112475","containsContinue":0,"containsReceived":1,"time":1687389808700,"sign":"4BDBB194493C78807F6E96767FD3D569"}
+2023-06-21 19:23:28 [INFO] 9.js - From: Cash App <cash@square.com>
+2023-06-21 19:23:28 [INFO] 9.js - Subject: Jae Gee sent you $20 for 112475
+2023-06-21 19:23:28 [INFO] 9.js - 是否存在 "Continue": false
+2023-06-21 19:23:28 [INFO] 9.js - 是否存在 "Received": true
+2023-06-21 19:23:29 [INFO] 9.js - 响应 msg: { code: 0, msg: 'order not exist', time: '1687389808', data: null }
+2023-06-21 19:30:32 [INFO] 9.js - 发送 msg: {"amount":"10","pkg":"Cash App","note":"","containsContinue":1,"containsReceived":0,"time":1687390232205,"sign":"77D3296E86BBEF587630DA93856F94C0"}
+2023-06-21 19:30:32 [INFO] 9.js - From: Cash App <cash@square.com>
+2023-06-21 19:30:32 [INFO] 9.js - Subject: JJ Jones sent you $10
+2023-06-21 19:30:32 [INFO] 9.js - 是否存在 "Continue": true
+2023-06-21 19:30:32 [INFO] 9.js - 是否存在 "Received": false
+2023-06-21 19:30:33 [INFO] 9.js - 响应 msg: { code: 0, msg: 'order not exist', time: '1687390232', data: null }
+2023-06-21 19:31:48 [INFO] 9.js - 发送 msg: {"amount":"10","pkg":"Cash App","note":"","containsContinue":0,"containsReceived":1,"time":1687390308363,"sign":"25DF5970F88A1083D7473D0F070663BA"}
+2023-06-21 19:31:48 [INFO] 9.js - From: Cash App <cash@square.com>
+2023-06-21 19:31:48 [INFO] 9.js - Subject: You accepted $10 from JJ Jones
+2023-06-21 19:31:48 [INFO] 9.js - 是否存在 "Continue": false
+2023-06-21 19:31:48 [INFO] 9.js - 是否存在 "Received": true
+2023-06-21 19:31:49 [INFO] 9.js - 响应 msg: { code: 0, msg: 'order not exist', time: '1687390308', data: null }
+2023-06-21 20:13:47 [INFO] 9.js - 发送 msg: {"amount":"5","pkg":"Cash App","note":"fPFqtE6Q","containsContinue":0,"containsReceived":1,"time":1687392827579,"sign":"D36966DDDEFA108A30F316FF14F4A924"}
+2023-06-21 20:13:47 [INFO] 9.js - From: Cash App <cash@square.com>
+2023-06-21 20:13:47 [INFO] 9.js - Subject: Cc Edge sent you $5 for fPFqtE6Q
+2023-06-21 20:13:47 [INFO] 9.js - 是否存在 "Continue": false
+2023-06-21 20:13:47 [INFO] 9.js - 是否存在 "Received": true
+2023-06-21 20:13:48 [INFO] 9.js - 响应 msg: {
+  code: 0,
+  msg: 'order already success',
+  time: '1687392827',
+  data: null
+}
+2023-06-21 20:16:42 [INFO] 9.js - 发送 msg: {"amount":"14","pkg":"Cash App","note":"108095","containsContinue":0,"containsReceived":1,"time":1687393002368,"sign":"D9F6B327726BC08C3F566BD0D9194786"}
+2023-06-21 20:16:42 [INFO] 9.js - From: Cash App <cash@square.com>
+2023-06-21 20:16:42 [INFO] 9.js - Subject: Albert DeAnda sent you $14 for 108095
+2023-06-21 20:16:42 [INFO] 9.js - 是否存在 "Continue": false
+2023-06-21 20:16:42 [INFO] 9.js - 是否存在 "Received": true
+2023-06-21 20:16:43 [INFO] 9.js - 响应 msg: { code: 0, msg: 'order not exist', time: '1687393002', data: null }
+2023-06-21 20:17:14 [INFO] 9.js - 发送 msg: {"amount":"6","pkg":"Cash App","note":"106677","containsContinue":0,"containsReceived":1,"time":1687393034541,"sign":"4AE66857B5ACC070818E49B704716591"}
+2023-06-21 20:17:14 [INFO] 9.js - From: Cash App <cash@square.com>
+2023-06-21 20:17:14 [INFO] 9.js - Subject: Joker sent you $6 for 106677
+2023-06-21 20:17:14 [INFO] 9.js - 是否存在 "Continue": false
+2023-06-21 20:17:14 [INFO] 9.js - 是否存在 "Received": true
+2023-06-21 20:17:15 [INFO] 9.js - 响应 msg: { code: 0, msg: 'order not exist', time: '1687393034', data: null }
+2023-06-21 20:21:15 [INFO] 9.js - 发送 msg: {"amount":"10","pkg":"Cash App","note":"","containsContinue":0,"containsReceived":1,"time":1687393275453,"sign":"0967248002625D1BE50BDB01213B1020"}
+2023-06-21 20:21:15 [INFO] 9.js - From: Cash App <cash@square.com>
+2023-06-21 20:21:15 [INFO] 9.js - Subject: Renee' Marshburn sent you $10
+2023-06-21 20:21:15 [INFO] 9.js - 是否存在 "Continue": false
+2023-06-21 20:21:15 [INFO] 9.js - 是否存在 "Received": true
+2023-06-21 20:21:16 [INFO] 9.js - 响应 msg: { code: 0, msg: 'order not exist', time: '1687393275', data: null }
+2023-06-21 20:45:13 [INFO] 9.js - 发送 msg: {"amount":"7","pkg":"Cash App","note":"","containsContinue":0,"containsReceived":1,"time":1687394713694,"sign":"0EF4B05856F622EC6E78BA01099D64D4"}
+2023-06-21 20:45:13 [INFO] 9.js - From: Cash App <cash@square.com>
+2023-06-21 20:45:13 [INFO] 9.js - Subject: Michelle Huffman sent you $7
+2023-06-21 20:45:13 [INFO] 9.js - 是否存在 "Continue": false
+2023-06-21 20:45:13 [INFO] 9.js - 是否存在 "Received": true
+2023-06-21 20:45:14 [INFO] 9.js - 响应 msg: { code: 0, msg: 'order not exist', time: '1687394713', data: null }
+2023-06-21 20:53:30 [INFO] 9.js - 发送 msg: {"amount":"5","pkg":"Cash App","note":"Lou58034","containsContinue":1,"containsReceived":0,"time":1687395210957,"sign":"D7108F00CAACDB6A74677F12B1BFBEC2"}
+2023-06-21 20:53:30 [INFO] 9.js - From: Cash App <cash@square.com>
+2023-06-21 20:53:30 [INFO] 9.js - Subject: Lindsey Simpson sent you $5 for Lou58034
+2023-06-21 20:53:30 [INFO] 9.js - 是否存在 "Continue": true
+2023-06-21 20:53:30 [INFO] 9.js - 是否存在 "Received": false
+2023-06-21 20:53:31 [INFO] 9.js - 响应 msg: { code: 0, msg: 'order not exist', time: '1687395211', data: null }
+2023-06-21 20:53:51 [INFO] 9.js - 发送 msg: {"amount":"5","pkg":"Cash App","note":"Lou58034","containsContinue":0,"containsReceived":1,"time":1687395231008,"sign":"76E0B0D033A837BA6801A5163A4AFF38"}
+2023-06-21 20:53:51 [INFO] 9.js - From: Cash App <cash@square.com>
+2023-06-21 20:53:51 [INFO] 9.js - Subject: You accepted $5 from Lindsey Simpson for Lou58034
+2023-06-21 20:53:51 [INFO] 9.js - 是否存在 "Continue": false
+2023-06-21 20:53:51 [INFO] 9.js - 是否存在 "Received": true
+2023-06-21 20:53:51 [INFO] 9.js - 响应 msg: { code: 0, msg: 'order not exist', time: '1687395230', data: null }
+2023-06-21 20:58:42 [INFO] 9.js - 发送 msg: {"amount":"10","pkg":"Cash App","note":"JoeAdkins350","containsContinue":0,"containsReceived":1,"time":1687395522007,"sign":"AE57A03803A15E8D4B588B2C8DD0389A"}
+2023-06-21 20:58:42 [INFO] 9.js - From: Cash App <cash@square.com>
+2023-06-21 20:58:42 [INFO] 9.js - Subject: Joker sent you $10 for JoeAdkins350
+2023-06-21 20:58:42 [INFO] 9.js - 是否存在 "Continue": false
+2023-06-21 20:58:42 [INFO] 9.js - 是否存在 "Received": true
+2023-06-21 20:58:42 [INFO] 9.js - 响应 msg: { code: 0, msg: 'order not exist', time: '1687395522', data: null }
+2023-06-21 20:58:46 [INFO] 9.js - 发送 msg: {"amount":"15","pkg":"Cash App","note":"108095","containsContinue":0,"containsReceived":1,"time":1687395526117,"sign":"83EF4A02E24DA04F29B12648368D13B5"}
+2023-06-21 20:58:46 [INFO] 9.js - From: Cash App <cash@square.com>
+2023-06-21 20:58:46 [INFO] 9.js - Subject: Albert DeAnda sent you $15 for 108095
+2023-06-21 20:58:46 [INFO] 9.js - 是否存在 "Continue": false
+2023-06-21 20:58:46 [INFO] 9.js - 是否存在 "Received": true
+2023-06-21 20:58:46 [INFO] 9.js - 响应 msg: { code: 0, msg: 'order not exist', time: '1687395525', data: null }
+2023-06-21 21:12:13 [INFO] 9.js - 发送 msg: {"amount":"10","pkg":"Cash App","note":"malyssa647","containsContinue":0,"containsReceived":1,"time":1687396333514,"sign":"92EC1E3A061E11DBDE21BA621385B89D"}
+2023-06-21 21:12:13 [INFO] 9.js - From: Cash App <cash@square.com>
+2023-06-21 21:12:13 [INFO] 9.js - Subject: Alyssa Morris sent you $10 for malyssa647
+2023-06-21 21:12:13 [INFO] 9.js - 是否存在 "Continue": false
+2023-06-21 21:12:13 [INFO] 9.js - 是否存在 "Received": true
+2023-06-21 21:12:14 [INFO] 9.js - 响应 msg: { code: 0, msg: 'order not exist', time: '1687396333', data: null }
+2023-06-21 21:13:25 [INFO] 9.js - 发送 msg: {"amount":"10","pkg":"Cash App","note":"","containsContinue":0,"containsReceived":0,"time":1687396405661,"sign":"C24FA64A8AA1CE936213220E93333753"}
+2023-06-21 21:13:25 [INFO] 9.js - From: Cash App <cash@square.com>
+2023-06-21 21:13:25 [INFO] 9.js - Subject: You sent $10 to TJ Black
+2023-06-21 21:13:25 [INFO] 9.js - 是否存在 "Continue": false
+2023-06-21 21:13:25 [INFO] 9.js - 是否存在 "Received": false
+2023-06-21 21:13:26 [INFO] 9.js - 响应 msg: { code: 3026, msg: 'contains error', time: '1687396405', data: [] }
+2023-06-21 21:20:30 [INFO] 9.js - 发送 msg: {"amount":"5","pkg":"Cash App","note":"151130461687396706746","containsContinue":1,"containsReceived":0,"time":1687396830843,"sign":"2B697C517407621508F69A4A67F62941"}
+2023-06-21 21:20:30 [INFO] 9.js - From: Cash App <cash@square.com>
+2023-06-21 21:20:30 [INFO] 9.js - Subject: Baby Girl sent you $5 for 151130461687396706746
+2023-06-21 21:20:30 [INFO] 9.js - 是否存在 "Continue": true
+2023-06-21 21:20:30 [INFO] 9.js - 是否存在 "Received": false
+2023-06-21 21:20:31 [INFO] 9.js - 响应 msg: { code: 0, msg: 'order not exist', time: '1687396830', data: null }
+2023-06-21 21:21:01 [INFO] 9.js - 发送 msg: {"amount":null,"pkg":"Cash App","note":"","containsContinue":0,"containsReceived":0,"time":1687396861054,"sign":"3E432D023959CCB1837FC7BA6BDE3961"}
+2023-06-21 21:21:01 [INFO] 9.js - From: Cash App <cash@square.com>
+2023-06-21 21:21:01 [INFO] 9.js - Subject: Payment failed
+2023-06-21 21:21:01 [INFO] 9.js - 是否存在 "Continue": false
+2023-06-21 21:21:01 [INFO] 9.js - 是否存在 "Received": false
+2023-06-21 21:21:01 [INFO] 9.js - 响应 msg: {
+  code: 3026,
+  msg: 'Signature verification failed',
+  time: '1687396860',
+  data: []
+}
+2023-06-21 21:26:48 [INFO] 9.js - 发送 msg: {"amount":"11","pkg":"Cash App","note":"","containsContinue":0,"containsReceived":1,"time":1687397208262,"sign":"D719AF873EEE473C68102F0EFDF9FDDB"}
+2023-06-21 21:26:48 [INFO] 9.js - From: Cash App <cash@square.com>
+2023-06-21 21:26:48 [INFO] 9.js - Subject: Brittany Shrider sent you $11
+2023-06-21 21:26:48 [INFO] 9.js - 是否存在 "Continue": false
+2023-06-21 21:26:48 [INFO] 9.js - 是否存在 "Received": true
+2023-06-21 21:26:49 [INFO] 9.js - 响应 msg: { code: 0, msg: 'order not exist', time: '1687397208', data: null }
+2023-06-21 21:28:02 [INFO] 9.js - 发送 msg: {"amount":"5","pkg":"Cash App","note":"RCULFAvP","containsContinue":1,"containsReceived":0,"time":1687397282441,"sign":"0A31E2C1F4E921C37E2C94D387CBF9FB"}
+2023-06-21 21:28:02 [INFO] 9.js - From: Cash App <cash@square.com>
+2023-06-21 21:28:02 [INFO] 9.js - Subject: David Bartholomew sent you $5 for RCULFAvP
+2023-06-21 21:28:02 [INFO] 9.js - 是否存在 "Continue": true
+2023-06-21 21:28:02 [INFO] 9.js - 是否存在 "Received": false
+2023-06-21 21:28:03 [INFO] 9.js - 响应 msg: {
+  code: 0,
+  msg: 'order already make sure',
+  time: '1687397282',
+  data: null
+}
+2023-06-21 21:28:24 [INFO] 9.js - 发送 msg: {"amount":null,"pkg":"Cash App","note":"","containsContinue":0,"containsReceived":0,"time":1687397304435,"sign":"BB26EB11D261EA4F9F5069AA63ED8B46"}
+2023-06-21 21:28:24 [INFO] 9.js - From: Cash App <cash@square.com>
+2023-06-21 21:28:24 [INFO] 9.js - Subject: Payment failed
+2023-06-21 21:28:24 [INFO] 9.js - 是否存在 "Continue": false
+2023-06-21 21:28:24 [INFO] 9.js - 是否存在 "Received": false
+2023-06-21 21:28:25 [INFO] 9.js - 响应 msg: {
+  code: 3026,
+  msg: 'Signature verification failed',
+  time: '1687397304',
+  data: []
+}
+2023-06-21 21:59:56 [INFO] 9.js - 发送 msg: {"amount":"5","pkg":"Cash App","note":"JZ8laHGt","containsContinue":0,"containsReceived":1,"time":1687399196036,"sign":"C3F7E30AFC1B6A31B669ABCD9A924877"}
+2023-06-21 21:59:56 [INFO] 9.js - From: Cash App <cash@square.com>
+2023-06-21 21:59:56 [INFO] 9.js - Subject: Cc Edge sent you $5 for JZ8laHGt
+2023-06-21 21:59:56 [INFO] 9.js - 是否存在 "Continue": false
+2023-06-21 21:59:56 [INFO] 9.js - 是否存在 "Received": true
+2023-06-21 21:59:56 [INFO] 9.js - 响应 msg: {
+  code: 0,
+  msg: 'order already success',
+  time: '1687399196',
+  data: null
+}
+2023-06-21 22:04:11 [INFO] 9.js - 发送 msg: {"amount":"10","pkg":"Cash App","note":"Sttaw7656","containsContinue":1,"containsReceived":0,"time":1687399451001,"sign":"93A7EE90515C9C039803246290EBDE91"}
+2023-06-21 22:04:11 [INFO] 9.js - From: Cash App <cash@square.com>
+2023-06-21 22:04:11 [INFO] 9.js - Subject: Bryant Sanders sent you $10 for Sttaw7656
+2023-06-21 22:04:11 [INFO] 9.js - 是否存在 "Continue": true
+2023-06-21 22:04:11 [INFO] 9.js - 是否存在 "Received": false
+2023-06-21 22:04:11 [INFO] 9.js - 响应 msg: { code: 0, msg: 'order not exist', time: '1687399450', data: null }
+2023-06-21 22:04:36 [INFO] 9.js - 发送 msg: {"amount":"10","pkg":"Cash App","note":"Sttaw7656","containsContinue":0,"containsReceived":1,"time":1687399476914,"sign":"78A7CDF454EC8846E1595D5586B3371C"}
+2023-06-21 22:04:36 [INFO] 9.js - From: Cash App <cash@square.com>
+2023-06-21 22:04:36 [INFO] 9.js - Subject: You accepted $10 from Bryant Sanders for Sttaw7656
+2023-06-21 22:04:36 [INFO] 9.js - 是否存在 "Continue": false
+2023-06-21 22:04:36 [INFO] 9.js - 是否存在 "Received": true
+2023-06-21 22:04:37 [INFO] 9.js - 响应 msg: { code: 0, msg: 'order not exist', time: '1687399476', data: null }
+2023-06-21 22:05:45 [INFO] 9.js - 发送 msg: {"amount":"10","pkg":"Cash App","note":"UCzk6Rfj+bonus","containsContinue":0,"containsReceived":1,"time":1687399545039,"sign":"3ABBE4A498CC9BCC15368AFAEFD6E74D"}
+2023-06-21 22:05:45 [INFO] 9.js - From: Cash App <cash@square.com>
+2023-06-21 22:05:45 [INFO] 9.js - Subject: Love sent you $10 for UCzk6Rfj+bonus
+2023-06-21 22:05:45 [INFO] 9.js - 是否存在 "Continue": false
+2023-06-21 22:05:45 [INFO] 9.js - 是否存在 "Received": true
+2023-06-21 22:05:45 [INFO] 9.js - 响应 msg: { code: 0, msg: 'order not exist', time: '1687399545', data: null }
+2023-06-21 22:15:23 [INFO] 9.js - 发送 msg: {"amount":"5","pkg":"Cash App","note":"slJejPvT","containsContinue":0,"containsReceived":1,"time":1687400123608,"sign":"DED80C5C48CFDC10E1BC4BFF65AED0E6"}
+2023-06-21 22:15:23 [INFO] 9.js - From: Cash App <cash@square.com>
+2023-06-21 22:15:23 [INFO] 9.js - Subject: Qua sent you $5 for slJejPvT
+2023-06-21 22:15:23 [INFO] 9.js - 是否存在 "Continue": false
+2023-06-21 22:15:23 [INFO] 9.js - 是否存在 "Received": true
+2023-06-21 22:15:24 [INFO] 9.js - 响应 msg: {
+  code: 0,
+  msg: 'order already success',
+  time: '1687400123',
+  data: null
+}
+2023-06-21 22:24:15 [INFO] 9.js - 发送 msg: {"amount":"5","pkg":"Cash App","note":"151128641687400608624","containsContinue":0,"containsReceived":1,"time":1687400655595,"sign":"82BCD2C16EBAF55A5F23D33E4EE55543"}
+2023-06-21 22:24:15 [INFO] 9.js - From: Cash App <cash@square.com>
+2023-06-21 22:24:15 [INFO] 9.js - Subject: Amber Katrice sent you $5 for 151128641687400608624
+2023-06-21 22:24:15 [INFO] 9.js - 是否存在 "Continue": false
+2023-06-21 22:24:15 [INFO] 9.js - 是否存在 "Received": true
+2023-06-21 22:24:16 [INFO] 9.js - 响应 msg: { code: 0, msg: 'order not exist', time: '1687400655', data: null }
+2023-06-21 22:32:35 [INFO] 9.js - 发送 msg: {"amount":"10","pkg":"Cash App","note":"","containsContinue":0,"containsReceived":0,"time":1687401155231,"sign":"5D305608EBDC370B2C218A579FB643A8"}
+2023-06-21 22:32:35 [INFO] 9.js - From: Cash App <cash@square.com>
+2023-06-21 22:32:35 [INFO] 9.js - Subject: You sent $10 to Kris Lewis
+2023-06-21 22:32:35 [INFO] 9.js - 是否存在 "Continue": false
+2023-06-21 22:32:35 [INFO] 9.js - 是否存在 "Received": false
+2023-06-21 22:32:36 [INFO] 9.js - 响应 msg: { code: 3026, msg: 'contains error', time: '1687401155', data: [] }
+2023-06-21 22:37:14 [INFO] 9.js - 发送 msg: {"amount":"5","pkg":"Cash App","note":"malyssa647","containsContinue":0,"containsReceived":1,"time":1687401434023,"sign":"D7D540A9CCFF86AFF288B056CB2E17F8"}
+2023-06-21 22:37:14 [INFO] 9.js - From: Cash App <cash@square.com>
+2023-06-21 22:37:14 [INFO] 9.js - Subject: Alyssa Morris sent you $5 for malyssa647
+2023-06-21 22:37:14 [INFO] 9.js - 是否存在 "Continue": false
+2023-06-21 22:37:14 [INFO] 9.js - 是否存在 "Received": true
+2023-06-21 22:37:14 [INFO] 9.js - 响应 msg: { code: 0, msg: 'order not exist', time: '1687401433', data: null }
+2023-06-21 22:52:46 [INFO] 9.js - 发送 msg: {"amount":"7","pkg":"Cash App","note":"FXPJ79Cn","containsContinue":1,"containsReceived":0,"time":1687402366527,"sign":"3BD5BB54BAF8C59B6A324C51C9960DFD"}
+2023-06-21 22:52:46 [INFO] 9.js - From: Cash App <cash@square.com>
+2023-06-21 22:52:46 [INFO] 9.js - Subject: Alicia Kicklighter sent you $7 for FXPJ79Cn
+2023-06-21 22:52:46 [INFO] 9.js - 是否存在 "Continue": true
+2023-06-21 22:52:46 [INFO] 9.js - 是否存在 "Received": false
+2023-06-21 22:52:47 [INFO] 9.js - 响应 msg: { code: 0, msg: 'order not exist', time: '1687402366', data: null }
+2023-06-21 22:53:06 [INFO] 9.js - 发送 msg: {"amount":null,"pkg":"Cash App","note":"","containsContinue":0,"containsReceived":0,"time":1687402386559,"sign":"07E19AEC0FE565696A28899925789040"}
+2023-06-21 22:53:06 [INFO] 9.js - From: Cash App <cash@square.com>
+2023-06-21 22:53:06 [INFO] 9.js - Subject: Payment failed
+2023-06-21 22:53:06 [INFO] 9.js - 是否存在 "Continue": false
+2023-06-21 22:53:06 [INFO] 9.js - 是否存在 "Received": false
+2023-06-21 22:53:07 [INFO] 9.js - 响应 msg: {
+  code: 3026,
+  msg: 'Signature verification failed',
+  time: '1687402386',
+  data: []
+}
+2023-06-21 22:59:49 [INFO] 9.js - 发送 msg: {"amount":"20","pkg":"Cash App","note":"XnlUPGeE","containsContinue":0,"containsReceived":1,"time":1687402789560,"sign":"8010A88E92A3E89EAD769B39E4662D6F"}
+2023-06-21 22:59:49 [INFO] 9.js - From: Cash App <cash@square.com>
+2023-06-21 22:59:49 [INFO] 9.js - Subject: Justin Rebowe sent you $20 for XnlUPGeE
+2023-06-21 22:59:49 [INFO] 9.js - 是否存在 "Continue": false
+2023-06-21 22:59:49 [INFO] 9.js - 是否存在 "Received": true
+2023-06-21 22:59:50 [INFO] 9.js - 响应 msg: {
+  code: 0,
+  msg: 'order already success',
+  time: '1687402789',
+  data: null
+}
+2023-06-21 23:06:32 [INFO] 9.js - 发送 msg: {"amount":"10","pkg":"Cash App","note":"102040","containsContinue":0,"containsReceived":1,"time":1687403192260,"sign":"2B0F6F9C7721B85D83D3D912697076B9"}
+2023-06-21 23:06:32 [INFO] 9.js - From: Cash App <cash@square.com>
+2023-06-21 23:06:32 [INFO] 9.js - Subject: Justin Maleski sent you $10 for 102040
+2023-06-21 23:06:32 [INFO] 9.js - 是否存在 "Continue": false
+2023-06-21 23:06:32 [INFO] 9.js - 是否存在 "Received": true
+2023-06-21 23:06:33 [INFO] 9.js - 响应 msg: { code: 0, msg: 'order not exist', time: '1687403192', data: null }
+2023-06-21 23:16:31 [INFO] 9.js - 发送 msg: {"amount":"10","pkg":"Cash App","note":"110378","containsContinue":0,"containsReceived":1,"time":1687403791145,"sign":"8652E33F18899AA9F0D9419684E6F3CE"}
+2023-06-21 23:16:31 [INFO] 9.js - From: Cash App <cash@square.com>
+2023-06-21 23:16:31 [INFO] 9.js - Subject: Codey Harris sent you $10 for 110378
+2023-06-21 23:16:31 [INFO] 9.js - 是否存在 "Continue": false
+2023-06-21 23:16:31 [INFO] 9.js - 是否存在 "Received": true
+2023-06-21 23:16:32 [INFO] 9.js - 响应 msg: { code: 0, msg: 'order not exist', time: '1687403791', data: null }
+2023-06-21 23:17:43 [INFO] 9.js - 发送 msg: {"amount":"10","pkg":"Cash App","note":"","containsContinue":0,"containsReceived":1,"time":1687403863310,"sign":"0CD828E0580D0FB702DAF24DC0340E4B"}
+2023-06-21 23:17:43 [INFO] 9.js - From: Cash App <cash@square.com>
+2023-06-21 23:17:43 [INFO] 9.js - Subject: Felicia Chavez sent you $10
+2023-06-21 23:17:43 [INFO] 9.js - 是否存在 "Continue": false
+2023-06-21 23:17:43 [INFO] 9.js - 是否存在 "Received": true
+2023-06-21 23:17:43 [INFO] 9.js - 响应 msg: { code: 0, msg: 'order not exist', time: '1687403863', data: null }
+2023-06-21 23:17:57 [INFO] 9.js - 发送 msg: {"amount":"5","pkg":"Cash App","note":"9uOYcNV6","containsContinue":0,"containsReceived":1,"time":1687403877346,"sign":"1C235FA7AB15219BEFB3CF28B56F4A68"}
+2023-06-21 23:17:57 [INFO] 9.js - From: Cash App <cash@square.com>
+2023-06-21 23:17:57 [INFO] 9.js - Subject: Britney Fowler sent you $5 for 9uOYcNV6
+2023-06-21 23:17:57 [INFO] 9.js - 是否存在 "Continue": false
+2023-06-21 23:17:57 [INFO] 9.js - 是否存在 "Received": true
+2023-06-21 23:17:58 [INFO] 9.js - 响应 msg: {
+  code: 0,
+  msg: 'order already success',
+  time: '1687403877',
+  data: null
+}
+2023-06-21 23:24:48 [INFO] 9.js - 发送 msg: {"amount":"20","pkg":"Cash App","note":"","containsContinue":0,"containsReceived":1,"time":1687404288701,"sign":"BC48F42516A3B706E8F98A746090947E"}
+2023-06-21 23:24:48 [INFO] 9.js - From: Cash App <cash@square.com>
+2023-06-21 23:24:48 [INFO] 9.js - Subject: Felicia Chavez sent you $20
+2023-06-21 23:24:48 [INFO] 9.js - 是否存在 "Continue": false
+2023-06-21 23:24:48 [INFO] 9.js - 是否存在 "Received": true
+2023-06-21 23:24:49 [INFO] 9.js - 响应 msg: { code: 0, msg: 'order not exist', time: '1687404288', data: null }
+2023-06-21 23:25:20 [INFO] 9.js - 发送 msg: {"amount":"10","pkg":"Cash App","note":"hxu4B2CL","containsContinue":0,"containsReceived":1,"time":1687404320821,"sign":"271440F6992621DEE36903FF84B179B7"}
+2023-06-21 23:25:20 [INFO] 9.js - From: Cash App <cash@square.com>
+2023-06-21 23:25:20 [INFO] 9.js - Subject: Brandon Dees sent you $10 for hxu4B2CL
+2023-06-21 23:25:20 [INFO] 9.js - 是否存在 "Continue": false
+2023-06-21 23:25:20 [INFO] 9.js - 是否存在 "Received": true
+2023-06-21 23:25:21 [INFO] 9.js - 响应 msg: {
+  code: 0,
+  msg: 'order already success',
+  time: '1687404320',
+  data: null
+}
+2023-06-21 23:31:13 [INFO] 9.js - 发送 msg: {"amount":"20","pkg":"Cash App","note":"chever456","containsContinue":0,"containsReceived":1,"time":1687404673956,"sign":"B6E9CFD767A308617C515B53A4C79697"}
+2023-06-21 23:31:13 [INFO] 9.js - From: Cash App <cash@square.com>
+2023-06-21 23:31:13 [INFO] 9.js - Subject: Bc86 sent you $20 for chever456
+2023-06-21 23:31:13 [INFO] 9.js - 是否存在 "Continue": false
+2023-06-21 23:31:13 [INFO] 9.js - 是否存在 "Received": true
+2023-06-21 23:31:14 [INFO] 9.js - 响应 msg: { code: 0, msg: 'order not exist', time: '1687404674', data: null }
+2023-06-21 23:42:03 [INFO] 9.js - 发送 msg: {"amount":"10","pkg":"Cash App","note":"pnaLyiXG","containsContinue":0,"containsReceived":1,"time":1687405323469,"sign":"39D4EFAC68B6A6916C3CAE1A5A57A272"}
+2023-06-21 23:42:03 [INFO] 9.js - From: Cash App <cash@square.com>
+2023-06-21 23:42:03 [INFO] 9.js - Subject: Love sent you $10 for pnaLyiXG
+2023-06-21 23:42:03 [INFO] 9.js - 是否存在 "Continue": false
+2023-06-21 23:42:03 [INFO] 9.js - 是否存在 "Received": true
+2023-06-21 23:42:04 [INFO] 9.js - 响应 msg: {
+  code: 0,
+  msg: 'order already success',
+  time: '1687405323',
+  data: null
+}
+2023-06-21 23:57:21 [INFO] 9.js - 发送 msg: {"amount":"20","pkg":"Cash App","note":"donation","containsContinue":0,"containsReceived":1,"time":1687406241689,"sign":"A240552F5314BDF7B77EBA9C5D175AFD"}
+2023-06-21 23:57:21 [INFO] 9.js - From: Cash App <cash@square.com>
+2023-06-21 23:57:21 [INFO] 9.js - Subject: Tammy Odom sent you $20 for donation for odom0858
+2023-06-21 23:57:21 [INFO] 9.js - 是否存在 "Continue": false
+2023-06-21 23:57:21 [INFO] 9.js - 是否存在 "Received": true
+2023-06-21 23:57:22 [INFO] 9.js - 响应 msg: { code: 0, msg: 'order not exist', time: '1687406241', data: null }
+2023-06-21 23:57:55 [INFO] 9.js - 发送 msg: {"amount":"60","pkg":"Cash App","note":"","containsContinue":0,"containsReceived":1,"time":1687406275755,"sign":"79C08397E4DC998199620EFA11DD2616"}
+2023-06-21 23:57:55 [INFO] 9.js - From: Cash App <cash@square.com>
+2023-06-21 23:57:55 [INFO] 9.js - Subject: Arthur Bans II sent you $60
+2023-06-21 23:57:55 [INFO] 9.js - 是否存在 "Continue": false
+2023-06-21 23:57:55 [INFO] 9.js - 是否存在 "Received": true
+2023-06-21 23:57:56 [INFO] 9.js - 响应 msg: { code: 0, msg: 'order not exist', time: '1687406275', data: null }

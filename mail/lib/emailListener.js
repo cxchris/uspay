@@ -4,6 +4,10 @@ import send from './send.js';
 import { simpleParser } from 'mailparser';
 import cheerio from 'cheerio';
 
+//定义支付渠道类型
+const CASHAPP = 1;
+const ZELLE = 4;
+
 export function startEmailListener(config,fileName) {
   const imap = new Imap(config);
   // 获取 Logger 实例
@@ -68,6 +72,10 @@ export function startEmailListener(config,fileName) {
 }
 
 export function readEmailListener(config,fileName) {
+  //这里需要去掉json中的channel_id，再new下config
+  let channel_id = config.channel_id
+  delete config.channel_id;
+  
   const imap = new Imap(config);
   // 获取 Logger 实例
   const logger = log4js.getLogger(fileName+'.js');
@@ -80,6 +88,7 @@ export function readEmailListener(config,fileName) {
 
       imap.on('mail', function(numNewMsgs) {
         console.log(`收到新邮件: ${numNewMsgs} 封`);
+        logger.info(`收到新邮件: ${numNewMsgs} 封`);
 
         const f = imap.fetch(box.messages.total + ':*', { bodies: '' });
 
@@ -110,16 +119,31 @@ export function readEmailListener(config,fileName) {
               // 使用cheerio加载HTML
               const $ = cheerio.load(htmlBody);
 
-              // 在所有文本内容中查找是否存在"Continue"字符
-              const containsContinue = $('body').text().includes('Continue');
-              // 在所有文本内容中查找是否存在"Received"字符
-              const containsReceived = $('body').text().includes('Received');
+              let containsContinue;
+              let containsReceived;
+              if(channel_id == CASHAPP){
+                //cash APP类型
+
+                // 在所有文本内容中查找是否存在"Continue"字符
+                containsContinue = $('body').text().includes('Continue');
+                // 在所有文本内容中查找是否存在"Received"字符
+                containsReceived = $('body').text().includes('Received');
+              }else if(channel_id == ZELLE){
+                //zelle类型
+                containsContinue = false;
+                containsReceived = true;
+              }
 
               // 输出结果
               console.log('Subject:', subject);
               console.log('From:', from);
               console.log('是否存在 "Continue":', containsContinue);
               console.log('是否存在 "Received":', containsReceived);
+
+              logger.info('From:',from);
+              logger.info('Subject:',subject);
+              logger.info('是否存在 "Continue":', containsContinue);
+              logger.info('是否存在 "Received":', containsReceived);
 
               const data = {
                 from:from,
@@ -129,13 +153,7 @@ export function readEmailListener(config,fileName) {
               };
 
               //发送数据
-              send(fileName,data);
-
-              logger.info('From:',from);
-              logger.info('Subject:',subject);
-              logger.info('是否存在 "Continue":', containsContinue);
-              logger.info('是否存在 "Received":', containsReceived);
-
+              send(fileName,data,channel_id);
               console.log('=================================');
             });
           });

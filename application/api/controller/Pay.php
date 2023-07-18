@@ -116,6 +116,9 @@ class Pay extends Api
                     $this->error('amount not higher than the allowed limit', [],  self::AMOUNT_HIGHER_ALLOWED);
                 }
 
+                //判断获取到的通道ID，默认是1，cashapp
+                $channelId = isset($params['channel'])?$params['channel']:1;
+
                 //每日限额，查询今日商户一共代付成功的金额
                 $timearr = [
                     strtotime(date('Y-m-d'). '00:00:00'),
@@ -149,7 +152,12 @@ class Pay extends Api
                 $library->channel_type = 'otc';
                 $reflector = CommonPayment::getpaymentlibrary($library);
                 $snnumber = Random::generateRandom(16);
-                $res = CommonPayment::pay($reflector,'pay',$params['amount'],$row->collection_channel_id);
+                //打包查询条件
+                $channeldata = [
+                    'otc_channel' => $row->collection_channel_id,
+                    'channel' => $channelId,
+                ];
+                $res = CommonPayment::pay($reflector,'pay',$params['amount'],$channeldata);
                 if(!$res){
                     $this->error('Channel not exist', [],  self::CHEANNEL_NOT_EXIST);
                 }

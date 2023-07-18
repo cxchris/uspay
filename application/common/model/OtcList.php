@@ -157,7 +157,8 @@ class OtcList extends Model
             'tls' => true,
             'tlsOptions' => [
                 'rejectUnauthorized' => false
-            ]
+            ],
+            'channel_id' => $params['channel_id']
         ];
         $json = json_encode($json,true);
         file_put_contents($filename, $json);

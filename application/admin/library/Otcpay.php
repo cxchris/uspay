@@ -45,7 +45,9 @@ class Otcpay
         self::$amount = $amount;
         //获取可用的otc_list，个卡
         // $type = $pay_type == 'bank'?2:1;
-        $field['id'] = ['in',$channel];
+        $field = [];
+        $field['id'] = ['in',$channel['otc_channel']];
+        $field['channel_id'] = $channel['channel'];
         $list = Db::name('otc_list')->where($field)->where('status',1)->select();
         // dump($list);
         if(!$list){

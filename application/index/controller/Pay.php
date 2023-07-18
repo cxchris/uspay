@@ -133,6 +133,24 @@ class Pay extends Frontend
         }
 
         $cashUrl = 'https://cash.app/'.$order['ext_data'].'?qr=1';
+
+        //根据类型识别zelle和cashapp
+        $signclass = [];
+        if($order['channel_id'] == 1){
+            $signclass['gradient_bg'] = 'cash-bg';
+            $signclass['bg'] = 'cash-color';
+            $signclass['color'] = 'cash-tx-color';
+            $signclass['display'] = 'cash-display';
+            $signclass['undisplay'] = 'zelle-display';
+            $signclass['icon'] = 'icon-cash-app-reverse.svg';
+        }elseif($order['channel_id'] == 4){
+            $signclass['gradient_bg'] = 'zelle-bg';
+            $signclass['bg'] = 'zelle-color';
+            $signclass['color'] = 'zelle-tx-color';
+            $signclass['display'] = 'zelle-display';
+            $signclass['undisplay'] = 'cash-display';
+            $signclass['icon'] = 'unnamed.png';
+        }
         
         // dump($this->otc_info);exit;
         $this->view->assign("order", $order);
@@ -144,6 +162,7 @@ class Pay extends Frontend
         $this->view->assign("errorUrl", $this->errorUrl);
         $this->view->assign("lang", $this->lang);
         $this->view->assign("cashUrl", $cashUrl);
+        $this->view->assign("signclass", $signclass);
 
         $this->view->assign('logo',$this->logo);
         return $this->view->fetch();

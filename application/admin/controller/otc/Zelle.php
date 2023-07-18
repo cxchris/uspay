@@ -10,19 +10,19 @@ use fast\Http;
 use think\Log;
 
 /**
- * Cashapp
+ * Zelle
  *
  * @icon   fa fa-circle-o
- * @remark 主要用于展示Cashapp收款账户
+ * @remark 主要用于展示Zelle收款账户
  */
-class Account extends Backend
+class Zelle extends Backend
 {
 
     /**
      * @var \app\common\model\Attachment
      */
     protected $model = null;
-    protected $type = 1; //默认
+    protected $type = 4; //默认
 
     protected $noNeedRight = ['*'];
 

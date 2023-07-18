@@ -1,2 +1,5 @@
 config/
 logs/
+/src/*
+!/src/example.js
+!/src/index.js

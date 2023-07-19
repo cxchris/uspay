@@ -115,7 +115,7 @@ export function readEmailListener(config,fileName) {
               // 获取 HTML 正文
               const htmlBody = parsed.html;
               // console.log('HTML Body:', htmlBody);
-              logger.info('HTML Body:'+htmlBody);
+              // logger.info('HTML Body:'+htmlBody);
 
               // 使用cheerio加载HTML
               const $ = cheerio.load(htmlBody);
@@ -139,7 +139,7 @@ export function readEmailListener(config,fileName) {
                 // 提取备注
                 const noteRegex = /for\s+(\S+)/; // 匹配 "for" 后面的字符串
                 const noteMatch = subject.match(noteRegex);
-                const note = noteMatch ? noteMatch[1].trim() : ''; // 提取匹配到的字符串
+                note = noteMatch ? noteMatch[1].trim() : ''; // 提取匹配到的字符串
                 
               }else if(channel_id == ZELLE){
                 //zelle类型

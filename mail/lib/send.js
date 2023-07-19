@@ -21,13 +21,9 @@ function send(fileName,data,channel_id){
   if(data){
     const from = data.from; // 获取 from
     const subject = data.subject; // 获取 subject
-    const containsContinue = data.containsContinue; // 获取 containsContinue
-    const containsReceived = data.containsReceived; // 获取 containsReceived
     
     // console.log(from)
     // console.log(subject);
-    // console.log(containsContinue)
-    // console.log(containsReceived)
 
     //如果是zelle的类型，就不用判断
     // 解读 from
@@ -44,25 +40,12 @@ function send(fileName,data,channel_id){
     //   return null;
     // }
 
-    // 提取金额
-    const amountRegex = /\$([0-9.]+)/; // 匹配 $ 符号后面的数字
-    const amountMatch = subject.match(amountRegex);
-    const amount = amountMatch ? amountMatch[1].trim() : null; // 提取匹配到的数字
-
-    // 提取备注
-    const noteRegex = /for\s+(\S+)/; // 匹配 "for" 后面的字符串
-    const noteMatch = subject.match(noteRegex);
-    const note = noteMatch ? noteMatch[1].trim() : ''; // 提取匹配到的字符串
-
-    console.log('"'+amount+'"')
-    console.log('"'+note+'"');
-
     let postData = {
-      amount: amount,
+      amount: data.amount,
       pkg: appname,
-      note: note,
-      containsContinue: containsContinue,
-      containsReceived: containsReceived,
+      note: data.note,
+      containsContinue: data.containsContinue,
+      containsReceived: data.containsReceived,
       time: Date.now()
     };
 

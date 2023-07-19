@@ -115,12 +115,19 @@ export function readEmailListener(config,fileName) {
               // 获取 HTML 正文
               const htmlBody = parsed.html;
               // console.log('HTML Body:', htmlBody);
+              logger.info('HTML Body:'+htmlBody);
 
               // 使用cheerio加载HTML
               const $ = cheerio.load(htmlBody);
+              let note = ''; //获取备注
 
               let containsContinue;
               let containsReceived;
+
+              // 提取金额
+              const amountRegex = /\$([0-9.]+)/; // 匹配 $ 符号后面的数字
+              const amountMatch = subject.match(amountRegex);
+              const amount = amountMatch ? amountMatch[1].trim() : null; // 提取匹配到的数字
               if(channel_id == CASHAPP){
                 //cash APP类型
 
@@ -128,26 +135,46 @@ export function readEmailListener(config,fileName) {
                 containsContinue = $('body').text().includes('Continue');
                 // 在所有文本内容中查找是否存在"Received"字符
                 containsReceived = $('body').text().includes('Received');
+                
+                // 提取备注
+                const noteRegex = /for\s+(\S+)/; // 匹配 "for" 后面的字符串
+                const noteMatch = subject.match(noteRegex);
+                const note = noteMatch ? noteMatch[1].trim() : ''; // 提取匹配到的字符串
+                
               }else if(channel_id == ZELLE){
                 //zelle类型
                 containsContinue = false;
                 containsReceived = true;
+
+
+                const selectedTd = $('td')
+                  .filter((index, element) => {
+                    const colspanValue = $(element).attr('colspan');
+                    const fontSizeValue = $(element).css('font-size');
+                    return colspanValue === '2' && fontSizeValue === '22px';
+                  });
+                note = selectedTd.text().trim();
+
               }
 
               // 输出结果
               console.log('Subject:', subject);
               console.log('From:', from);
+              console.log('note:', note);
               console.log('是否存在 "Continue":', containsContinue);
               console.log('是否存在 "Received":', containsReceived);
 
               logger.info('From:',from);
               logger.info('Subject:',subject);
+              logger.info('note:',note);
               logger.info('是否存在 "Continue":', containsContinue);
               logger.info('是否存在 "Received":', containsReceived);
 
               const data = {
                 from:from,
                 subject:subject,
+                amount:amount,
+                note:note,
                 containsContinue:containsContinue?1:0,
                 containsReceived:containsReceived?1:0,
               };

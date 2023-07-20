@@ -95,8 +95,11 @@ class Balance extends Backend
 
             //获取当前可用收益余额
             $extend = Db::name('config')->field('value')->where('name','system_aomout')->find();
+            if($extend){
+                $extend['value'] = sprintfnum($extend['value']);
+            }
 
-            $result = array("total" => $list->total(), "rows" => $list->items(), "extend" => sprintfnum($extend));
+            $result = array("total" => $list->total(), "rows" => $list->items(), "extend" => $extend);
             return json($result);
         }
 

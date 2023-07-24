@@ -61,8 +61,8 @@ class Upnotice extends Api
             Log::record('个卡回调callback:POST:'.json_encode($params),'notice');
             if ($params) {
                 $end_time = time();
-                // $start_time = time() - 30*60;
-                $start_time = time() - 86400*2;
+                $start_time = time() - 30*60;
+                // $start_time = time() - 86400*2;
 
                 if(!isset($params['sign'])){
                     $this->error('sign error', [],  self::SIGN_VERFY_FAID);

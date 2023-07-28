@@ -203,7 +203,7 @@ class OtcList extends Model
         }else{
             $convertedPath = str_replace('\\', '/', $path);
             // $command = 'nohup node ' . $convertedPath .$ids. '.js > /dev/null 2>&1 &';
-            $nodeCommand = shell_exec('which node');
+            $nodeCommand = shell_exec('/usr/bin/which node');
             dump($nodeCommand);exit;
 
             $command = 'cd '.$convertedPath.' && nohup /root/.nvm/versions/node/v18.14.2/bin/node '.$ids.'.js > /home/wwwroot/default/uspay/mail/logs/output.log 2>&1 &';

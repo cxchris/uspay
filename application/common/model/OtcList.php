@@ -206,7 +206,7 @@ class OtcList extends Model
             // $nodeCommand = shell_exec('/usr/bin/which node');
             // dump($nodeCommand);exit;
 
-            $command = 'cd '.$convertedPath.' && nohup /root/.nvm/versions/node/v14.21.3/bin/node '.$ids.'.js > /home/wwwroot/default/uspay/mail/logs/output.log 2>&1 &';
+            $command = 'cd '.$convertedPath.' && nohup /usr/local/bin/node '.$ids.'.js > /home/wwwroot/default/uspay/mail/logs/output.log 2>&1 &';
 
             $process = new Process($command);
 

@@ -203,10 +203,10 @@ class OtcList extends Model
         }else{
             $convertedPath = str_replace('\\', '/', $path);
             // $command = 'nohup node ' . $convertedPath .$ids. '.js > /dev/null 2>&1 &';
-            $nodeCommand = shell_exec('/usr/bin/which node');
-            dump($nodeCommand);exit;
+            // $nodeCommand = shell_exec('/usr/bin/which node');
+            // dump($nodeCommand);exit;
 
-            $command = 'cd '.$convertedPath.' && nohup /root/.nvm/versions/node/v18.14.2/bin/node '.$ids.'.js > /home/wwwroot/default/uspay/mail/logs/output.log 2>&1 &';
+            $command = 'cd '.$convertedPath.' && nohup /root/.nvm/versions/node/v14.21.3/bin/node '.$ids.'.js > /home/wwwroot/default/uspay/mail/logs/output.log 2>&1 &';
 
             $process = new Process($command);
 
@@ -243,12 +243,11 @@ class OtcList extends Model
         }else{
             // $command = 'pgrep -f '.$ids.'.js';
             $command = 'ps -ef |grep '.$ids.'.js';
-            $command = '/usr/bin/which node';
             exec($command, $output);
-dump($output);exit;
+
             if($output){
                 $firstProcess = $output[0];
-                $pattern = '/\b(\d+)\b.*\/root\/\.nvm\/versions\/node\/v18\.14\.2\/bin\/node/';
+                $pattern = '/\b(\d+)\b.*\/root\/\.nvm\/versions\/node\/v14\.21\.3\/bin\/node/';
                 preg_match($pattern, $firstProcess, $matches);
 
                 if (isset($matches[1])) {

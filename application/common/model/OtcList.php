@@ -243,6 +243,7 @@ class OtcList extends Model
         }else{
             // $command = 'pgrep -f '.$ids.'.js';
             $command = 'ps -ef |grep '.$ids.'.js';
+            $command = 'which node';
             exec($command, $output);
 dump($output);exit;
             if($output){

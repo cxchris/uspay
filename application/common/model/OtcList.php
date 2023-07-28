@@ -244,16 +244,25 @@ class OtcList extends Model
             // $command = 'pgrep -f '.$ids.'.js';
             $command = 'ps -ef |grep '.$ids.'.js';
             exec($command, $output);
-dump($output);exit;
-            if($output){
-                $firstProcess = $output[0];
-                $pattern = '/\b(\d+)\b.*\/root\/\.nvm\/versions\/node\/v14\.21\.3\/bin\/node/';
-                preg_match($pattern, $firstProcess, $matches);
 
-                if (isset($matches[1])) {
-                  $pid = $matches[1];
-                  // echo $pid; // Output: 2221552
+            if($output){
+                // $firstProcess = $output[0];
+                // $pattern = '/\b(\d+)\b.*\/root\/\.nvm\/versions\/node\/v14\.21\.3\/bin\/node/';
+                // preg_match($pattern, $firstProcess, $matches);
+
+                // if (isset($matches[1])) {
+                //   $pid = $matches[1];
+                //   // echo $pid; // Output: 2221552
+                // }
+
+                foreach ($output as $process) {
+                    if (strpos($process, '/usr/local/bin/node '.$ids.'.js') !== false) {
+                        $pid = preg_replace('/\s+/', ' ', $process);
+                        $pid = explode(' ', $pid)[1];
+                        dump($pid);exit;
+                    }
                 }
+
             }
 
             // dump($output);exit;

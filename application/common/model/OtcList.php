@@ -259,7 +259,6 @@ class OtcList extends Model
                     if (strpos($process, '/usr/local/bin/node '.$ids.'.js') !== false) {
                         $pid = preg_replace('/\s+/', ' ', $process);
                         $pid = explode(' ', $pid)[1];
-                        dump($pid);exit;
                     }
                 }
 

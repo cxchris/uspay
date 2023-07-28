@@ -244,7 +244,7 @@ class OtcList extends Model
             // $command = 'pgrep -f '.$ids.'.js';
             $command = 'ps -ef |grep '.$ids.'.js';
             exec($command, $output);
-
+dump($output);exit;
             if($output){
                 $firstProcess = $output[0];
                 $pattern = '/\b(\d+)\b.*\/root\/\.nvm\/versions\/node\/v14\.21\.3\/bin\/node/';

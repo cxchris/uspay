@@ -49,7 +49,6 @@ class Collection extends Backend
             }
 
             $filter = $this->request->get("filter", '');
-            // dump($filter);exit;
             $op = $this->request->get("op", '', 'trim');
 
             $filter = (array)json_decode($filter, true);

@@ -119,7 +119,7 @@ export const usdtbalance = async (req, res) => {
     let decimals = await contract.decimals().call();
     const balanceDecimal = balance / Math.pow(10, decimals);
 
-    const data = { balanceDecimal }
+    const data = { balanceDecimal, decimals }
 
     res.success(data);
     // console.log('USDT余额:', balanceDecimal);

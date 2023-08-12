@@ -8,39 +8,45 @@ use think\Validate;
 use fast\Sign;
 use fast\Http;
 use think\Log;
+use think\Env;
 
 /**
- * Zelle
+ * Dc
  *
  * @icon   fa fa-circle-o
- * @remark 主要用于展示Zelle收款账户
+ * @remark 主要用于管理数字货币
  */
-class Zelle extends Backend
+class Dc extends Backend
 {
 
     /**
      * @var \app\common\model\Attachment
      */
     protected $model = null;
-    protected $type = 4; //默认
-    protected $channel_id = 4; // 4-cashapp
 
     protected $noNeedRight = ['*'];
+    protected $channel_id = 5; // 5-数字货币
+
+    const usdtbalance  = '/account/usdtbalance';
 
     public function _initialize()
     {
         // var_dump(PHP_OS);exit;
         parent::_initialize();
-        $this->model = model('otc_list');
 
-        $collectionList = model('channel_list')->where(['type'=>1,'status'=>1])->select();
+        //查询express运行情况
+        $pid = model('OtcList')->getappcommand();
+        $expressStatus = $pid == 0 ? 0 : 1;
+        // dump($expressStatus);exit;
 
-        $collectionName = [0 => __('None')];
-        foreach ($collectionList as $k => $v) {
-            $collectionName[$v['id']] = $v['channel_name'];
-        }
-        // dump($collectionName);exit;
-        $this->view->assign("collectionName", $collectionName);
+        $this->model = model('dc');
+
+        $this->view->assign("typelist", $this->typeslect(true));
+        $item = [
+            'name' => 'express',
+            'value' => $expressStatus,
+        ];
+        $this->view->assign("item", $item);
     }
 
     /**
@@ -56,6 +62,7 @@ class Zelle extends Backend
                 return $this->selectpage();
             }
 
+
             $filter = $this->request->get("filter", '');
             // dump($filter);exit;
             $op = $this->request->get("op", '', 'trim');
@@ -68,7 +75,7 @@ class Zelle extends Backend
             // dump($op);exit;
             //组装搜索
             $timewhere = $statuswhere = $groupwhere = [];
-            $field = 'a.*,b.channel_name';
+            $field = 'a.*';
             if (isset($filter['create_time'])) {
                 $timearr = explode(' - ',$filter['create_time']);
                 // $model->where('a.create_time','between',[strtotime($timearr[0]),strtotime($timearr[1])]);
@@ -85,6 +92,7 @@ class Zelle extends Backend
                 unset($filter['status']);
             }
 
+            $typelist = $this->typeslect(true);
 
             \think\Request::instance()->get(['op' => json_encode($op)]);
             \think\Request::instance()->get(['filter' => json_encode($filter)]);
@@ -92,12 +100,7 @@ class Zelle extends Backend
             list($where, $sort, $order, $offset, $limit) = $this->buildparams();
             $list = $model
                 ->alias('a')
-                ->where($groupwhere)
-                ->where($timewhere)
-                ->where($statuswhere)
                 ->where($where)
-                ->where('a.channel_id',$this->channel_id)
-                ->join('channel_list b','a.channel_id = b.id','LEFT')
                 ->field($field)
                 ->order($sort, $order)
                 ->paginate($limit);
@@ -108,16 +111,19 @@ class Zelle extends Backend
             foreach ($items as $k => $v) {
                 $items[$k]['create_time'] = datevtime($v['create_time']);
                 //更新进程运行情况
-                $pid = $model->getcommand($v['id']);
-                if($pid == 0){
-                    $model->where('id',$v['id'])->update(['pid'=>0,'status'=>0]);
-                    $status = 0;
-                }else{
-                    $model->where('id',$v['id'])->update(['pid'=>$pid,'status'=>1]);
-                    $status = 1;
-                }
-                $items[$k]['pid'] = $pid;
-                $items[$k]['status'] = $status;
+                // $pid = $model->getcommand($v['id']);
+                // if($pid == 0){
+                //     $model->where('id',$v['id'])->update(['pid'=>0,'status'=>0]);
+                //     $status = 0;
+                // }else{
+                //     $model->where('id',$v['id'])->update(['pid'=>$pid,'status'=>1]);
+                //     $status = 1;
+                // }
+                //查看密钥
+                $items[$k]['privateKey'] = '********';
+                $items[$k]['amount'] = '**';
+                $items[$k]['type'] = $typelist[$v['type']];
+                // $items[$k]['status'] = $status;
             }
 
             
@@ -153,8 +159,13 @@ class Zelle extends Backend
                 Db::startTrans();
                 try {
                     unset($params['checksum']);
-                    $params['status'] = 0;
-                    $result = $this->model->validate('Otc.add')->save($params);
+
+                    //生成地址
+                    $address = $this->model->generateUSDTWallet();
+                    $params['address'] = $address['usdtAddress'];
+                    $params['privateKey'] = $address['usdtPrivateKey'];
+
+                    $result = $this->model->save($params);
                     if ($result === false) {
                         exception($this->model->getError());
                     }
@@ -245,6 +256,104 @@ class Zelle extends Backend
                     $this->success();
                 }
                 $this->error(__('No rows were deleted'));
+            }
+        }
+        $this->error(__('You have no permission'));
+    }
+
+    //调整express开关
+    public function express($val){
+        if (!$this->request->isPost()) {
+            $this->error(__("Invalid parameters"));
+        }
+        $val = $val ? $val : $this->request->post("val");
+        // dump($val);exit;
+        //获取当前状态
+        $pid = model('OtcList')->getappcommand();
+        $expressStatus = $pid == 0 ? 0 : 1;
+        if($val == $expressStatus){
+            if($val == 1){
+                $this->error('服务无法重复开启');
+            }else{
+                $this->error('服务已关闭');
+            }
+        }
+
+        //先杀进程
+        model('OtcList')->stopNodeScript($pid);
+        //如果是1，则开启，如果0，则关闭
+        if($val == 1){
+            model('OtcList')->startnodeapp($pid);
+        }
+
+        $this->success('success');
+    }
+
+    /**
+     * 获取所有类型
+     */
+    public function typeslect($is_array = false){
+        $data = model('DcList')->where('status',1)->select();
+        $result = [];
+        foreach ($data as $key => $value) {
+            $result[$value['id']] = $value['name'];
+        }
+
+        
+        if($is_array){
+            return $result;
+        }else{
+            return json($result);
+        }
+
+    }
+
+    //查询
+    public function amount($id = null){
+        if (!$this->request->isPost()) {
+            $this->error(__("Invalid parameters"));
+        }
+        $id = $id ? $id : $this->request->post("id");
+        if ($id) {
+            $row = $this->model->get(['id' => $id]);
+
+            if (!$row) {
+                $this->error(__('No Results were found'));
+            }
+
+            //post查询usdt余额
+            try {
+                $arrData  = array(
+                    'address' => $row['address'],
+                );
+
+                $sign = Sign::getSign($arrData,Env::get('dc.key', ''));
+                $arrData['sign'] = $sign;
+
+                
+                $url = Env::get('dc.url', '').self::usdtbalance;
+
+                // dump($url);exit;
+                // dump($arrData);
+                $res = Http::formpost($url,$arrData);
+
+                if($res){
+                    $ret = json_decode($res,true);
+                    // dump($ret);exit;
+                    if($ret){
+                        if(isset($ret['code']) && $ret['code'] == 200){
+                            return json($ret);
+                        }else{
+                            throw new \Exception($ret['msg']);
+                        }
+                    }else{
+                        throw new \Exception('Interface exception');
+                    }
+                }else{
+                    throw new \Exception('service no start');
+                }
+            } catch (\Exception $e) {
+                $this->error($e->getMessage());
             }
         }
         $this->error(__('You have no permission'));

@@ -1,11 +1,11 @@
 <?php
 
 return array (
-  'name' => 'US',
+  'name' => 'Hongkong',
   'beian' => '',
   'cdnurl' => '',
   'version' => '1.0.1',
-  'timezone' => 'America/New_York',
+  'timezone' => 'Asia/Shanghai',
   'forbiddenip' => '',
   'languages' => 
   array (
@@ -41,4 +41,6 @@ return array (
     'category2' => 'Category2',
     'custom' => 'Custom',
   ),
+  'system_aomout' => '92.1',
+  'express' => '1',
 );

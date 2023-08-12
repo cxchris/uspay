@@ -32,7 +32,12 @@
         "ext-bcmath": "*",
         "txthinking/mailer": "^2.0",
         "fzaninotto/faker": "^1.9",
-        "symfony/process": "^5.0"
+        "symfony/process": "^5.0",
+        "guzzlehttp/guzzle": "^6.5",
+        "endroid/qrcode": "^4.6",
+        "bacon/bacon-qr-code": "^2.0",
+        "simplesoftwareio/simple-qrcode": "^4.2",
+        "endroid/qr-code": "^4.6"
     },
     "config": {
         "preferred-install": "dist",

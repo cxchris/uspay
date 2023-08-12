@@ -52,6 +52,7 @@ class PayOrder extends Model
         $data['ext_data'] = $order['ext_data'];
         $sign = Sign::getSign($data,$order['merchant_key']);
         $data['sign'] = $sign;
+        dump($data);exit;
 
         return $data;
     }
@@ -400,6 +401,7 @@ class PayOrder extends Model
             "2" => '支付失败',
             "3" => '支付中',
             "4" => '支付未确认',
+            "5" => '已超时',
         ];
 
         if($is_array == 'json'){

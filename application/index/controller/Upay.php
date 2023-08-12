@@ -8,24 +8,27 @@ use think\Log;
 use fast\Sign;
 use fast\Http;
 
-class Pay extends Frontend
+
+class Upay extends Frontend
 {
 
     protected $noNeedLogin = '*';
     protected $noNeedRight = '*';
     protected $errorUrl = 'https://www.google.com';
-    protected $expire_time = 15*60;
-    protected $_expire_time = 15*60; //前端超时时间
+    protected $expire_time = 5*60;
+    protected $_expire_time = 5*60; //前端超时时间
     protected $logo = '/ydpay/public/assets/img/dute_favicon_32x32.ico';
     protected $akey = 'qwerty';
     protected $lang = 'tc-cn';
-    protected $msgid = 1; //超时
+    protected $msgid = 1; //超时类型
+
 
     public function _initialize(){
         $params = $this->request->request(); //http://localhost:88/index/pay?orderno=p438578475812&lang=en
         $this->isAjax = isset($params['isAjax'])?$params['isAjax']:0;
         $this->isGetInfo = isset($params['isGetInfo'])?$params['isGetInfo']:0;
         $this->lang = isset($params['lang'])?$params['lang']:$this->lang;
+        $this->errorUrl = '/index/expire?id='.$this->msgid;
         if(!isset($params['orderno'])){
             $this->_error('orderno error');
         }
@@ -83,8 +86,8 @@ class Pay extends Frontend
 
             //判断超时，超时时间15分钟
             if($calc > $this->expire_time){
+                // return $this->redirect('/index/expire?id='.$this->msgid);
                 // $this->_error('Order timed out');
-                return $this->redirect('/index/expire?id='.$this->msgid);
             }
         }
     }
@@ -121,7 +124,7 @@ class Pay extends Frontend
             'minutes' => $minutes,
             'seconds' => $seconds,
         ];
-        // dump($timeArray);exit;
+        $timeArray = array_map([$this, 'valid_time'], $timeArray);
 
 
         //查询用的个卡和获取个卡UPI
@@ -129,32 +132,19 @@ class Pay extends Frontend
         if($otcid == 0){
             $this->error('order error');
         }
-        $this->otc_info = Db::name('otc_list')->where(['id'=>$otcid])->find();
+        $this->otc_info = model('DcType')->where(['id'=>$otcid])->find();
         if(!$this->otc_info){
-            $this->error('Chennel closed');
+            // $this->error('Chennel closed');
         }
+
 
         $cashUrl = 'https://cash.app/'.$order['ext_data'].'?qr=1';
 
-        //根据类型识别zelle和cashapp
+        //根据类型识别
         $signclass = [];
-        if($order['channel_id'] == 1){
-            $signclass['gradient_bg'] = 'cash-bg';
-            $signclass['bg'] = 'cash-color';
-            $signclass['color'] = 'cash-tx-color';
-            $signclass['display'] = 'cash-display';
-            $signclass['undisplay'] = 'zelle-display';
-            $signclass['icon'] = 'icon-cash-app-reverse.svg';
-        }elseif($order['channel_id'] == 4){
-            $signclass['gradient_bg'] = 'zelle-bg';
-            $signclass['bg'] = 'zelle-color';
-            $signclass['color'] = 'zelle-tx-color';
-            $signclass['display'] = 'zelle-display';
-            $signclass['undisplay'] = 'cash-display';
-            $signclass['icon'] = 'unnamed.png';
-        }
         
-        // dump($this->otc_info);exit;
+        
+        // dump($this->orderinfo);exit;
         $this->view->assign("order", $order);
         $this->view->assign("calc", $calc);
         $this->view->assign("timeArray", $timeArray);

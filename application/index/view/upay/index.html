@@ -1,0 +1,169 @@
+
+<!doctype html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+        <meta name="renderer" content="webkit">
+        <meta name="HandheldFriendly" content="True"/>
+        <meta name="MobileOptimized" content="320"/>
+        <meta name="format-detection" content="telephone=no"/>
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+        <link rel="shortcut icon" href="__CDN__/assets/img/usdttrc20.svg" />
+        <title>USDT</title>
+        <link rel="stylesheet" type="text/css" href="__CDN__/assets/css/upay.css">
+        <style type="text/css">
+
+        </style>
+        <script type="text/javascript" src="__CDN__/assets/layui/layui.js"></script>
+        
+    </head>
+    <body>
+        <div class="container">
+            <div class="content">
+                <div class="section">
+                    <div class="title">
+                        <img src="__CDN__/assets/img/usdttrc20.svg"  title="Tether USDT (TRC20)" width="66" height="63">
+                        <h1 class="amount amount-action-copy" id="payment_r" style="font-size: 40px; margin-top: -10px;margin-bottom: 0px;"  onclick="copyUrl('amount-action-copy')" data-clipboard-text="{$order.money}">
+                            {$order.money}
+                        </h1>
+                        <h2 class="amount parse-action" id="payment_b" style="font-size: 24px;margin-top: -10px;margin-bottom: 0px;" ></h2>
+                        <h1 style="margin-top: -15px;"><span style="font-size: 18px;color: #888;">USDT.TRC20</span></h1>
+                        
+                    </div>
+                    <div class="address address-action-copy" onclick="copyUrl('address-action-copy')" data-clipboard-text="{$otc_info.address}">
+                        {$otc_info.address}
+                    </div>
+                    <div class="main center-container">
+                        <div class="qrcode" id="qrcode">
+                    </div>
+                    
+                    <div class="timer">
+                        <ul class="downcount">
+                            <li>
+                                <span class="hours">00</span>
+                                <p class="hours_ref">hour</p>
+                            </li>
+                            <li class="seperator">:</li>
+                            <li>
+                                <span class="minutes">{$timeArray.minutes}</span>
+                                <p class="minutes_ref">minute</p>
+                            </li>
+                            <li class="seperator">:</li>
+                            <li>
+                                <span class="seconds">{$timeArray.seconds}</span>
+                                <p class="seconds_ref">second</p>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="footer">
+                <p><a href="#" >ONEPAY</a></p>
+            </div>
+            <input type="text" class="parse-content" id="parse-amount" value="1.00" />
+            <input type="text" class="parse-content" id="parse-address" value="TFepyir8Xgsdc1FGbqgNLbws4wCKNbmyz7" />
+        </div>
+
+        <div id="tipdivutr" style="display: block;">
+            <div style="top: 0;left:0;;position: fixed;width:100%; height:100%;background-color: black;opacity: 0.5;">
+            </div>
+            <div style="top: 20%;left:10%;right:10%;position: fixed;width: 80%;background-color: white;border-radius: 10px;">
+                <div style="text-align: center;font-weight: bold;font-size: 18px;padding-top: 10px;color:red;">Tips</div>
+                <div style="padding:10px 20px;font-size: 14px;border-bottom: 1px gray solid;color: gray;text-align: left;">
+                    1.If you use TP wallet to transfer, please select the currency type as USDT. It is recommended to use exchanges and imtoken transfers.<br/>
+                    2.After the payment is successful, it usually arrives in the account within a minute or so. <br/>
+                    3.Click the amount and address area to copy directly.<br/>
+                    4.The payment amount needs to be consistent with the order amount displayed above, otherwise the system may not receive the account.  
+                </div>
+                <div  style="line-height: 40px;text-align: center;font-weight: bold;color: white;background-color: #1BA27A;" onclick="$('#tipdivutr').hide();">
+                    <!-- I know and continue to pay -->
+                    OK
+                </div>
+            </div>
+        </div>
+
+        <div id="copytip" style="top: 5%;right: 0px;position: fixed;background-color: #e0ffe2;color: #19ba00;padding: 15px 15px 15px 30px;font-weight: bold;display: none;">
+            ✔ Copy successfully
+        </div>
+        <div id="upitip" style="top: 5%;right: 0px;position: fixed;background-color: #e0ffe2;color: red;padding: 15px 15px 15px 30px;font-weight: bold;display: none;">
+            ✖ 
+        </div>
+        <div id="upitipdui" style="top: 5%;right: 0px;position: fixed;background-color: #e0ffe2;color: #19ba00;padding: 15px 15px 15px 30px;font-weight: bold;display: none;">
+            ✔
+        </div>
+    </body>
+</html>
+<script src="__CDN__/assets/static/index/js/jquery.min.js"></script>
+<script src="__CDN__/assets/js/qrcode.min.js"></script>
+<script type="text/javascript" src="__CDN__/assets/js/clipboard.js"></script>
+<script type="text/javascript">
+    let calc = "{$calc}";
+    const tronAddress = "{$otc_info.address}";
+    const expiredTime = "{$expire_time}";
+    const errorUrl = "{$errorUrl}";
+    console.log(calc)
+        
+    // create QRCode
+    const qrcode = new QRCode(document.getElementById("qrcode"), {
+        text: tronAddress,
+        width: 160,
+        height: 160
+    });
+
+    //countdown
+    const countdown = () => {
+        let maxTime = calc;
+
+        let last = function(){
+            var minutes = Math.floor(maxTime/60); //怎么说呢  假如(60*10-1)s 正常应该就是的 9.983333  取整就是 9  
+            var seconds = maxTime % 60;   //余数指定是个整数
+            seconds = String(valid_time(seconds));
+            minutes = String(valid_time(minutes));
+
+
+            $('.minutes').html(minutes)
+            $('.seconds').html(seconds)
+
+            // var mes = "还剩下"+ minutes +"分"+ seconds +"秒";
+            // console.log(mes)
+            
+            maxTime--;
+            if(maxTime < 0){
+                clearInterval(timeId);
+                // window.location.href = "{$errorUrl}";
+            }
+        }
+
+        timeId = setInterval(function(){
+            last();
+        },1000);
+
+        // clearInterval(_this.timeId);
+    };
+
+    const valid_time = (a) => {
+        if(a < 10)
+            return "0"+a;
+        else
+            return a;
+    };
+
+    //copy
+    const copyUrl = (cli) => {
+        var clipboard = new Clipboard('.'+cli);
+        clipboard.on('success', function(e) {
+            clipboard.destroy();
+            $("#copytip").show();
+            setTimeout(function(){$("#copytip").hide();},2000);
+        });
+        clipboard.on('error', function(e) {
+            clipboard.destroy();
+            alert("Copy failed!");
+        });
+    }
+
+    countdown();
+</script>

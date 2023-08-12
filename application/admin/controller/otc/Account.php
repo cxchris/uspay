@@ -23,6 +23,7 @@ class Account extends Backend
      */
     protected $model = null;
     protected $type = 1; //默认
+    protected $channel_id = 1; // 1-cashapp
 
     protected $noNeedRight = ['*'];
 
@@ -95,7 +96,7 @@ class Account extends Backend
                 ->where($timewhere)
                 ->where($statuswhere)
                 ->where($where)
-                ->where('a.type',$this->type)
+                ->where('a.channel_id',$this->channel_id)
                 ->join('channel_list b','a.channel_id = b.id','LEFT')
                 ->field($field)
                 ->order($sort, $order)
@@ -152,8 +153,7 @@ class Account extends Backend
                 Db::startTrans();
                 try {
                     unset($params['checksum']);
-                    //默认为代收
-                    $params['type'] = $this->type;
+                    
                     $params['status'] = 0;
                     $result = $this->model->validate('Otc.add')->save($params);
                     if ($result === false) {

@@ -132,11 +132,12 @@ class OtcList extends Model
     }
 
     // 停止正在运行的 Node.js 脚本
-    private function stopNodeScript($pid)
+    public function stopNodeScript($pid)
     {
         // 使用适当的方法停止正在运行的 Node.js 脚本
         if ($this->isWindows()) {
-            $command = 'taskkill /F /PID '.$pid;
+            // $command = 'taskkill /F /PID '.$pid;
+            $command = 'powershell Stop-Process -Id '.$pid;
         } else {
             $command = 'kill -9 '.$pid;
         }
@@ -270,7 +271,80 @@ class OtcList extends Model
         return $pid;
     }
 
-    private function isWindows()
+    //获取app.js的运行情况
+    public function getappcommand(){
+        $pid = 0;
+        if (model('OtcList')->isWindows()) {
+            // 获取进程的输出
+            $command = 'wmic process where "commandline like \'%app.js%\'" get processid, commandline';
+
+            // 执行命令并获取输出
+            exec($command, $output);
+            if($output){
+                foreach ($output as $k => $v) {
+                    if (preg_match("/js\s+(\d+)/", $v, $matches)) {
+                        $pid = $matches[1];
+                    }
+                }
+            }
+
+        }else{
+            // $command = 'pgrep -f '.$ids.'.js';
+            $command = 'ps -ef |grep app.js';
+            exec($command, $output);
+
+            if($output){
+                foreach ($output as $process) {
+                    if (strpos($process, '/usr/local/bin/node '.$ids.'.js') !== false) {
+                        $pid = preg_replace('/\s+/', ' ', $process);
+                        $pid = explode(' ', $pid)[1];
+                    }
+                }
+
+            }
+
+            // dump($output);exit;
+        }
+
+        return $pid;
+    }
+
+    //启动app.js
+    public function startnodeapp(){
+        $path = ROOT_PATH.'/tron/';
+        if ($this->isWindows()) {
+            $drive = substr($path, 0, 1);
+            $convertedPath = str_replace('\\', '/', $path);
+
+            // 生成最终的命令
+            $command = 'start /B cmd /c "cd /' . $drive .' '. $convertedPath . ' && '.'node app.js > NUL 2>&1"';
+            // $command = 'start /B cmd /c "cd /d D:\project\trunk\uspay\mail\src && node 8.js > NUL 2>&1"';
+            // dump($command);exit;
+            // 创建进程对象
+            $process = new Process($command);
+
+            // 运行进程
+            $process->run();
+
+            // 获取进程的输出
+            $pid = $this->getappcommand();
+        }else{
+            $convertedPath = str_replace('\\', '/', $path);
+
+            $command = 'cd '.$convertedPath.' && nohup /usr/local/bin/node app.js > /home/wwwroot/default/uspay/tron/logs/output.log 2>&1 &';
+
+            $process = new Process($command);
+
+            // 运行进程
+            $process->run();
+
+            $pid = $this->getappcommand();
+            // dump($pid);exit;
+        }
+        return true;
+    }
+
+    public function isWindows()
     {
         $os = strtoupper(PHP_OS);
 

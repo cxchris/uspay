@@ -49,12 +49,17 @@ class Otcpay
         $field['id'] = ['in',$channel['otc_channel']];
         $field['channel_id'] = $channel['channel'];
         $list = Db::name('otc_list')->where($field)->where('status',1)->select();
-        // dump($list);
+        // dump($list);exit;
         if(!$list){
             return false;
         }
-        $card = self::getuseotc($list);
 
+        //判断如果是数字货币，就随机一个地址返回
+        if($list[0]['type'] == 1){
+            $card = self::getuseotc($list);
+        }else{
+            $card = self::getdc($list);
+        }
 
         //生成浮动金额，-0.01 - +0.99
         if($card){
@@ -121,9 +126,78 @@ class Otcpay
                 }
             }
         }
-        //去除后随机取一个值
-        $res = $card[array_rand($card)];
+        if(!$card){
+            $res = [];
+        }else{
+            //去除后随机取一个值
+            $res = $card[array_rand($card)];
+        }
+        
         return $res;
+    }
+
+    //去查询空余的数字货币地址
+    public static function getdc($list){
+        // 开启事务
+        Db::startTrans();
+
+        try {
+            // 整体逻辑：选择可以使用的地址，选择后给该地址加锁，如果没有可以使用的地址了，就请求接口生成新的地址，实在没有就报错
+
+            // 1. 查询trc20类型且未锁的地址
+            $cond = [
+                'type' => 1,
+                'is_locked' => 0
+            ];
+            $res = model('DcType')->orderRaw('RAND()')->lock(true)->where($cond)->find();
+            // echo model('DcType')->getLastsql();exit;
+
+            if (!$res) {
+                // 2. 请求接口生成新的地址，实在没有就报错
+
+                // 抛出异常，回滚事务
+                throw new \Exception('没有可用的数字货币地址');
+            }
+
+            // 3. 给该地址加入状态锁，不允许下次请求获得
+            $updateData = [
+                'is_locked' => 1,
+                // 这里可以设置一些额外的字段，例如加锁的时间戳等
+                'lock_time' => time()
+            ];
+
+            $updateRes = model('DcType')->where('id', $res['id'])->update($updateData);
+
+            if (!$updateRes) {
+                // 加锁失败，抛出异常，回滚事务
+                throw new \Exception('加锁失败');
+            }
+
+            // 提交事务
+            Db::commit();
+
+            $data = [];
+
+            //查询dc_type获取channelid
+            $channel = model('DcList')->where('id', $res['dcid'])->find();
+            $data['id'] = $res['id'];
+            $data['channel_id'] = $channel['otcid'];
+            $data['account_number'] = $res['address'];
+            $data['isfloat'] = 0;
+            // echo model('DcList')->getLastsql();exit;
+
+            // 返回获取到的地址信息
+            return $data;
+        } catch (\Exception $e) {
+            // 出现异常，回滚事务
+            Db::rollback();
+
+            // 可以在这里记录日志或其他处理
+            // ...
+
+            // 返回异常信息或错误码
+            return null;
+        }
     }
 
     //后续操作，返回tn和URL

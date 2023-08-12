@@ -1,0 +1,381 @@
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport" />
+
+        {if $order.channel_id == 1}
+            <link rel="shortcut icon" href="__CDN__/assets/img/cashapp.ico" />
+        {elseif $order.channel_id == 4 /}
+            <link rel="icon" href="__CDN__/assets/img/Zelle-favicon_64_0_2.png" type="image/png" />
+        {/if}
+
+
+        <title>Cashier</title>
+        <script type="text/javascript" src="__CDN__/assets/static/index/js/jquery.min.js"></script>
+        <script type="text/javascript" src="__CDN__/assets/js/clipboard.js"></script>
+        <style type="text/css">
+            body {
+                font-size: 15px;
+                font-family: Montserrat, sans-serif;
+                background-position: center;
+                background-attachment: fixed;
+                margin: 0;
+                box-sizing: border-box;
+                place-items: center;
+            }
+            .zelle-bg{
+                background-image: linear-gradient(rgb(90,23,201) 0%, rgb(107,28,237) 100%);/* #e860ff */
+            }
+            .cash-bg{
+                background-image: linear-gradient(rgb(0, 200, 83) 0%, rgb(10, 190, 73) 100%);/* #e860ff */
+            }
+
+            button{
+                border-radius: 5px;
+                border: 0px;
+                padding:7px 10px 7px 10px;
+                color: white;
+            }
+            .zelle-color{
+                background-color: rgb(90,23,201);
+            }
+            .cash-color{
+                background-color: rgb(0, 200, 83);
+            }
+
+            .cash-tx-color{
+                color: rgb(0, 214, 79);
+            }
+
+            .zelle-tx-color{
+                color: rgb(90,23,201);
+            }
+
+            .zelle-display{
+                display: none;
+            }
+
+
+            .appdiv{
+                border-radius: 10px;
+                border: 1px solid #1baff3;
+                width: 50px;
+                height: 50px;
+                text-align: center;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+            input:focus{
+                outline:none;  
+                box-shadow:0 0 0 1.5px #f7941d;
+            }
+            select:focus{
+                outline:none;  
+                box-shadow:0 0 0 1.5px #f7941d;
+            }
+            .copy_tip {
+                width: 2.5rem !important;
+                height: 2.5rem !important;
+                right: 1.7rem;
+                top: 5.7rem;
+                position: absolute;
+                -webkit-animation: scaleDraw 3s ease-in-out infinite;
+            }
+            @keyframes scaleDraw { 
+                0%{
+                    transform: scale(1);
+                }
+                25%{
+                    transform:scale(1.2);
+                }
+                50%{
+                    transform:scale(1);
+                }
+                75%{
+                    transform:scale(1.2);
+                }
+            }
+            .form-control {
+                display: block;
+                width: 100%;
+                padding: 0.375rem 0.75rem;
+                font-size: 1rem;
+                font-weight: 400;
+                line-height: 1.5;
+                color: #212529;
+                background-color: #fff;
+                background-clip: padding-box;
+                border: 2px solid #ced4da;
+                -webkit-appearance: none;
+                -moz-appearance: none;
+                appearance: none;
+                border-radius: 0.375rem;
+            }
+        </style>
+    </head>
+    <body class="{$signclass.gradient_bg}">
+        <!-- <div style="color: black;background-color: white;padding: 10px;font-weight: bold;font-size: 20px;">
+            <div style="text-align: center;">
+                Cashier
+            </div>
+            <div style="clear: both;"></div>
+        </div> -->
+        <div id="info" style="max-width: 512px; margin: 0 auto;">
+            <div style="color: #eeee00;font-size: 24px;font-weight: 700;padding-top: 12px;line-height: 40px;color: white;">
+                <img src="__CDN__/assets/img/{$signclass.icon}" 
+                    type="2" alt="" width="40px" style="margin-left: 12px;margin-right: 12px;vertical-align: middle;">
+                {if $order.channel_id == 1}
+                    Cash App
+                {elseif $order.channel_id == 4 /}
+                    Zelle
+                {/if}
+                
+            </div>
+            <div style="text-align: center;color: #eeee00;padding-top: 10px;">
+                <!-- <span style="font-size:12px;font-weight: bold;">Amount</span> -->
+                <!-- <div style="font-size:20px;font-weight: bold;">$ <span id="amount"></span></div> -->
+            </div>
+            <div id="qrinfo">
+                <div id="paytmdiv" style="background-color: white;margin-top: 10px;padding: 10px;border-radius: 15px;margin-left: 10px;margin-right: 10px;">
+                    <div style="color:red;font-size: 12px;font-weight: bold;padding: 0px 0px 5px 0px;">Payment information</div>
+                    <div style="flex-direction: row;display: flex;height: 40px;">
+                        <div style="width:25%;line-height: 30px;" class="{$signclass.color}">
+                            Account
+                        </div>
+                        <div style="width:55%;line-height: 30px;">
+                            <div style="font-size: 16px;font-weight: bold;" id="upi1">{$order.ext_data}</div>
+                        </div>
+                        <div style="width:20%;line-height: 30px;text-align: center;" class="{$signclass.undisplay}">
+                            <button class="addrCopy {$signclass.bg}" onclick="copyUrl('addrCopy')" data-clipboard-action="copy" data-clipboard-target="#upi1">Copy</button>
+                        </div>
+                    </div>
+                    <div style="flex-direction: row;display: flex;height: 40px;">
+                        <div style="width:25%;line-height: 30px;" class="{$signclass.color}">
+                            Amount
+                        </div>
+                        <div style="width:5%;line-height: 30px;;" class="{$signclass.color}">
+                            $
+                        </div>
+                        <div style="width:50%;line-height: 30px;">
+                            <div style="font-size: 16px;font-weight: bold;" id="amount1">{$order.money}</div>
+                        </div>
+                        <div style="width:20%;line-height: 30px;text-align: center;">
+                            <button class="addrCopy {$signclass.bg}" onclick="copyUrl('addrCopy')" data-clipboard-action="copy" data-clipboard-target="#amount1">Copy</button>
+                        </div>
+                    </div>
+                    <div style="color: red;font-size: 12px;margin-top: -10px;">
+                        Your transfer amount must match your order amount
+                    </div>
+                    <div style="flex-direction: row;display: flex;height: 40px;margin-top: 10px;">
+                        <div style="width:25%;line-height: 30px;" class="{$signclass.color}">
+                            Memo
+                        </div>
+                        <div style="width:55%;line-height: 30px;">
+                            <div style="font-size: 16px;font-weight: bold;" id="remark">{$order.utr}</div>
+                        </div>
+                        <div style="width:20%;line-height: 30px;text-align: center;">
+                            <button class="addrCopy {$signclass.bg}" onclick="copyUrl('addrCopy')" data-clipboard-action="copy" data-clipboard-target="#remark">Copy</button>
+                        </div>
+                    </div>
+                    <div style="color: red;font-size: 12px;margin-top: -10px;">
+                        Please be sure to fill in the correct note/memo
+                    </div>
+                    <div style="height: 56px;margin-top: 20px;" class="{$signclass.display}">
+                        <div style="text-align: center;">
+                            <button style="height: 56px;padding: 0px 18px;font-size: 18px;font-weight: 700;border-radius: 28px;width:80%;" 
+                                class="addrCopy {$signclass.bg}" onclick="toCash('addrCopy')" data-clipboard-action="copy" data-clipboard-target="#remark">Go to pay</button>
+                        </div>
+                    </div>
+                </div>
+                <div id="qrtips" style="font-size: 10px;background-color: white;margin-top: 10px;padding: 10px;border-radius: 15px;margin-left: 10px;margin-right: 10px;">
+                    <div style="margin-top: 5px;">
+                        <div style="color:red;font-size: 12px;font-weight: bold;">Step 1</div>
+                        <div style="border-bottom: 1px #dedede solid;padding-bottom: 5px;">
+                            {if $order.channel_id == 1}
+                                Click the go to pay button
+                            {elseif $order.channel_id == 4 /}
+                                Copy the Zelle account to your Zelle app
+                            {/if}
+                        </div>
+                    </div>
+                    <div style="margin-top: 5px;">
+                        <div style="color:red;font-size: 12px;font-weight: bold;">Step 2</div>
+                        <div style="border-bottom: 1px #dedede solid;padding-bottom: 5px;">
+                            {if $order.channel_id == 1}
+                                Direct paste at add a note
+                            {elseif $order.channel_id == 4 /}
+                                type the same amount you chose
+                            {/if}
+                        </div>
+                    </div>
+                    <div style="margin-top: 5px;">
+                        <div style="color:red;font-size: 12px;font-weight: bold;">Step 3</div>
+                        <div style="border-bottom: 1px #dedede solid;padding-bottom: 5px;">
+                            {if $order.channel_id == 1}
+                                Enter the amount you wish to process in the payment
+                            {elseif $order.channel_id == 4 /}
+                                 Copy the Memo and paste to your Zelle app
+                            {/if}
+                        </div>
+                    </div>
+
+                    <div style="margin-top: 5px;">
+                        <div style="color:red;font-size: 12px;font-weight: bold;">Step 4</div>
+                        <div style="">
+                            Click the pay button
+                        </div>
+                    </div>
+                    <div style="clear: both;"></div>
+                </div>
+                <div style="text-align: center;margin-top: 20px;color:white;font-size: 12px;">
+                    <img alt="" src="__CDN__/assets/img/secure.png" height="16px" style="vertical-align: middle;"> 100% Secure Payments Powered by OnePay
+                </div>
+            </div>
+        </div>
+        <div id="copytip" style="top: 5%;right: 0px;position: fixed;background-color: #e0ffe2;color: #19ba00;padding: 15px 15px 15px 30px;font-weight: bold;display: none;">
+            ✔ Copy successfully
+        </div>
+        <div id="upitip" style="top: 5%;right: 0px;position: fixed;background-color: #e0ffe2;color: red;padding: 15px 15px 15px 30px;font-weight: bold;display: none;">
+            ✖ 
+        </div>
+        <div id="upitipdui" style="top: 5%;right: 0px;position: fixed;background-color: #e0ffe2;color: #19ba00;padding: 15px 15px 15px 30px;font-weight: bold;display: none;">
+            ✔
+        </div>
+        <div id="tipdivutr" style="display: block;">
+            <div style="top: 0;left:0;;position: fixed;width:100%; height:100%;background-color: black;opacity: 0.5;">
+            </div>
+            <div style="top: 20%;left:10%;right:10%;position: fixed;width: 80%;background-color: white;border-radius: 10px;">
+                <div style="text-align: center;font-weight: bold;font-size: 18px;padding-top: 10px;color:red;">Tips</div>
+                <div style="padding:10px 20px;font-size: 14px;border-bottom: 1px gray solid;color: gray;">
+                    {if $order.channel_id == 1}
+                        1.The Cash App  account generated is ONE-TIME-ONLY. Please do not save the current Cash App  account for future usage. Make sure that the Cash App  account you obtained is the latest one.<br/>
+                    {elseif $order.channel_id == 4 /}
+                        1.The Zelle account generated is ONE-TIME-ONLY. Please do not save the current Zelle  account for future usage. <br/>
+                    {/if}
+                    
+                    2.If you breach or violate this agreement, the platform will not be responsible for any unrecoverable financial losses incurred. <br/>
+                    3.Please contact customer service if you have any further questions.  
+                </div>
+                <div class="{$signclass.bg}" style="line-height: 40px;text-align: center;font-weight: bold;color: white;" onclick="$('#tipdivutr').hide();">
+                    <!-- I know and continue to pay -->
+                    OK
+                </div>
+            </div>
+        </div>
+        <script>
+            var isIos = false;
+            var ispc = false;
+            if ((navigator.userAgent.match(/(iPhone|iPod|Android|ios|iOS|iPad|Backerry|WebOS|Symbian|Windows Phone|Phone)/i))) {
+                //$("#utrdiv").hide();
+                if(/(iPhone|iPad|iPod|iOS)/i.test(navigator.userAgent)){
+                    isIos = true;
+                    $("#upiother").hide();
+                }
+                $("#upiDiv").hide();
+            }else{
+                $("#appdiv").hide();
+                //$("#upiDiv").show();
+                //$("#paytmdiv").hide();
+                $("#ordiv").hide();
+                //$("#qrtips").hide();
+                ispc = true;
+            }
+            var token = getQueryVariable("token");
+            var address = "";
+            var addressParam = {};
+            var addressParamPhonepe = {};
+            var domain = "https://"+location.host+"/";
+            var index2;
+            var index1;
+            var havePaid = "0";
+            var iscopy = false;
+            var cashUrl = "{$cashUrl}";
+            var orderinfoUrl = "{:url('Card/orderinfo')}"
+            var n = 0;
+            
+            function getQueryVariable(variable){
+                   var query = window.location.search.substring(1);
+                   var vars = query.split("&");
+                   for (var i=0;i<vars.length;i++) {
+                           var pair = vars[i].split("=");
+                           if(pair[0] == variable){return pair[1];}
+                   }
+                   return "";
+                   //#ff9eaa
+            }
+
+            index2 = setInterval(
+                        function(){
+                            checked();
+                        },3000
+                    );
+
+            function checked(){
+                var data = {
+                    orderno: getQueryVariable('orderno'),
+                    isGetInfo:1,
+                    isAjax:1
+                };
+                $.ajax({
+                    url: orderinfoUrl,
+                    type: 'POST',
+                    data: data,
+                    async:false,
+                    beforeSend: function(){
+                    },
+                    success: function (data) {
+                        // console.log(data);
+                        if(data.code == 1){
+                            //根据状态给出弹窗
+                            if(data.data.status == 1){
+                                $("#info").html("<div style='color:#005831;text-align:center;margin-top:20px;font-size:50px;'>✔</div><div style='color:#005831;text-align:center;margin-top:20px;'>"+data.msg+"</div>");
+                                clearInterval(index2);
+                            }else if(data.data.status == 2){
+                                $("#info").html("<div style='color:#b22c46;text-align:center;margin-top:20px;font-size:50px;'>✖</div><div style='color:#b22c46;text-align:center;margin-top:20px;'>Order payment failed, please return to the app and try again.</div>");
+                                clearInterval(index2);
+                            }else if(data.data.status == 3){
+                                //pay ing...
+                            }else if(data.data.status == 4){
+                                $("#info").html("<div style='color:#005831;text-align:center;margin-top:20px;font-size:50px;'>✔</div><div style='color:#005831;text-align:center;margin-top:20px;'>More information is required to accept this payment</div>");
+                                // clearInterval(index2);
+                            }
+                        }else{
+                            $("#info").html("<div style='color:#b22c46;text-align:center;margin-top:20px;font-size:50px;'>✖</div><div style='color:#b22c46;text-align:center;margin-top:20px;'>"+data.msg+"</div>");
+                                clearInterval(index2);
+                        }
+                        // console.log(_this.n)
+                        if(n > 60*60*2){
+                            clearInterval(index2);
+                        }
+                    }
+                });
+
+                n++;
+            }
+            
+            function toCash(cli){
+                copyUrl(cli);
+                setTimeout(function(){
+                    window.open(cashUrl,"_blank");
+                },500);
+            }
+            function copyUrl(cli){
+                var clipboard = new Clipboard('.'+cli);
+                clipboard.on('success', function(e) {
+                    clipboard.destroy();
+                    //alert("Copy success!");
+                    iscopy = true;
+                    $("#copytip").show();
+                    setTimeout(function(){$("#copytip").hide();},2000);
+                });
+                clipboard.on('error', function(e) {
+                    clipboard.destroy();
+                    alert("Copy failed!");
+                });
+            }
+        </script>
+    </body>
+</html>

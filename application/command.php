@@ -25,4 +25,6 @@ return [
     'app\admin\command\Search',
     'app\admin\command\Payoutsearch',
     'app\admin\command\Test',
+    'app\admin\command\TronClear',
+    'app\admin\command\Tronlisten',
 ];

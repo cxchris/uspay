@@ -96,8 +96,8 @@ class Sign
 
     /**
      * [encrypt aes加密]
-     * @param    [type]                   $sStr [要加密的数据]
-     * @param    [type]                   $sKey [加密key]
+     * @param    [type]                   $input [要加密的数据]
+     * @param    [type]                   $key [加密key]
      * @return   [type]                         [加密后的数据]
      */
     public static function encrypt($input, $key)

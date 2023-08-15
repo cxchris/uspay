@@ -19,8 +19,10 @@ class TronClear extends Command
     public static $debug = 0;
     public static $sync_sec = 20;//回写数据库时间
     public static $expire_time = 6*60;
+    public static $channel = 5;
     protected $PayOrder;
     protected $model;
+    private $recordedErrors = [];
     protected function configure(){
         $this->setName('TronClear')->setDescription("计划任务 TronClear");
     }
@@ -51,19 +53,20 @@ class TronClear extends Command
         // $this->output->writeln('TronClear running...');
         $this->model = new DcType();
         $this->PayOrder = new PayOrder();
+        // dump(time()+self::$expire_time);exit; //打印出五分钟后的时间
 
         //获取yd_dc_list里is_locked等于1的数据，然后遍历，当前时间超过lock_time 5 分钟的时候，就重置状态
         $cond = [
             'a.status' => 1,
             'a.is_locked' => 1,
-            'b.channel' => 5
         ];
         $data = $this->model->alias('a')
-                        ->join('yd_pay_order b', 'a.id = b.otc_id', 'LEFT')
+                        // ->join('yd_pay_order b', 'a.id = b.otc_id', 'LEFT')
                         ->where($cond)
-                        ->field('a.id as dcid,a.address,a.is_locked,lock_time, b.*')
+                        ->field('a.*')
                         ->select();
-        echo $this->model->getLastsql();exit;
+        // echo $this->model->getLastsql();exit;
+        // dump($data);exit;
 
         // 遍历数据并处理
         if($data){
@@ -88,7 +91,7 @@ class TronClear extends Command
     public function transactions($item){
         // dump($address);exit;
         $address = $item['address'];
-        $address = 'TUVVB3tkotrKW8xiYTwSTiCdhASEHj2Rza';
+        // $address = 'TUVVB3tkotrKW8xiYTwSTiCdhASEHj2Rza';
         $url = 'https://api.trongrid.io/v1/accounts/'.$address.'/transactions/trc20';
 
         $params = [
@@ -97,49 +100,83 @@ class TronClear extends Command
         ];
 
         try {
+            //先确订单,5分钟以内
+            $order = $this->getOrder($item);
+            // echo $this->PayOrder->getLastsql();exit;
+            if(!$order){
+                throw new \Exception('订单查询失败'.$order['id']);
+            }
+
+            //成功了就不去查找了
+            if($order['status'] == 1){
+                throw new \Exception('订单已经完成'.$order['id']);
+            }
+
+            if($order['status'] == 2){
+                throw new \Exception('订单已经设置成失败了'.$order['id']);
+            }
+
             $response = http::get($url, $params);
             if(!$response){
-                throw new \Exception('请求tron接口失败-address'.$address);
+                throw new \Exception('订单'.$order['id'].':请求tron接口失败-address'.$address);
             }
             $data = json_decode($response, true);
-            if(!$data){
-                throw new \Exception('tron接口返回数据无法格式化-address'.$address);
-            }
-            if(!$data['data']){
-                throw new \Exception('用户还未付款'.$address);
-            }
-            //便利最近的十条记录，看看有没有五分钟以内的，且金额是正确的付款
-            // dump($data);exit;
-            foreach($data['data'] as $value){
-                $block_timestamp = $value['block_timestamp'] / 1000;
-                $amount = $value['value'] / pow(10, 6);; //格式化金额
-                // dump($block_timestamp);
-                // dump($amount);exit;
+            // if(!$data){
+            //     throw new \Exception('订单'.$order['id'].'tron接口返回数据无法格式化-address'.$address);
+            // }
+            // if(!$data['data']){
+            //     throw new \Exception('订单'.$order['id'].'用户还未付款'.$address);
+            // }
 
-
-                // if($block_timestamp < ($item['lock_time'] + self::$expire_time) && $item['money'] == $amount){
-                    //匹配订单成功，修改订单状态，并且发起回调
-                    $status = 1;
-                    // dump($item);exit;
-                    $this->output->writeln('回调...'.$item['dcid']);
-                    $this->PayOrder->callbackMerchant($item,$status);
-                    //成功了之后还需要重置
-                    $this->resetAddress($item);
-
-                    break; // 跳出内层循环
-                // }
+            if ($data && is_array($data['data'])) {
+                $this->processTransactions($data['data'], $order, $item);
+            }else{
+                throw new \Exception('订单'.$order['id'].'数据异常或未付款'.$address);
             }
         } catch (\Exception $e) {
             // dump($e);
-            Log::error($e->getMessage());
+            $errorMessage = $e->getMessage();
+            if (!in_array($errorMessage, $this->recordedErrors)) {
+                Log::error($errorMessage);
+                $this->recordedErrors[] = $errorMessage;
+            }
         }
 
         return true;
     }
 
+    // 获取订单状态
+    private function getOrder($item) {
+        return $this->PayOrder
+            ->alias('a')
+            ->join('merchant c', 'a.merchant_number = c.merchant_number', 'LEFT')
+            ->where(['otc_id' => $item['id'], 'channel_id' => self::$channel])
+            ->where('a.create_time', '<', time() + self::$expire_time)
+            ->field('a.*, c.merchant_key')
+            ->order('a.id', 'desc')
+            ->find();
+    }
+
+    // 处理交易记录
+    private function processTransactions($transactions, $order, $item) {
+        foreach ($transactions as $value) {
+            $block_timestamp = $value['block_timestamp'] / 1000;
+            $amount = $value['value'] / pow(10, 6);
+
+            if ($block_timestamp < ($item['lock_time'] + self::$expire_time) &&
+                $order['money'] == $amount && $order['address'] == $value['to']) {
+                $status = 1;
+                $this->output->writeln('回调...' . $item['id']);
+                $this->PayOrder->callbackMerchant($order, $status);
+                $this->PayOrder->check_pay_order($order);
+                break;
+            }
+        }
+    }
+
     //重置
     private function resetAddress($item = []){
-        $id = $item['dcid'];
+        $id = $item['id'];
         $updateData = [
             'is_locked' => 0,
             'lock_time' => 0
@@ -147,12 +184,6 @@ class TronClear extends Command
         ];
 
         $this->model->where('id', $id)->update($updateData);
-
-        //判断
-        if($where){
-            //还需要修改下订单的状态
-            $this->PayOrder->where(array('id'=>$item['id']))->update(['update_time'=>time(),'status'=>$item['status']]);
-        }
         
         $this->output->writeln('重置...'.$id);
         return true;

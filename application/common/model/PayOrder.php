@@ -52,7 +52,7 @@ class PayOrder extends Model
         $data['ext_data'] = $order['ext_data'];
         $sign = Sign::getSign($data,$order['merchant_key']);
         $data['sign'] = $sign;
-        dump($data);exit;
+        // dump($data);exit;
 
         return $data;
     }

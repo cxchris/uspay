@@ -7,6 +7,7 @@ use think\Db;
 use think\Validate;
 use fast\Sign;
 use fast\Http;
+use fast\Pm2;
 use think\Log;
 
 /**
@@ -105,19 +106,28 @@ class Account extends Backend
 
 
             $items = $list->items();
-            foreach ($items as $k => $v) {
-                $items[$k]['create_time'] = datevtime($v['create_time']);
-                //更新进程运行情况
-                $pid = $model->getcommand($v['id']);
-                if($pid == 0){
-                    $model->where('id',$v['id'])->update(['pid'=>0,'status'=>0]);
-                    $status = 0;
-                }else{
-                    $model->where('id',$v['id'])->update(['pid'=>$pid,'status'=>1]);
+            //获取所有pm list运行情况，再匹配
+            $arr = Pm2::checkScriptAllStatus();
+
+            // dump($arr);exit;
+            foreach ($items as &$v) {
+                $v['create_time'] = datevtime($v['create_time']);
+
+                $matchingArr = array_filter($arr, function($row) use ($v) {
+                    return $row["name"] == $v["id"] && $row['status'] == 'online';
+                });
+
+                if (!empty($matchingArr)) {
+                    $pid = $v['id'];
                     $status = 1;
+                } else {
+                    $pid = 0;
+                    $status = 0;
                 }
-                $items[$k]['pid'] = $pid;
-                $items[$k]['status'] = $status;
+                $model->where('id',$v['id'])->update(['pid'=>$pid,'status'=>$status]);
+
+                $v['pid'] = $pid;
+                $v['status'] = $status;
             }
 
             
@@ -198,7 +208,7 @@ class Account extends Backend
                     }
 
                     //node脚本处理
-                    $res = $this->model->node_exce($row,$ids);
+                    $res = Pm2::exce($row,$ids);
                     if($res == 0){
                         $result = $row->save(['status'=>0]);
                     }

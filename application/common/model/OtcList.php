@@ -7,6 +7,7 @@ use think\Session;
 use think\Db;
 use fast\Sign;
 use fast\Http;
+use fast\Pm2;
 use think\Log;
 use think\Process;
 
@@ -73,7 +74,7 @@ class OtcList extends Model
 
 
         // 修改配置
-        $this->modifyConfig($params,$ids);
+        Pm2::modifyConfig($params,$ids);
         
         $pid = 0;
         if($params['status'] == 1){
@@ -143,27 +144,6 @@ class OtcList extends Model
         }
 
         exec($command, $output);
-    }
-
-    // 修改配置
-    private function modifyConfig($params,$ids)
-    {
-        // 根据你的需求修改配置
-        $filename = ROOT_PATH.'/mail/config/'.$ids.'.json'; // 配置路径
-        $json = [
-            'user' => $params['email'],
-            'password' => $params['password'],
-            'host' => $params['host'],
-            'port' => $params['port'],
-            'tls' => true,
-            'tlsOptions' => [
-                'rejectUnauthorized' => false
-            ],
-            'channel_id' => $params['channel_id']
-        ];
-        $json = json_encode($json,true);
-        file_put_contents($filename, $json);
-        // dump($json);exit;
     }
 
     // 启动 Node.js 脚本

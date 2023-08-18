@@ -11,22 +11,8 @@ use app\common\model\OtcList;
  */
 class Pm2
 {
-    //使用pm2来执行，执行逻辑：1，关闭进程，2，修改配置，3，运行进程
+    //使用pm2来执行，执行逻辑：1，确认执行文件，2，确认配置文件，3，运行进程
     public static function exce($params,$ids){
-        //pm2重启
-        self::checkNodeScriptRunningpm2($params);
-        // 修改配置，然后运行
-        self::modifyConfig($params,$ids);
-        //运行
-        if($params['status'] == 1){
-            //启动node脚本
-            $pid = self::startNodeScriptpm2($params);
-        }
-        return true;
-    }
-
-    //启动
-    private static function startNodeScriptpm2($params){
         $id = $params['id'];
         $file = ROOT_PATH.'/mail/src/'.$id.'.js'; // Node.js 脚本路径
         // 先判断脚本文件是否存在，如果没有就先拷贝一份
@@ -39,27 +25,45 @@ class Pm2
             }
         }
 
-        $path = ROOT_PATH.'/mail/src/';
-        $pid = 0;
+        // 修改配置，然后运行
+        self::modifyConfig($params,$ids);
+
+        // //pm2重启
+        // self::checkNodeScriptRunningpm2($params);
         
-        $command = 'pm2 start '.$path.$id.'.js --name="'.$id.'"';
-        // dump($command);exit;
-        $output = shell_exec($command);
-        $pid = $id;
+        // //运行
+        if($params['status'] == 1){
+            //启动node脚本
+            $res = self::startNodeScriptpm2($params);
+        }else{
+            $res = self::stopNodeScriptpm2($params);
+        }
 
-        $model = new OtcList();
-        $model->where(array('id'=>$id))->update(['pid'=>$pid,'status'=>1]);
-
-        return $pid;
+        return true;
     }
 
-    //判断pm2状态，如果是开着的就关闭
-    private static function checkNodeScriptRunningpm2($params){
-        $status = self::checkScriptStatus($params['id']);
-        if($status){
-            self::stopNodeScriptpm2($params);
-        }
-        return true;
+    //启动
+    private static function startNodeScriptpm2($params){
+        // $path = ROOT_PATH.'/mail/src/';
+        // $pid = 0;
+        
+        // $command = 'pm2 start '.$path.$id.'.js --name="'.$id.'"';
+        // dump($command);exit;
+
+        // $output = shell_exec($command);
+
+        $cond = [
+            'id' => $params['id'],
+        ];
+
+        $res = Pmapi::pm2()->start($cond);
+
+        $pid = $params['id'];
+
+        // $model = new OtcList();
+        // $model->where(array('id'=>$id))->update(['pid'=>$pid,'status'=>1]);
+
+        return $pid;
     }
 
     //检查所有状态-去请求node接口试试
@@ -72,36 +76,42 @@ class Pm2
         // $tableData = self::findstr($output);
         // return $tableData;
 
-        $tableData = Pmapi::getpm2list();
+        $tableData = Pmapi::pm2()->list();
         return $tableData;
     }
 
     //根据单个id检查状态
     public static function checkScriptStatus(?int $id) :bool{
         $status = false;
-        $command = 'pm2 list';
-        $output = shell_exec($command);
-        $status = self::foreachListOnlie($id,$output);
+        // $command = 'pm2 list';
+        // $output = shell_exec($command);
+        $tableData = Pmapi::pm2()->list();
+        $status = self::foreachListOnlie($id,$tableData);
         return $status;
     }
 
     //用pm2来控制关闭方法
     private static function stopNodeScriptpm2($params){
         // 使用适当的方法停止正在运行的 Node.js 脚本
-        if (self::isWindows()) {
-            // $command = 'taskkill /F /PID '.$pid;
-            $command = 'pm2 stop '.$params['id'];
-            $output = exec($command, $output);
+        // if (self::isWindows()) {
+        //     // $command = 'taskkill /F /PID '.$pid;
+        //     $command = 'pm2 stop '.$params['id'];
+        //     $output = exec($command, $output);
 
-        } else {
-            $command = 'kill -9 '.$pid;
-            exec($command, $output);
-        }
+        // } else {
+        //     $command = 'kill -9 '.$pid;
+        //     exec($command, $output);
+        // }
+        $cond = [
+            'id' => $params['id'],
+        ];
+        $res = Pmapi::pm2()->stop($cond);
+        return $res;
     }
 
     //便利状态
-    private static function foreachListOnlie($name,$output){
-        $tableData = self::findstr($output);
+    private static function foreachListOnlie($name,$tableData){
+        // $tableData = self::findstr($output);
         $isOnline = false; // 标记是否找到匹配且状态为 online 的项
 
         if($tableData){

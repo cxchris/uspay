@@ -1,10 +1,12 @@
 import express from 'express';
-import { list } from '../api/pm2.js'; // 调整导入路径
+import { list, start, stop } from '../api/pm2.js'; // 调整导入路径
 const router = express.Router();
 
 
 const routers = [
   { method: 'POST', route: '/pm2/list', handler: list },  //查找列表
+  { method: 'POST', route: '/pm2/start', handler: start },  //开始
+  { method: 'POST', route: '/pm2/stop', handler: stop },  //停止
 ];
 
 

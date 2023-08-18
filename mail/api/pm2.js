@@ -52,11 +52,11 @@ export const start = (req, res) => {
 
     const path = Dir+'/src/';
     const command = instruck + ' start '+path+id+'.js --name="'+id+'"';
-    console.log(command)
+    // console.log(command)
     const output = execSync( command , { encoding: encod });
 
-    console.log(output)
-    const json = tojson(output);
+    // console.log(output)
+    // const json = tojson(output);
     const data = { id }
     res.success(data);
   } catch (error) {
@@ -84,8 +84,8 @@ export const stop = (req, res) => {
 
     // console.log(command)
     const output = execSync( command , { encoding: encod });
-    console.log(3333)
-    console.log(output)
+    // console.log(3333)
+    // console.log(output)
     // const json = tojson(output);
     const data = { id }
     res.success(data);

@@ -3,6 +3,7 @@
 namespace fast;
 
 use think\log;
+use fast\Pmapi;
 use app\common\model\OtcList;
 
 /**
@@ -61,11 +62,17 @@ class Pm2
         return true;
     }
 
-    //检查所有状态
+    //检查所有状态-去请求node接口试试
     public static function checkScriptAllStatus(){
-        $command = 'pm2 list';
-        $output = shell_exec($command);
-        $tableData = self::findstr($output);
+        // $command = 'pm2 list';
+        // $command = '/root/.nvm/versions/node/v15.0.1/bin/pm2 list 2>&1';
+        // $command = 'python3 /home/wwwroot/default/uspay/mail/pm2/list.py 2>&1';
+        // $output = shell_exec($command);
+        // // dump($output);exit;
+        // $tableData = self::findstr($output);
+        // return $tableData;
+
+        $tableData = Pmapi::getpm2list();
         return $tableData;
     }
 

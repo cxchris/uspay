@@ -3,7 +3,7 @@ namespace fast;
 
 use fast\Http;
 use think\Env;
-use think\log;
+use think\Log;
 
 
 //Pm2接口类
@@ -64,6 +64,7 @@ class Pmapi{
                 throw new \Exception('service no start');
             }
         } catch (\Exception $e) {
+            Log::record($e->getMessage());
             // $this->error($e->getMessage());
             return [];
         }

@@ -1,5 +1,6 @@
 import { startEmailListener,readEmailListener } from '../lib/emailListener.js';
 import fs from 'fs';
+import path from 'path';
 import getfilename from '../lib/getfilename.js';
 import log4js from '../lib/log4.js';
 
@@ -8,7 +9,10 @@ const fileName = getfilename(currentFileUrl);
 const logger = log4js.getLogger(fileName+'.js');
 // console.log(fileName)
 
-fs.readFile('../config/'+fileName+'.json', 'utf8', (err, data) => {
+const currentDir = path.dirname(new URL(import.meta.url).pathname);
+const configPath = path.join(currentDir, '../config', `${fileName}.json`);
+
+fs.readFile(configPath, 'utf8', (err, data) => {
   if (err) {
     console.error('读取文件'+'config/'+fileName+'.json'+'时出错:', err);
     return;

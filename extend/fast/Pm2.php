@@ -34,16 +34,16 @@ class Pm2
         // //运行
         if($params['status'] == 1){
             //启动node脚本
-            $res = self::startNodeScriptpm2($params);
+            self::startNodeScriptpm2($params);
         }else{
-            $res = self::stopNodeScriptpm2($params);
+            self::stopNodeScriptpm2($params);
         }
 
         return true;
     }
 
     //启动
-    private static function startNodeScriptpm2($params){
+    public static function startNodeScriptpm2($params){
         // $path = ROOT_PATH.'/mail/src/';
         // $pid = 0;
         
@@ -91,7 +91,7 @@ class Pm2
     }
 
     //用pm2来控制关闭方法
-    private static function stopNodeScriptpm2($params){
+    public static function stopNodeScriptpm2($params){
         // 使用适当的方法停止正在运行的 Node.js 脚本
         // if (self::isWindows()) {
         //     // $command = 'taskkill /F /PID '.$pid;

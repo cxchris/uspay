@@ -6,6 +6,7 @@ use app\common\controller\Backend;
 use think\Db;
 use think\Validate;
 use fast\Sign;
+use fast\Pm2;
 use fast\Http;
 use think\Log;
 use think\Env;
@@ -26,25 +27,35 @@ class Dc extends Backend
 
     protected $noNeedRight = ['*'];
     protected $channel_id = 5; // 5-数字货币
+    private $status;
 
     const usdtbalance  = '/account/usdtbalance';
+    const scriptName = 'tron';
 
     public function _initialize()
     {
         // var_dump(PHP_OS);exit;
         parent::_initialize();
 
-        //查询express运行情况
-        $pid = model('OtcList')->getappcommand();
-        $expressStatus = $pid == 0 ? 0 : 1;
-        // dump($expressStatus);exit;
+        //查询tron的运行情况
+        $arr = Pm2::checkScriptAllStatus();
+        $matchingArr = array_filter($arr, function($row) {
+            return $row["name"] == self::scriptName && $row['status'] == 'online';
+        });
+
+        if (!empty($matchingArr)) {
+            $status = 1;
+        } else {
+            $status = 0;
+        }
+        $this->status = $status;
 
         $this->model = model('dc');
 
         $this->view->assign("typelist", $this->typeslect(true));
         $item = [
             'name' => 'express',
-            'value' => $expressStatus,
+            'value' => $status,
         ];
         $this->view->assign("item", $item);
     }
@@ -269,21 +280,22 @@ class Dc extends Backend
         $val = $val ? $val : $this->request->post("val");
         // dump($val);exit;
         //获取当前状态
-        $pid = model('OtcList')->getappcommand();
-        $expressStatus = $pid == 0 ? 0 : 1;
-        if($val == $expressStatus){
+        if($val == $this->status){
             if($val == 1){
                 $this->error('服务无法重复开启');
             }else{
                 $this->error('服务已关闭');
             }
         }
+        $params = [
+            'id' => 'tron'
+        ];
 
-        //先杀进程
-        model('OtcList')->stopNodeScript($pid);
-        //如果是1，则开启，如果0，则关闭
         if($val == 1){
-            model('OtcList')->startnodeapp($pid);
+            //启动node脚本
+            Pm2::startNodeScriptpm2($params);
+        }else{
+            Pm2::stopNodeScriptpm2($params);
         }
 
         $this->success('success');

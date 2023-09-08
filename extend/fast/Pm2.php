@@ -54,6 +54,7 @@ class Pm2
 
         $cond = [
             'id' => $params['id'],
+            'type' => $params['type']??'mail',
         ];
 
         $res = Pmapi::pm2()->start($cond);

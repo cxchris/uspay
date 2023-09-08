@@ -288,9 +288,9 @@ class Dc extends Backend
             }
         }
         $params = [
-            'id' => 'tron'
+            'id' => 'tron',
+            'type' => 'tron'
         ];
-
         if($val == 1){
             //启动node脚本
             Pm2::startNodeScriptpm2($params);

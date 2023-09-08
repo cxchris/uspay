@@ -20,6 +20,8 @@ const key = process.env.key; //验签key
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 const Dir = resolve(__dirname, '..');
+const tronDir = resolve(Dir, '..');
+console.log(tronDir)
 
 //获取pm list
 export const list = async (req, res) => {
@@ -39,9 +41,13 @@ export const list = async (req, res) => {
 export const start = (req, res) => {
   try {
     const formData = req.body;
-    const id = formData.id; //传入的
+    const id = formData.id; //传入的id
+    const type = formData.type; //传入的id
     if (!id) {
       throw new Error('id cannot be empty');
+    }
+    if (!type) {
+      throw new Error('type cannot be empty');
     }
 
     // 验证签名
@@ -50,9 +56,15 @@ export const start = (req, res) => {
       throw new Error('Invalid signature');
     }
 
-    const path = Dir+'/src/';
+    let path;
+    if (type == 'mail') {
+      path = Dir+'/src/';
+    } else {
+      path = tronDir+'/tron/';
+    }
+    // console.log(path)
     const command = instruck + ' start '+path+id+'.js --name="'+id+'"';
-    // console.log(command)
+
     const output = execSync( command , { encoding: encod });
 
     // console.log(output)

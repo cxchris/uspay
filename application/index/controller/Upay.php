@@ -86,7 +86,7 @@ class Upay extends Frontend
 
             //判断超时，超时时间15分钟
             if($calc > $this->expire_time){
-                // return $this->redirect('/index/expire?id='.$this->msgid);
+                return $this->redirect('/index/expire?id='.$this->msgid);
                 // $this->_error('Order timed out');
             }
         }

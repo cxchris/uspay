@@ -12,7 +12,7 @@ if (process.platform === 'win32') {
   instruck = 'pm2';
 } else {
   // linux
-  instruck = '/root/.nvm/versions/node/v15.0.1/bin/pm2';
+  instruck = '/root/.nvm/versions/node/v16.20.2/bin/pm2';
 }
 const encod = 'utf-8'
 const key = process.env.key; //验签key

@@ -34,7 +34,11 @@ class Pm2
         // //运行
         if($params['status'] == 1){
             //启动node脚本
-            self::startNodeScriptpm2($params);
+            $cond = [
+                'id' => $params['id'],
+                'type' => 'mail'
+            ];
+            self::startNodeScriptpm2($cond);
         }else{
             self::stopNodeScriptpm2($params);
         }

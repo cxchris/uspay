@@ -464,7 +464,7 @@ class Merchant extends Backend
         }
 
         //先验证后台操作员自己的谷歌验证码是否正确
-        if(!$this->checkValid($params['checksum'])){
+        if(!$this->checkValid($params['Checksum'])){
             $this->error('谷歌校验码错误',null,[]);
         }
 

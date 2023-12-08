@@ -359,7 +359,8 @@ define(['jquery', 'bootstrap', 'backend', 'table', 'form'], function ($, undefin
                     operate: {
                         'click .btn-notice': function (e, value,row,index) {
                             var that = this;
-                            var table = $(that).closest('table'); 
+                            var table = $(that).closest('table');
+
                             var options = table.bootstrapTable('getOptions');
                             var load = Layer.confirm('是否给下游商户重新发起一次回调', function (text, index) {
                                 if($.trim(text)==''){
@@ -395,7 +396,7 @@ define(['jquery', 'bootstrap', 'backend', 'table', 'form'], function ($, undefin
 
                         'click .btn-update': function (e, value,row,index) {
                             var that = this;
-                            var table = $(that).closest('table'); 
+                            var table = $(that).closest('table');
                             var options = table.bootstrapTable('getOptions');
                             // console.log(row)
 

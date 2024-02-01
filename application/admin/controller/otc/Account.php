@@ -176,7 +176,7 @@ class Account extends Backend
                 }
                 $this->success();
             }
-            $this->error(__('Parameter %s can not be empty', ''));
+            $this->error(__('Parameter %s can not be empty'));
         }
         return $this->view->fetch();
     }
@@ -220,7 +220,7 @@ class Account extends Backend
                 }
                 $this->success();
             }
-            $this->error(__('Parameter %s can not be empty', ''));
+            $this->error(__('Parameter %s can not be empty'));
         }
         
         $this->view->assign("row", $row);
